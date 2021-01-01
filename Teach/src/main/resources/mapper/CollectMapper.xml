@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.song.mapper.CollectMapper">
+
+	<insert id="insert" parameterType="com.song.pojo.Collect">
+		insert into collection (tid,pid,type)
+		 values (#{tid},#{pid},#{type})
+	</insert>
+
+	<select id="select" parameterType="java.lang.Integer" resultType="com.song.pojo.Collect">
+		select * from collection where pid=#{pid} and tid=#{tid} and type='teacher'
+	</select>
+	
+	<select id="selectT" parameterType="java.lang.Integer" resultType="com.song.pojo.Collect">
+		select * from collection where pid=#{pid} and tid=#{tid} and type='text'
+	</select>
+	
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from collection where pid=#{pid} and tid=#{tid} and type='teacher'
+	</delete>
+	
+	<delete id="deleteT" parameterType="java.lang.Integer">
+		delete from collection where pid=#{pid} and tid=#{tid} and type='text'
+	</delete>
+	
+	<resultMap type="com.song.pojo.Collect" id="collectMap">
+		<id column="id" property="id"/>
+		<collection property="teacher" ofType="com.song.pojo.Teacher">
+			<id column="tid" property="id"/>
+			<result column="name" property="name"/>
+			<result column="image" property="image"/>
+			<result column="project" property="project"/>
+			<result column="level" property="level"/>
+			<result column="seniority" property="seniority"/>
+			<result column="number" property="number"/>
+			<result column="price" property="price"/>
+			<result column="character" property="character"/>
+		</collection>
+	</resultMap>
+	<select id="selectByPid" parameterType="java.lang.Integer" resultMap="collectMap">
+		select c.*,t.* from collection c,teacher t where c.tid = t.id and pid=#{pid} and c.type="teacher"
+	</select>
+	
+	
+	<resultMap type="com.song.pojo.Collect" id="collectMaps">
+		<id column="id" property="id"/>
+		<collection property="goods" ofType="com.song.pojo.Goods">
+			<id column="tid" property="id"/>
+			<result column="title" property="title"/>
+			<result column="image" property="image"/>
+			<result column="see" property="see"/>
+			<result column="zan" property="zan"/>
+		</collection>
+	</resultMap>
+	<select id="selectByid" parameterType="java.lang.Integer" resultMap="collectMaps">
+		select c.*,g.* from collection c,goods g where c.tid = g.id and pid=#{id} and c.type="text"
+	</select>
+	
+</mapper>

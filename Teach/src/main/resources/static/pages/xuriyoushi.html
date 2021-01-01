@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>上门一对一家教-在线教育-旭日家教</title>
+    <meta name="keywords"
+          content="深圳家教，深圳家教网，网上家教，深圳一对一辅导，深圳一对一在线、上门授课，深圳在线一对一家教，深圳家教辅导老师，深圳在线老师家教，深圳大学生家教，深圳家教app，旭日教育/旭日家教，家教老师，一对一在线辅导，一对一家教收费标准，旭日家教怎么样">
+    <meta name="description"
+          content="旭日教育是专注于全国中小学在线/上门全科辅导品牌，精选深圳各年级、各学科专业教师，根据孩子特点匹配合适的好老师，提供高品质个性化教学辅导。专业提供深圳小学，初中，高中全科补习、在线一对一辅导、上门一对一家教辅导服务。">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="../css/element.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/banner.css">
+    <link rel="stylesheet" href="../css/xuriyoushi.css">
+    <link rel="stylesheet" href="../css/footer.css">
+</head>
+<body>
+<div id="app">
+    <div class="herder">
+        <el-header class="header-bg">
+            <div class="header-center">
+                <div class="header-logo">
+                    <img class="logo-img" src="../images/logo.jpg" alt="">
+                    <p class="title">旭日家教</p>
+                </div>
+                <div class="phone">
+                    <div class="title">
+                        全国统一客服电话
+                    </div>
+                    <div class="title">
+                        158-1685-8015
+                    </div>
+                </div>
+                <div class="header-menu">
+                    <el-menu :default-active="activeIndex" mode="horizontal"
+                             background-color="#545c64" text-color="#fff"
+                             active-text-color="#ffd04b" @select="handleSelect">
+                        <el-menu-item index="1">首页</el-menu-item>
+                        <el-menu-item index="2">旭日优势</el-menu-item>
+                        <el-menu-item index="3">预约上课</el-menu-item>
+                        <el-menu-item index="4">我是老师</el-menu-item>
+<!--                        <el-menu-item index="5">教学资讯</el-menu-item>-->
+                    </el-menu>
+                </div>
+            </div>
+        </el-header>
+    </div>
+    <div class="banner">
+        <el-carousel  trigger="click" height="500px" :interval="2000">
+            <el-carousel-item   v-for="item in bannerImg" :key="item.id">
+                <img @click="toBannerDetail(item)" class="banner-img" :src="item.imgUrl"/>
+            </el-carousel-item>
+        </el-carousel>
+    </div>
+    <div class="xuriyouxuan-box">
+        <div class="header_word">旭日<p>优选名校</p>精英</div>
+        <div class="xuriyouxuan_content">
+            <img class="xuriyouxuan" src="../images/999963.png" />
+            <div class="tip tip1">
+                <i>1层筛选</i>
+                <i>低于10%的帅选通过率</i>
+            </div>
+            <div class="tip tip2">
+                <i>2层筛选</i>
+                <i>丰富的教学经历</i>
+            </div>
+
+            <div class="tip tip3">
+                <i>3层筛选</i>
+                <i>专业的教学素质</i>
+            </div>
+            <div class="tip tip4">
+                <i>4层筛选</i>
+                <i>深入考察师德为尊</i>
+            </div>
+        </div>
+
+    </div>
+    <div class="xuriyouxuan-box marTop">
+        <div class="header_word">上门一对一教学更有效</div>
+        <div class="sub_title">在家就能<p>上课,属于自己的</p>专属老师</div>
+        <div class="vs">
+            <img class="xrIcon" src="../images/xrjxicon.png" alt="">
+            <div class="vs_word">VS</div>
+            <div class="mm">某某教育机构</div>
+        </div>
+        <div class="vsPic_box">
+            <img class="vsPic" src="../images/56165198.png" alt="">
+            <div class="vsTip vsTip1">
+                <p>一对一实时互动</p>
+            </div>
+            <div class="vsTip vsTip2">
+                <p>讲的都会</p>
+                <p>不会的都不讲</p>
+            </div>
+            <div class="vsTip vsTip3">
+                <p>一对一教学</p>
+                <p>讲不会的题目</p>
+            </div>
+            <div class="vsTip vsTip4">
+                <p>老师顾不上</p>
+                <p>孩子常走神</p>
+            </div>
+            <div class="vsTip vsTip5">
+                <p>家长免接送</p>
+                <p>免陪读</p>
+            </div>
+            <div class="vsTip vsTip6">
+                <p>上课一小时</p>
+                <p>堵车两小时</p>
+            </div>
+            <div class="vsTip vsTip7">
+                <p>教学反馈</p>
+                <p>掌握孩子学习进步</p>
+            </div>
+            <div class="vsTip vsTip8">
+                <p>耗时费力</p>
+                <p>做不了自己喜欢的事</p>
+            </div>
+        </div>
+
+    </div>
+    <div id="onKeyAppointment" class="attached-bg facilitiesAllCan bg2">
+        <div class="layout2">
+            <h2>全面精细的教研管理</h2>
+            <p>专属助教为孩子的学习质量保驾护航</p>
+        </div>
+    </div>
+    <div class="three_modal ">
+        <h1 class="h1 marTop">上门教学，让老师成为孩子的小伙伴</h1>
+        <p class="study">一对一尊享学习</p>
+        <div class="detail_box">
+            <img class="pic" src="../images/xrzx02.png" alt="">
+            <div class="item-box">
+                <div class="item">
+                    <img class="icon" src="../images/time2.png" alt="">
+                    <div class="content"><p>不要浪费时间在路上</p><p>剩下1/2时间用在学习上</p></div>
+                </div>
+                <div class="item margin2">
+                    <img class="icon" src="../images/msg2.png" alt="">
+                    <div class="content"><p>面对面互动，注意力集中</p><p>学习更有效率</p></div>
+                </div>
+                <div class="item margin2">
+                    <img class="icon" src="../images/32263.png" alt="">
+                    <div class="content"><p>审核严格</p><p>安全放心</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="three_modal">
+        <h1 class="h1 marTop">在线教学，真实还原课堂情境</h1>
+        <p class="study">课件展示、知识备注、课程回放</p>
+        <div class="detail_box">
+            <img class="pic" src="../images/xrzx.png" alt="">
+            <div class="item-box">
+                <div class="item">
+                    <img class="icon" src="../images/time1.png" alt="">
+                    <div class="content"><p>不要浪费时间在路上</p><p>剩下1/2时间用在学习上</p></div>
+                </div>
+                <div class="item margin2">
+                    <img class="icon" src="../images/msg1.png" alt="">
+                    <div class="content"><p>打破时间空间限制</p><p>随时随地可上课</p></div>
+                </div>
+                <div class="item margin2">
+                    <img class="icon" src="../images/366659.png" alt="">
+                    <div class="content"><p>家长免接送</p><p>真正安全放心</p></div>
+                </div>
+            </div>
+        </div>
+        <div class="list_item">
+            <div class="list">
+                <img src="../images/22.png" alt="">
+                <div class="content">
+                    <p>上门指导</p><p>孩子就在身旁学习</p>
+                </div>
+            </div>
+            <div class="list">
+                <img src="../images/3.png" alt="">
+                <div class="content">
+                    <p>在线直播教学</p><p>身临其境</p>
+                </div>
+            </div>
+            <div class="list">
+                <img src="../images/xrsz.png" alt="">
+                <div class="content">
+                    <p>多年品牌</p><p>值得信赖</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="three_modal">
+        <h1 class="h1 marTop">大数据为您匹配最合适的老师</h1>
+        <p class="study">专属助教一对一全程服务，为你匹配到满意的老师</p>
+        <div class="data_list_item">
+            <div class="list">
+                <div class="content">
+                    <p class="first_p">10000+</p><p>教研人员10000+</p>
+                </div>
+            </div>
+            <div class="list">
+                <div class="content">
+                    <p class="first_p">10万+</p><p>专业题库和教案资源10万+</p>
+                </div>
+            </div>
+            <div class="list">
+                <div class="content">
+                    <p class="first_p">30000+</p><p>注册学员30000+</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <img style="width: 100%" src="../images/1815165.jpg" alt="">
+        <footer>
+            <div class="w1160">
+                <div class="item">
+                    <img class="logo2" src="../images/logo2.png" alt="">
+                </div>
+                <div class="item">
+                    <p>上门一对一优秀品牌</p>
+                    <span>创办超10年时间</span>
+                    <span>注册学员30000+</span>
+                    <span>教研人员10000+</span>
+                </div>
+                <div class="item">
+                    <p >联系我们</p>
+                    <span>关于旭日</span>
+                    <span>加人旭日</span>
+                </div>
+                <div class="item">
+                    <p>技术支持</p>
+                    <span>小程序</span>
+                </div>
+                <div class="item">
+                    <div>全国统一客服电话</div>
+                    <span>158-1685-8015</span>
+                </div>
+            </div>
+            <div class="w1160">
+                <!--<span class="bah">Copyright 深圳市旭日教育有限公司 (备案号)</span>-->
+                <!--<img src="../../images/wx.png" class="wx" alt="">-->
+            </div>
+        </footer>
+    </div>
+</div>
+</body>
+<!-- import Vue before Element -->
+<script src="../api/vue.js"></script>
+<!-- 引入组件库 -->
+<script src="../api/element.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                activeIndex: "2",
+                bannerImg:[
+                    {
+                        imgUrl:"../images/1.jpg",
+                        id:1
+                    },
+                    {
+                        imgUrl:"../images/2.jpg",
+                        id:2
+                    },
+                    {
+                        imgUrl:"../images/3.jpg",
+                        id:3
+                    },
+                    {
+                        imgUrl:"../images/4.jpg",
+                        id:4
+                    },
+                    {
+                        imgUrl:"../images/5.jpg",
+                        id:5
+                    }
+                ],
+            }
+        },
+        methods: {
+            toBannerDetail(item){
+                if(item.id == 1 || item.id ==4){
+                    window.location.href = "subscribe.html"
+                }else {
+                    window.location.href = "bannerDetail.html?id="+item.id
+                }
+            },
+            handleSelect(key, keyPath) {
+                this.activeIndex = keyPath[0];
+                if(key == 1){
+                    window.location.href = "index.html"
+                }else if (key == 3) {
+                    window.location.href = "subscribe.html"
+                } else if (key == 4) {
+                    window.location.href = "teacher.html"
+                } else if (key == 5) {
+                    window.location.href = "message.html"
+                }
+            }
+        }
+    })
+</script>
+
+</html>

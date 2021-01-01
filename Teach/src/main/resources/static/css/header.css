@@ -1,0 +1,36 @@
+.header-bg{
+    background: rgb(84, 92, 100);
+    display: flex;
+    justify-content: center;
+}
+.header-center{
+    min-width: 1200px;
+    display: flex;
+    align-items: center;
+
+}
+.header-logo{
+    display: flex;
+    align-items: center;
+}
+.logo-img{
+    width: 40px;
+    height: 40px;
+}
+.title{
+    color: white;
+    margin-left: 10px;
+    font-size: 18px;
+}
+.phone{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left:1px solid #eee;
+    margin-left: 20px;
+}
+.header-menu{
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}

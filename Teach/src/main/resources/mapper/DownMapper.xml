@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.song.mapper.DownMapper">
+
+	<insert id="add" parameterType="com.song.pojo.Down">
+		insert into down(openid,gid,addtime,price,ordernum,name) values (#{openid},#{gid},#{addtime},#{price},#{ordernum},#{name})
+	</insert>
+	
+	<select id="selectAll" parameterType="java.lang.String" resultType="com.song.pojo.Down">
+		select * from down where openid = #{openid}
+	</select>
+	
+
+</mapper>

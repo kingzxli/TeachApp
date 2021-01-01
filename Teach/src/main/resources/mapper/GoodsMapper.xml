@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.song.mapper.GoodsMapper">
+
+	<select id="selectAll" parameterType="com.song.pojo.Goods" resultType="com.song.pojo.Goods">
+		select * from goods where types=#{types} and identity=#{identity} order by id desc
+	</select>
+	
+	<select id="selectById" parameterType="java.lang.Integer" resultType="com.song.pojo.Goods">
+		select * from goods where id=#{id}
+	</select>
+	
+	<select id="selectBytid" parameterType="java.lang.Integer" resultType="com.song.pojo.Goods">
+		select * from goods where id=#{tid}
+	</select>
+	
+	<select id="select" resultType="com.song.pojo.Goods">
+		select * from goods
+	</select>
+	
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from goods where id=#{id}
+	</delete>
+	
+	<insert id="add" parameterType="com.song.pojo.Goods">
+		insert into goods
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="title != null and title !=''">title,</if>
+			<if test="content != null and content !=''">content,</if>
+			<if test="addtime != null and addtime !=''">addtime,</if>
+			<if test="image != null and image !=''">image,</if>
+			<if test="download != null and download !=''">download,</if>
+			<if test="types != null and types !=''">types,</if>
+			<if test="identity != null and identity !=''">identity,</if>
+			<if test="see != null and see !=''">see,</if>
+			<if test="zan != null and zan !=''">zan,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="title != null and title !=''">#{title},</if>
+			<if test="content != null and content !=''">#{content},</if>
+			<if test="addtime != null and addtime !=''">#{addtime},</if>
+			<if test="image != null and image !=''">#{image},</if>
+			<if test="download != null and download !=''">#{download},</if>
+			<if test="types != null and types !=''">#{types},</if>
+			<if test="identity != null and identity !=''">#{identity},</if>
+			<if test="see != null and see !=''">#{see},</if>
+			<if test="zan != null and zan !=''">#{zan},</if>
+		</trim>
+	</insert>
+	
+	
+	<update id="update" parameterType="com.song.pojo.Goods">
+		update goods set
+		<trim suffixOverrides=",">
+			<if test="title != null and title !=''">title = #{title},</if>
+			<if test="content != null and content !=''">content = #{content},</if>
+			<if test="addtime != null and addtime !=''">addtime = #{addtime},</if>
+			<if test="image != null and image !=''">image = #{image},</if>
+			<if test="download != null and download !=''">download = #{download},</if>
+			<if test="types != null and types !=''">types = #{types},</if>
+			<if test="identity != null and identity !=''">identity = #{identity},</if>
+			<if test="see != null and see !=''">see = #{see},</if>
+			<if test="zan != null and zan !=''">zan = #{zan},</if>
+		</trim>
+		where id = #{id}
+	</update>
+	
+	
+	
+	
+	
+</mapper>

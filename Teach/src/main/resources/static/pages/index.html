@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>上门一对一家教-在线教育-旭日家教</title>
+    <meta name="keywords" content="深圳家教，深圳家教网，网上家教，深圳一对一辅导，深圳一对一在线、上门授课，深圳在线一对一家教，深圳家教辅导老师，深圳在线老师家教，深圳大学生家教，深圳家教app，旭日教育/旭日家教，家教老师，一对一在线辅导，一对一家教收费标准，旭日家教怎么样">
+    <meta name="description" content="旭日教育是专注于全国中小学在线/上门全科辅导品牌，精选深圳各年级、各学科专业教师，根据孩子特点匹配合适的好老师，提供高品质个性化教学辅导。专业提供深圳小学，初中，高中全科补习、在线一对一辅导、上门一对一家教辅导服务。">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="../css/element.css">
+    <link rel="stylesheet" href="../css/home-page.css">
+    <link rel="stylesheet" href="../css/banner.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/header.css">
+</head>
+<body>
+    <div id="app" style="min-width: 1200px">
+        <div class="herder">
+            <el-header class="header-bg">
+                <div class="header-center">
+                    <div class="header-logo">
+                        <img class="logo-img" src="../images/logo.jpg" alt="">
+                        <p class="title">旭日家教</p>
+                    </div>
+                    <div class="phone">
+                        <div class="title">
+                            全国统一客服电话
+                        </div>
+                        <div class="title">
+                            158-1685-8015
+                        </div>
+                    </div>
+                    <div class="header-menu">
+                        <el-menu :default-active="activeIndex" mode="horizontal"
+                                 background-color="#545c64" text-color="#fff"
+                                 active-text-color="#ffd04b" @select="handleSelect">
+                            <el-menu-item index="1">首页</el-menu-item>
+                            <el-menu-item index="2">旭日优势</el-menu-item>
+                            <el-menu-item index="3">预约上课</el-menu-item>
+                            <el-menu-item index="4">我是老师</el-menu-item>
+<!--                            <el-menu-item index="5">教学资讯</el-menu-item>-->
+                        </el-menu>
+                    </div>
+
+                </div>
+            </el-header>
+        </div>
+        <div class="right_flex">
+            <img @click="showPhone()" src="../images/phone.gif" alt="">
+            <img @click="showPic()" class="wxIcon" src="../images/wx.gif"/>
+            <div class="wechat-box" style="display: none">
+                <div class="fixed-nav-wechat-box">
+                    <div class="fixed-nav-wechat-content">
+                        <img src="../images/xcx.png">
+                    </div>
+                </div>
+            </div>
+            <div class="phone-box" style="display: none">
+                <div class="fixed-nav-wechat-box">
+                    <div class="fixed-nav-wechat-content">
+                        158-1685-8015
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="mFooter"  class="bottom_flex" style="display: none">
+            <div class="bottom_img_box">
+                <img class="long_img" src="../images/101010.png" alt="">
+            </div>
+        </div>
+        <div>
+            <div class="banner">
+                <el-carousel  trigger="click" height="500px" :interval="2000">
+                    <el-carousel-item   v-for="item in bannerImg" :key="item.id">
+                        <img @click="toBannerDetail(item)" class="banner-img" :src="item.imgUrl"/>
+                    </el-carousel-item>
+                </el-carousel>
+            </div>
+            <div class="mode_teacher">
+                <div class="teacher-list-box">
+                    <div class="header-header">
+                        <div class="header-title">优秀师资任你选</div>
+                        <div class="teacher-tip">全国10000+专业教师，严谨的选聘制度，不到10%筛选通过率</div>
+                    </div>
+                    <div class="teacher-item-box">
+                        <div class="teacher-item" v-for="item in teacherArr">
+                            <div class="teacher-img-box">
+                                <img class="teacher-img" :src="item.imgUrl" alt="">
+                                <div class="teacher-detail">
+                                    <div class="level k_kabc_type"></div>
+                                    <p>{{item.type}}</p>
+                                    <p>{{item.name}}</p>
+                                    <div class="total-teach-time">已授{{item.ks}}课</div>
+                                </div>
+                            </div>
+
+                            <div class="info">
+                                <h4 class="txt-ofl"></h4>
+                                <div class="label">
+                                    <span class="school-age">{{item.school}} |</span>
+                                    <span class="school-age">教龄{{item.jl}}年 |</span>
+                                    <span class="school-age">在线&上门</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="attached-bg facilitiesAllCan bg1">
+                    <div class="layout">
+                        <h2>一对一辅导学习更有效</h2>
+                        <p class="info">旭日独家教学系统，充分发掘学习潜力</p>
+                    </div>
+                </div>
+            </div>
+            <div class="to-home">
+                <img class="fz" src="../images/fz.jpg"/>
+                <div class="mask">
+                    <div class="to-home-herder">
+                        <div class="to-home-title">让好老师走进家门，更走进孩子的内心</div>
+                        <div class="to-home-tip">足不出户，在家学习，真正以孩子为中心</div>
+                    </div>
+                    <div class="center-img-box">
+                        <div class="center-img-word">
+                            <img class="img" src="../images/fzbg.jpg" alt="">
+                            <div class="tip-box">
+                                <h4>上门个性化教学</h4>
+                                <p class="tip">面对面定制化教学</p>
+                                <p class="tip">全程追踪反馈</p>
+                                <p class="tip">专业老师上门</p>
+                            </div>
+                            <div class="tip-box-right">
+                                <h4>在线直播教学</h4>
+                                <p class="tip">打破时间空间限制</p>
+                                <p class="tip">小班课趣味互动</p>
+                                <p class="tip">一对一尊享教学</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mode_teacher">
+                <div class="teacher-list-box">
+                    <div class="header-header">
+                        <div class="header-title">旭日独家专业导学系统</div>
+                    </div>
+                    <div class="plan-box">
+                        <div class="plan">
+                            <span class="iconplan icon1">问题诊断</span>
+                            <p>通过旭日独家测评系统对小孩学习情况，问题不足进行全方位分析。</p>
+                        </div>
+                        <div class="plan">
+                            <span class="iconplan icon2">定制计划</span>
+                            <p>结合诊断结果与学员需求，资深教师制定针对性解决方案，分解细化阶段目标，制定系统的提升计划。</p>
+                        </div>
+                        <div class="plan">
+                            <span class="iconplan icon3">效果追踪</span>
+                            <p>定期追踪学习效果，对比阶段性目标调整下一培养阶段的目标和方案，充分发挥小孩的学习潜力。</p>
+                        </div>
+                        <div class="plan">
+                            <span class="iconplan icon4">学情反馈</span>
+                            <p>家长及时反馈小孩考试后的成绩及表现，结合家长建议，改进调整，真正做到因材施教。</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="onKeyAppointment" class="attached-bg facilitiesAllCan bg2">
+                    <div class="layout2">
+                        <h2>旭日选师</h2>
+                        <ul>
+                            <li class="first">
+                                <div class="step">
+                                    <p><span class="onKeyAppointmentSteps">Step</span>&nbsp;&nbsp;<b>01</b></p>
+                                    <span class="onKeyAppointmentDesc">大数据智能选师</span>
+                                </div>
+                            </li>
+                            <li class="first">
+                                <div class="step">
+                                    <p><span class="onKeyAppointmentSteps">Step</span>&nbsp;&nbsp;<b>02</b></p>
+                                    <span class="onKeyAppointmentDesc">专属助教跟进</span>
+                                </div>
+                            </li>
+                            <li class="first">
+                                <div class="step">
+                                    <p><span class="onKeyAppointmentSteps">Step</span>&nbsp;&nbsp;<b>03</b></p>
+                                    <span class="onKeyAppointmentDesc">选师满意为止</span>
+                                </div>
+                            </li>
+                            <li class="first">
+                                <div class="step">
+                                    <p><span class="onKeyAppointmentSteps">Step</span>&nbsp;&nbsp;<b>04</b></p>
+                                    <span class="onKeyAppointmentDesc">安全放心</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="mode_teacher">
+            <div class="teacher-list-box">
+                <div class="header-header">
+                    <div class="header-title">高效学习体系 5阶教学标准</div>
+                </div>
+                <div class="tab-btn">
+                    <div @click="selectItem(item)" class="btn" v-for="item in btnGroup" :class="item.isSel?'active':''">{{item.name}}</div>
+                </div>
+                <div class="tab-btn">
+                    <div @click="selectSmellItem(item)" class="small-btn" v-for="item in smallBtnGroup" :class="item.isSel?'active':''">{{item.name}}</div>
+                </div>
+                <div id="lessonSystem">
+                    <div class="cntBox">
+                        <div v-for="item in classTip">
+                            <div class="lv1 lv" :class="item.className3">
+                                <h3 class="level" :class="item.className2">{{item.lv}}</h3>
+                                <p class="score" style="top: 0px;" :class="item.className4">{{item.code}}</p>
+                                <div class="outer">
+                                    <div class="content" :class="item.className1">
+                                        <p style="opacity: 1;" v-for="list in item.classTip">{{list}}</p>
+                                        <div class="triangle"></div>
+                                    </div>
+                                    <div class="mask1 mask"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="main-nav">
+
+            <div class=" site-recomend">
+                <div class=" city_jiajiao_breif" id="city_jiajiao_breif" style="height: 96px;">
+                    <h3>旭日教育全国互联网教育权威品牌</h3>
+                    <p>旭日教育是全国中小学上门、在线全科辅导品牌，提供了全国范围内的上门一对一，以及高端在线教育服务，迅速获得家长青睐，成为几十万家庭的选择。<br>服务咨询热线：158-1685-8015 </p>
+                </div>
+                <div class="open-city">
+                    <strong>旭日城市：</strong>
+                    <div class="right">
+                        <a title="北京旭日">北京旭日</a>
+                        <a title="上海旭日">上海旭日</a>
+                        <a title="天津旭日">天津旭日</a>
+                        <a title="重庆旭日">重庆旭日</a>
+                        <a title="深圳旭日">深圳旭日</a>
+                        <a title="武汉旭日">武汉旭日</a>
+                        <a title="厦门旭日">厦门旭日</a>
+                        <a title="泉州旭日">泉州旭日</a>
+                        <a title="莆田旭日">莆田旭日</a>
+                        <a title="兰州旭日">兰州旭日</a>
+                        <a title="广州旭日">广州旭日</a>
+                        <a title="南京旭日">南京旭日</a>
+                        <a title="珠海旭日">珠海旭日</a>
+                        <a title="杭州旭日">杭州旭日</a>
+                        <a title="佛山旭日">佛山旭日</a>
+                        <a title="惠州旭日">惠州旭日</a>
+                        <a title="江门旭日">江门旭日</a>
+                        <a title="中山旭日">中山旭日</a>
+                        <a title="汕头旭日">汕头旭日</a>
+                        <a title="南宁旭日">南宁旭日</a>
+                        <a title="贵阳旭日">贵阳旭日</a>
+                        <a title="海口旭日" >海口旭日</a>
+                        <a title="石家庄旭日">石家庄旭日</a>
+                        <a title="唐山旭日">唐山旭日</a>
+                        <a title="福州旭日">福州旭日</a>
+                        <a title="哈尔滨旭日">哈尔滨旭日</a>
+                        <a title="郑州旭日">郑州旭日</a>
+                        <a title="黄冈旭日">黄冈旭日</a>
+                        <a title="济南旭日">济南旭日</a>
+                        <a title="长春旭日">长春旭日</a>
+                        <a title="西安旭日">西安旭日</a>
+                        <a title="合肥旭日">合肥旭日</a>
+                        <a title="长沙旭日">长沙旭日</a>
+                        <a title="泰州旭日">泰州旭日</a>
+                        <a title="苏州旭日">苏州旭日</a>
+                        <a title="徐州旭日">徐州旭日</a>
+                        <a title="扬州旭日">扬州旭日</a>
+                        <a title="镇江旭日">镇江旭日</a>
+                        <a title="常州旭日">常州旭日</a>
+                        <a title="盐城旭日">盐城旭日</a>
+                        <a title="无锡旭日" >无锡旭日</a>
+                        <a title="沈阳旭日">沈阳旭日</a>
+                        <a title="大连旭日">大连旭日</a>
+                        <a title="东莞旭日">东莞旭日</a>
+                        <a title="青岛旭日">青岛旭日</a>
+                        <a title="烟台旭日">烟台旭日</a>
+                        <a title="太原旭日">太原旭日</a>
+                        <a title="南通旭日">南通旭日</a>
+                        <a title="安康旭日">安康旭日</a>
+                        <a title="成都旭日">成都旭日</a>
+                        <a title="乌鲁木齐旭日">乌鲁木齐旭日</a>
+                        <a title="喀什旭日">喀什旭日</a>
+                        <a title="昆明旭日">昆明旭日</a>
+                        <a title="南昌旭日">南昌旭日</a>
+                        <a title="宁波旭日">宁波旭日</a>
+                        <a title="嘉兴旭日">嘉兴旭日</a>
+                        <a title="绍兴旭日">绍兴旭日</a>
+                        <a title="温州旭日">温州旭日</a>
+                        <a title="湖州旭日">湖州旭日</a>
+                        <a title="金华旭日">金华旭日</a>
+                        <a title="台州旭日">台州旭日</a>
+                    </div>
+                </div>
+                <div class="open-city">
+                    <strong>旭日科目：</strong>
+                    <div class="right">
+                        <a title="广州辅导">广州数学辅导</a>
+                        <a title="广州辅导">广州英语辅导</a>
+                        <a title="广州辅导">广州语文辅导</a>
+                        <a title="广州辅导">广州物理辅导</a>
+                        <a title="广州辅导">广州化学辅导</a>
+                        <a title="广州辅导">广州生物辅导</a>
+                        <a title="广州辅导">广州政治辅导</a>
+                        <a title="广州辅导">广州历史辅导</a>
+                        <a title="广州辅导">广州地理辅导</a>
+                        <a title="广州辅导">广州奥数辅导</a>
+                        <a title="广州辅导">广州科学辅导</a>
+                    </div>
+                </div>
+
+                <div class="open-city">
+                    <strong>旭日导航：</strong>
+                    <div class="right">
+                        <a rel="nofollow" title="辅导城市">辅导城市</a>
+                        <a rel="nofollow">最新资讯</a>
+                        <a rel="nofollow"  title="学校大全">学校大全</a>
+                        <a rel="nofollow" title="学习资料下载">学习资料下载</a>
+                        <a rel="nofollow"  title="知识点题库">知识点题库</a>
+                        <a rel="nofollow" title="家长心得">家长心得</a>
+                        <a rel="nofollow" title="升学资讯">升学资讯</a>
+                        <a rel="nofollow" title="教育资讯">教育资讯</a>
+                    </div>
+                </div>
+                <div class="friend_links">
+                    <strong>教学辅导：</strong>
+                    <div class="right">
+                        <a title="初中语文辅导">初中语文辅导</a>
+                        <a title="小学数学辅导" >小学数学辅导</a>
+                        <a title="小学作文辅导" >小学作文辅导</a>
+                        <a title="小学英语辅导班">小学英语辅导班</a>
+                        <a title="小学数学辅导网" >小学数学辅导网</a>
+                        <a title="小学语文辅导班">小学语文辅导班</a>
+                        <a title="高中数学辅导" >高中数学辅导</a>
+                        <a title="小学作文辅导">小学作文辅导</a>
+                        <a title="小学一年级拼音辅导">小学一年级拼音辅导</a>
+                        <a title="上海一对一教育">上海一对一教育</a>
+                        <a title="上海一对一教育" >上海一对一教育</a>
+                        <a title="二年级语文辅导">二年级语文辅导</a>
+                        <a title="三年级作文辅导" >三年级作文辅导</a>
+                        <a title="五年级语文阅读辅导">五年级语文阅读辅导</a>
+                        <a title="高中英语辅导">高中英语辅导</a>
+                        <a title="作文辅导班" >作文辅导班</a>
+                        <a title="初一数学辅导">初一数学辅导</a>
+                        <a title="作业辅导班">作业辅导班</a>
+                        <a title="作业辅导班">作业辅导班</a>
+                        <a title="小学网络辅导班" >小学网络辅导班</a>
+                        <a title="天津家教一对一">天津家教一对一</a>
+                    </div>
+                </div>
+
+                <div class="friend_links">
+                    <strong>友情链接：</strong>
+                    <div class="right" id="friend_links_list">
+                        <a title="高中毕业证"  href="http://www.wenpnet.com" target="_blank">高中毕业证</a>
+                        <a title="在职研究生"  href="http://www.dgssedus.com" target="_blank">在职研究生</a>
+                        <a title="高中毕业证样本"  href="http://www.gaozhongbiyezhengdiule.com" target="_blank">高中毕业证样本</a>
+                        <a title="幼儿教育" href="http://www.pfmv.cn" target="_blank">幼儿教育</a>
+                        <a title="幼儿教育" href="http://www.winmall.cn" target="_blank">考研辅导培训班</a>
+                        <a title="上门一对一家教"  href="http://www.xurijiajiao.cn" target="_blank">上门一对一家教</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <P id="line"></P>
+        <div class="footer">
+            <img style="width: 100%" src=../images/1815165.jpg" alt="">
+            <footer>
+                <div class="w1160">
+                    <div class="item">
+                        <img class="logo2" src="../images/logo2.png" alt="">
+                    </div>
+                    <div class="item">
+                        <p>上门一对一优秀品牌</p>
+                        <span>创办超10年时间</span>
+                        <span>注册学员30000+</span>
+                        <span>教研人员10000+</span>
+                    </div>
+                    <div class="item">
+                        <p >联系我们</p>
+                        <span>关于旭日</span>
+                        <span>加人旭日</span>
+                    </div>
+                    <div class="item">
+                        <p>技术支持</p>
+                        <span>小程序</span>
+                    </div>
+                    <div class="item">
+                        <div>全国统一客服电话</div>
+                        <span>158-1685-8015</span>
+                    </div>
+                </div>
+                <div class="w1160">
+                    <!--<span class="bah">Copyright 深圳市旭日教育有限公司 (备案号)</span>-->
+                    <!--<img src="../../images/wx.png" class="wx" alt="">-->
+                </div>
+            </footer>
+        </div>
+    </div>
+</body>
+<!-- import Vue before Element -->
+<script src="../api/vue.js"></script>
+<!-- 引入组件库 -->
+<script src="../api/element.js"></script>
+<script src="../static_data/dataArr.js"></script>
+<script src="../api/vue-resrouce.js"></script>
+<script>
+
+    new Vue({
+        el: '#app',
+        data:function (){
+            return {
+                smallBtnGroup:[
+                    {
+                        name:"数学",
+                        id:1,
+                        isSel:true
+                    },
+                    {
+                        name:"英语",
+                        id:2,
+                        isSel:false
+                    },
+                    {
+                        name:"语文",
+                        id:3,
+                        isSel:false
+                    },
+                ],
+                btnGroup:[
+                    {
+                        name:"小学",
+                        id:1,
+                        isSel:true
+                    },
+                    {
+                        name:"初一/初二",
+                        id:2,
+                        isSel:false
+                    },
+                    {
+                        name:"初三",
+                        id:3,
+                        isSel:false
+                    },
+                    {
+                        name:"高一/高二",
+                        id:4,
+                        isSel:false
+                    },
+                    {
+                        name:"高三",
+                        id:5,
+                        isSel:false
+                    }
+                ],
+                bannerImg:[
+                    {
+                        imgUrl:"../images/1.jpg",
+                        id:1
+                    },
+                    {
+                        imgUrl:"../images/2.jpg",
+                        id:2
+                    },
+                    {
+                        imgUrl:"../images/3.jpg",
+                        id:3
+                    },
+                    {
+                        imgUrl:"../images/4.jpg",
+                        id:4
+                    },
+                    {
+                        imgUrl:"../images/5.jpg",
+                        id:5
+                    }
+                ],
+                teacherArr:[
+                    {
+                        imgUrl:'../images/teacher/i.png',
+                        school:"毕业于北京大学",
+                        jl:"7",
+                        type:"英语",
+                        ks:"1024",
+                        name:"郭老师"
+                    },
+                    {
+                        imgUrl:'../images/teacher/e.png',
+                        school:"毕业于清华大学",
+                        jl:"6",
+                        type:"数理化",
+                        ks:"1625",
+                        name:"陈老师"
+                    },
+                    {
+                        imgUrl:'../images/teacher/w.png',
+                        school:"外国留学",
+                        jl:"12",
+                        type:"英语",
+                        ks:"2368",
+                        name:"艾琳老师"
+                    },
+                    {
+                        imgUrl:'../images/teacher/q.png',
+                        school:"108条好评",
+                        jl:"5",
+                        type:"小学",
+                        ks:"1560",
+                        name:"林老师"
+                    },
+                    {
+                        imgUrl:'../images/teacher/u.png',
+                        school:"205条好评",
+                        jl:"5",
+                        type:"语文",
+                        ks:"1185",
+                        name:"林老师"
+                    },
+                    {
+                        imgUrl:'../images/teacher/y.png',
+                        school:"211大学",
+                        jl:"8",
+                        type:"物理",
+                        ks:"2053",
+                        name:"吴老师"
+                    },
+                    {
+                        imgUrl:'../images/teacher/t.png',
+                        school:"185条好评",
+                        jl:"6",
+                        type:"艺术",
+                        ks:"1052",
+                        name:"彭老师"
+                    },
+                    {
+                        imgUrl:'../images/teacher/r.png',
+                        school:"286条好评",
+                        jl:"15",
+                        type:"化学",
+                        ks:"2980",
+                        name:"黄老师"
+                    }
+                ],
+                classTip:[],
+                lineTop:0,
+                clientHeight:0,
+                oH:0,
+                noticeList:[],
+                activeIndex:"1"
+
+            }
+        },
+        created(){
+            this.classTip = data1;
+            // this.getDataList();
+        },
+        mounted(){
+            this.sorlloTopFun();
+            let oLine = document.getElementById('line');
+            let oFiexImg = document.getElementById('mFooter');
+            document.addEventListener('scroll',()=>{
+                this.lineTop=oLine.offsetTop;
+                this.clientHeight = document.documentElement.clientHeight;
+                this.oH=this.lineTop-this.clientHeight;
+                if (window.scrollY>this.oH) {
+                    oFiexImg.style.position='absolute';
+                    oFiexImg.style.top = (this.lineTop-100)+'px';
+                }else {
+                    oFiexImg.style.removeProperty('top');
+                    oFiexImg.style.position='fixed';
+                    oFiexImg.style.bottom = 0+'px';
+                }
+            })
+        },
+
+        methods: {
+            handleSelect(key, keyPath) {
+                this.activeIndex=keyPath[0];
+                if (key == 2){
+                    window.location.href = "xuriyoushi.html"
+                }else if (key == 3){
+                    window.location.href = "subscribe.html"
+                } else if (key ==4){
+                    window.location.href = "teacher.html"
+                } else if (key ==5){
+                    window.location.href = "message.html"
+                }
+            },
+            //获取维护数据列表
+            // getDataList(page){
+            //     let that = this;
+            //     let params={};
+            //     that.$http.get('http://www.xurijiajiao.cn:8080/notice/select',{
+            //         params
+            //     }).then((res) => {
+            //         var oId = document.getElementById('friend_links_list');
+            //         that.noticeList=res.body.data
+            //         if(that.noticeList.length>0){
+            //             that.noticeList.map((i,n)=>{
+            //                 var oA= document.createElement('a');
+            //                 oA.setAttribute('href', i.url);
+            //                 oA.setAttribute('target','_blank');
+            //                 oA.setAttribute('title',i.title);
+            //                 oA.innerText = i.title;
+            //                 oId.appendChild(oA)
+            //             })
+            //         }
+            //     }, (res) => {
+            //         that.$Message.error("网络不给力，请重试！");
+            //     });
+            // },
+            toBannerDetail(item){
+                if(item.id == 1 || item.id ==4){
+                    window.location.href = "pages/subscribe.html"
+                }else {
+                    window.location.href = "pages/bannerDetail.html?id="+item.id
+                }
+            },
+            sorlloTopFun(){
+                window.addEventListener("scroll",(e)=>{
+                    let scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
+                    setTimeout(()=>{
+                        if (scrollTop>2000){
+                            if (document.getElementById('mFooter')!=null){
+                                document.getElementById('mFooter').style.display='block';
+                            }
+                        }else {
+                            if (document.getElementById('mFooter')!=null) {
+                                document.getElementById('mFooter').style.display = 'none';
+                            }
+                        }
+                    },500);
+
+                })
+            },
+            selectItem(item){
+                this.btnGroup.map((i,j)=>{
+                    if (i.id == item.id){
+                        i.isSel=true
+                    } else {
+                        i.isSel=false
+                    }
+                    this.smallBtnGroup=[];
+                    if (item.id == 1) {
+                        this.smallBtnGroup=[
+                            {
+                                name:"数学",
+                                id:1,
+                                isSel:true
+                            },
+                            {
+                                name:"英语",
+                                id:2,
+                                isSel:false
+                            },
+                            {
+                                name:"语文",
+                                id:3,
+                                isSel:false
+                            }
+                        ]
+                    } else if (item.id == 2) {
+                        this.smallBtnGroup=[
+                            {
+                                name:"数学",
+                                id:1,
+                                isSel:true
+                            },
+                            {
+                                name:"英语",
+                                id:2,
+                                isSel:false
+                            },
+                            {
+                                name:"语文",
+                                id:3,
+                                isSel:false
+                            },
+                            {
+                                name:"物理",
+                                id:4,
+                                isSel:false
+                            },
+                        ]
+                    }else if (item.id == 3) {
+                        this.smallBtnGroup=[
+                            {
+                                name:"数学",
+                                id:1,
+                                isSel:true
+                            },
+                            {
+                                name:"英语",
+                                id:2,
+                                isSel:false
+                            },
+                            {
+                                name:"语文",
+                                id:3,
+                                isSel:false
+                            },
+                            {
+                                name:"物理",
+                                id:4,
+                                isSel:false
+                            },
+                            {
+                                name:"化学",
+                                id:5,
+                                isSel:false
+                            },
+                        ]
+                    }else  if (item.id == 4 ||item.id == 5) {
+                        this.smallBtnGroup=[
+                            {
+                                name:"数学",
+                                id:1,
+                                isSel:true
+                            },
+                            {
+                                name:"英语",
+                                id:2,
+                                isSel:false
+                            },
+                            {
+                                name:"语文",
+                                id:3,
+                                isSel:false
+                            },
+                            {
+                                name:"物理",
+                                id:4,
+                                isSel:false
+                            },
+                            {
+                                name:"化学",
+                                id:5,
+                                isSel:false
+                            },
+                            {
+                                name:"生物",
+                                id:6,
+                                isSel:false
+                            },
+                        ]
+                    }
+
+                })
+                this.showData();
+            },
+            selectSmellItem(item){
+                this.classTip=[];
+                this.smallBtnGroup.map((i,j)=>{
+                    if (i.id == item.id){
+                        i.isSel=true
+                    } else {
+                        i.isSel=false
+                    }
+                });
+                this.showData();
+            },
+            showData(){
+                let bigBtn= this.btnGroup;
+                let smallBtn = this.smallBtnGroup;
+                if (bigBtn[0].isSel && smallBtn[0].isSel){
+                    this.classTip = data1;
+                }else if (bigBtn[0].isSel && smallBtn[1].isSel) {
+                    this.classTip = data2;
+                }else if (bigBtn[0].isSel && smallBtn[2].isSel) {
+                    this.classTip = data3;
+                }else if (bigBtn[1].isSel && smallBtn[0].isSel) {
+                    this.classTip = data4;
+                }else if (bigBtn[1].isSel && smallBtn[1].isSel) {
+                    this.classTip = data5;
+                }else if (bigBtn[1].isSel && smallBtn[2].isSel) {
+                    this.classTip = data6;
+                }else if (bigBtn[1].isSel && smallBtn[3].isSel) {
+                    this.classTip = data7;
+                }else if (bigBtn[2].isSel && smallBtn[0].isSel) {
+                    this.classTip = data8;
+                }else if (bigBtn[2].isSel && smallBtn[1].isSel) {
+                    this.classTip = data9;
+                }else if (bigBtn[2].isSel && smallBtn[2].isSel) {
+                    this.classTip = data10;
+                }else if (bigBtn[2].isSel && smallBtn[3].isSel) {
+                    this.classTip = data11;
+                }else if (bigBtn[2].isSel && smallBtn[4].isSel) {
+                    this.classTip = data12;
+                } else if (bigBtn[3].isSel && smallBtn[0].isSel) {
+                    this.classTip = data13;
+                }else if (bigBtn[3].isSel && smallBtn[1].isSel) {
+                    this.classTip = data14;
+                }else if (bigBtn[3].isSel && smallBtn[2].isSel) {
+                    this.classTip = data15;
+                }else if (bigBtn[3].isSel && smallBtn[3].isSel) {
+                    this.classTip = data16;
+                }else if (bigBtn[3].isSel && smallBtn[4].isSel) {
+                    this.classTip = data17;
+                }else if (bigBtn[3].isSel && smallBtn[5].isSel) {
+                    this.classTip = data18;
+                }else if (bigBtn[4].isSel && smallBtn[0].isSel) {
+                    this.classTip = data19;
+                }else if (bigBtn[4].isSel && smallBtn[1].isSel) {
+                    this.classTip =data20;
+                }else if (bigBtn[4].isSel && smallBtn[2].isSel) {
+                    this.classTip = data21;
+                }else if (bigBtn[4].isSel && smallBtn[3].isSel) {
+                    this.classTip = data22;
+                }else if (bigBtn[4].isSel && smallBtn[4].isSel) {
+                    this.classTip = data23;
+                }else if (bigBtn[4].isSel && smallBtn[5].isSel) {
+                    this.classTip = data24;
+                }
+            },
+            showPic(){
+                let oPic = document.getElementsByClassName('wechat-box')[0];
+                document.getElementsByClassName('phone-box')[0].style.display = 'none';
+                if (oPic.style.display == 'none'){
+                    oPic.style.display="block"
+                } else {
+                    oPic.style.display="none"
+                }
+            },
+            showPhone(){
+                let oPhone = document.getElementsByClassName('phone-box')[0];
+                document.getElementsByClassName('wechat-box')[0].style.display = 'none';
+                if (oPhone.style.display == 'none'){
+                    oPhone.style.display="block"
+                } else {
+                    oPhone.style.display="none"
+                }
+            }
+        },
+        destroyed() {
+            window.removeEventListener("scroll",this.sorlloTopFun, true);
+        },
+        components:{
+
+        }
+    })
+</script>
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?9b165399524de54b93c3d679d6c19e0a";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+</html>
