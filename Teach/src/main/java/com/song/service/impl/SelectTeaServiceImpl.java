@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.song.controller.PushController;
+import com.song.controller.SyncController;
 import com.song.entity.Assert;
 import com.song.entity.Page;
 import com.song.mapper.ParentMapper;
@@ -37,6 +38,8 @@ public class SelectTeaServiceImpl implements SelectTeaService{
 	private ParentMapper parentMapper;
 	@Autowired
 	private TeacherMapper teacherMapper;
+	@Autowired
+	private SyncController syncController;
 	
 
 	@Override
@@ -71,11 +74,10 @@ public class SelectTeaServiceImpl implements SelectTeaService{
 		
 		String[] arr = selectTea.getAddress().split("-");
 		String city = arr[1];
-		List<String> teacherOpenIds = teacherMapper.selectByProjectCity(city);
+		String area = arr[2];
+		List<String> teacherOpenIds = teacherMapper.selectByProjectCity(city,area);
 		if(teacherOpenIds != null && !teacherOpenIds.isEmpty()) {
-			for(String teacherOpenId : teacherOpenIds) {
-				pushController.sendMessage(teacherOpenId, as[2], selectTea.getTrial(), selectTea.getAddress(), selectTea.getGrade());
-			}
+			syncController.sentmsg(teacherOpenIds, as[2], selectTea.getTrial(), selectTea.getAddress(), selectTea.getGrade());			
 		}
 		
 		
@@ -179,13 +181,11 @@ public class SelectTeaServiceImpl implements SelectTeaService{
 			//更改此单的其他老师显示被拒绝
 			selectTeaMapper.updateStatusNo(id);		
 			if(ts != null && !ts.isEmpty()) {
-				for(String tOpenId :ts) {
-					pushController.parentPass("您应聘的单子已被接走,请应聘其他的单子",tOpenId,st.getGrade()+st.getSubject(),"详细时间请查看",st.getAddress(), "家长拒绝");
-				}
+				syncController.sentMsgFalse(ts, st.getGrade(), st.getSubject(), st.getAddress());
 			}
 
 			pushController.parentPass("恭喜接单成功,请等待助教老师的通知",topenid,st.getGrade()+st.getSubject(),"详细时间请查看",st.getAddress(), "家长同意");
-			//pushController.parentPass("有家长同意接单请查看",MRLIAO,st.getGrade()+st.getSubject(),"详细时间请查看",st.getAddress(), "家长同意");
+			pushController.parentPass("有家长同意接单请查看",MRLIAO,st.getGrade()+st.getSubject(),"详细时间请查看",st.getAddress(), "家长同意");
 		}else {			
 			pushController.parentPass("您应聘的单子已被接走,请应聘其他的单子",topenid,st.getGrade()+st.getSubject(),"详细时间请查看",st.getAddress(), "家长拒绝");
 		}
@@ -234,7 +234,6 @@ public class SelectTeaServiceImpl implements SelectTeaService{
 		selectTea.setLatlng(dbTeacher.getLatlng().split(",")[1]);
 		selectTea.setLatitude(dbTeacher.getLatlng().split(",")[0]);
 		
-		//PageHelper.startPage(page.getPageSize(),page.getPageNum());
 		page.paging();
 		List<SelectTeaVo> list = selectTeaMapper.selectByType2(selectTea);
 		if(list != null && !list.isEmpty()) {

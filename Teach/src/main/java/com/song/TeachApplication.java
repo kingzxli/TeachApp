@@ -6,15 +6,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableAsync;
 import com.github.pagehelper.PageHelper;
 
 
-/**
- * 
- * @author Song
- *
- */
-
+@EnableAsync
 @SpringBootApplication
 @MapperScan("com.song.mapper")
 public class TeachApplication {

@@ -377,7 +377,7 @@
 	</select>
 	
 	<select id="selectByProjectCity" resultType="java.lang.String">
-		select openid from teacher where activate = 1 AND location = #{city}
+		select openid from teacher where activate = 1 AND (location = #{city} or location = #{area})
 	</select>
 	
 </mapper>
