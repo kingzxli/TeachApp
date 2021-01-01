@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>上门一对一家教-在线教育-旭日家教</title>
+    <meta name="keywords"
+          content="深圳家教，深圳家教网，网上家教，深圳一对一辅导，深圳一对一在线、上门授课，深圳在线一对一家教，深圳家教辅导老师，深圳在线老师家教，深圳大学生家教，深圳家教app，旭日教育/旭日家教，家教老师，一对一在线辅导，一对一家教收费标准，旭日家教怎么样">
+    <meta name="description"
+          content="旭日教育是专注于全国中小学在线/上门全科辅导品牌，精选深圳各年级、各学科专业教师，根据孩子特点匹配合适的好老师，提供高品质个性化教学辅导。专业提供深圳小学，初中，高中全科补习、在线一对一辅导、上门一对一家教辅导服务。">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+</head>
+<body>
+<div id="app">
+    <div class="bannerDetail">
+        <!--<img v-if="id == 1" src="../../images/yqyj.png" alt="">-->
+        <img v-if="id == 2" src="../images/xrjj.jpg" alt="">
+        <img v-if="id == 3" src="../images/xryy.jpg" alt="">
+        <!--<img v-if="id == 4" src="../../images/qyt.jpg" alt="">-->
+        <img v-if="id == 5" src="../images/ygsh.jpg" alt="">
+    </div>
+</div>
+</body>
+<!-- import Vue before Element -->
+<script src="../api/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                id:0
+            }
+        },
+        created() {
+            //创建节点
+            this.getUrlParam('id');
+
+        },
+        methods: {
+            getUrlParam(variable) {
+                var query = window.location.search.substring(1);
+                var vars = query.split("&");
+                for (var i = 0; i < vars.length; i++) {
+                    var pair = vars[i].split("=");
+                    if (pair[0] == variable) {
+                        this.id = pair[1];
+                    }
+                }
+            },
+        }
+    })
+</script>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .bannerDetail{
+        display: flex;
+        justify-content: center;
+    }
+</style>
+</html>

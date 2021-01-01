@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.song.mapper.BdOrderMapper">
+
+
+	<insert id="insert" parameterType="com.song.pojo.BdOrder">
+		insert into bdorder (rsaSign,userId,orderId,unitPrice,count,totalMoney,payMoney,promoMoney,hbMoney,hbBalanceMoney,giftCardMoney,payTime,payType,partnerId,status,tpOrderId)
+		values (#{rsaSign},#{userId},#{orderId},#{unitPrice},#{count},#{totalMoney},#{payMoney},#{promoMoney},#{hbMoney},#{hbBalanceMoney},#{giftCardMoney},#{payTime},#{payType},#{partnerId},#{status},#{tpOrderId})
+	</insert>
+	
+	<update id="update" parameterType="com.song.pojo.BdOrder">
+		update bdorder set
+		<trim suffixOverrides=",">
+			<if test="userId != null and userId !=''">
+				userId = #{userId},
+			</if>
+			<if test="orderId != null and orderId != ''">
+				orderId = #{orderId},
+			</if>
+			<if test="unitPrice != null and unitPrice != ''">
+				unitPrice = #{unitPrice},
+			</if>
+			<if test="count != null and count != ''">
+				count = #{count},
+			</if>
+			<if test="totalMoney != null and totalMoney != ''">
+				totalMoney = #{totalMoney},
+			</if>
+			<if test="payMoney != null and payMoney != ''">
+				payMoney = #{payMoney},
+			</if>
+			<if test="promoMoney != null and promoMoney != ''">
+				promoMoney = #{promoMoney},
+			</if>
+			<if test="hbMoney != null and hbMoney != ''">
+				hbMoney = #{hbMoney},
+			</if>
+			<if test="hbBalanceMoney != null and hbBalanceMoney != ''">
+				hbBalanceMoney = #{hbBalanceMoney},
+			</if>
+			<if test="giftCardMoney != null and giftCardMoney != ''">
+				giftCardMoney = #{giftCardMoney},
+			</if>
+			<if test="dealId != null and dealId != ''">
+				dealId = #{dealId},
+			</if>
+			<if test="payTime != null and payTime != ''">
+				payTime = #{payTime},
+			</if>
+			<if test="promoDetail != null and promoDetail != ''">
+				promoDetail = #{promoDetail},
+			</if>
+			<if test="payType != null and payType != ''">
+				payType = #{payType},
+			</if>
+			<if test="partnerId != null and partnerId != ''">
+				partnerId = #{partnerId},
+			</if>
+			<if test="status != null and status != ''">
+				status = #{status},
+			</if>
+			<if test="tpOrderId != null and tpOrderId != ''">
+				tpOrderId = #{tpOrderId},
+			</if>
+			<if test="returnData != null and returnData != ''">
+				returnData = #{returnData},
+			</if>
+			<if test="rsaSign != null and rsaSign != ''">
+				rsaSign = #{rsaSign},
+			</if>
+		</trim>
+		where tpOrderId = #{tpOrderId}
+	</update>
+	
+	<select id="selectBytp" parameterType="java.lang.String" resultType="com.song.pojo.BdOrder">
+		select * from bdorder where tpOrderId = #{tpOrderId}
+	</select>
+	
+	<delete id="delete" parameterType="java.lang.String">
+		delete from bdorder where tpOrderId = #{tpOrderId}
+	</delete>
+
+</mapper>

@@ -1,0 +1,686 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+#onKeyAppointment .layout2 ul {
+    margin: 23px 0 0;
+    display: flex;
+    list-style: none;
+    justify-content: center;
+
+}
+#onKeyAppointment .layout2 {
+    padding:25px 0;
+    width: 1200px;
+    margin: 0 auto;
+}
+#onKeyAppointment h2 {
+    font-size: 35px;
+    line-height: 60px;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+}
+#onKeyAppointment .layout2 ul li.first {
+    width:25%;
+    background: url('../images/jt-right.png') no-repeat  230px 0;
+}
+#onKeyAppointment .layout2 ul li .step {
+    float: left;
+    margin-left: 40px;
+}
+#onKeyAppointment .layout2 ul li .step span.onKeyAppointmentSteps {
+    font-size: 30px;
+    line-height: 40px;
+}
+#onKeyAppointment .layout2 ul li .step span {
+    display: inline-block;
+    color: #fff;
+    font-family: "Microsoft YaHei Light";
+    font-weight: 600;
+}
+#onKeyAppointment .layout2 ul li .step b {
+    color: #fff;
+    font-size: 30px;
+}
+#onKeyAppointment .layout2 ul li .step span.onKeyAppointmentDesc {
+    font-size: 20px;
+    line-height: 30px;
+}
+
+
+.plan-box{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 650px;
+    flex-wrap: wrap;
+    margin: 0 auto 20px;
+}
+.plan {
+    height: 150px;
+    padding:25px;
+    display: block;
+    margin: 20px;
+    border: 1px solid #ebebeb;
+    border-radius: 4px;
+}
+.icon1 {
+    padding-left: 37px;
+    background: url("../images/66666.png") no-repeat left;
+    background-size: 40px;
+}
+.icon2 {
+    padding-left: 37px;
+    background: url("../images/777777.png") no-repeat left;
+    background-size: 40px;
+}
+.icon3 {
+    padding-left: 37px;
+    background: url("../images/888888.png") no-repeat left;
+    background-size: 40px;
+}
+.icon4 {
+    padding-left: 37px;
+    background: url("../images/9999999.png") no-repeat left;
+    background-size: 40px;
+}
+.iconplan {
+    display: block;
+    width: 130px;
+    height: 36px;
+    line-height: 36px;
+    font-size: 22px;
+    color: #222;
+    margin-bottom: 20px;
+}
+.plan p {
+    width: 220px;
+    font-size: 15px;
+    line-height: 26px;
+    color: #999;
+}
+.mode_teacher{
+}
+.teacher-list-box{
+    background: white;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.tab-btn{
+    display: flex;
+    flex-direction: row;
+}
+.tab-btn .btn{
+    margin: 10px 10px 10px 0;
+    border: 1px solid #f8c400;
+    line-height: 46px;
+    width: 158px;
+    display: inline-block;
+    _zoom: 1;
+    *display: inline;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 20px;
+    text-align: center;
+}
+.small-btn{
+    font-size: 18px;
+    line-height: 38px;
+    margin-top: 19px;
+    margin-right: 10px;
+    width: 98px;
+    display: inline-block;
+    _zoom: 1;
+    *display: inline;
+    border: 1px solid #f8c400;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px
+}
+.active{
+    color: #fff !important;
+    background: #f8c400;
+    font-weight: 700;
+}
+.header-header{
+    width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.header-title{
+    font-size: 35px;
+    font-weight: 700;
+    margin-top: 40px;
+    margin-bottom:10px;
+    color: #36404a;
+}
+.teacher-tip{
+    font-size: 20px;
+    color: #818a92;
+    margin-top: 18px;
+    margin-bottom: 20px;
+}
+.teacher-item-box{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 1120px;
+    flex-wrap: wrap;
+    margin: 0 auto 20px;
+}
+.teacher-item{
+    width: 260px;
+    margin-top: 10px;
+    border: 1px solid #ebebeb;
+    height: 290px;
+    cursor: pointer;
+    border-radius: 4px;
+
+}
+.teacher-item:hover{
+    box-shadow: -1px -1px 15px #ccc;
+    transition: all .3s;
+}
+.teacher-img-box{
+    background: rgb(248, 249, 255);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 20px;
+}
+.teacher-img{
+    width:158px;
+    height: 199px;
+}
+.teacher-detail{
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.teacher-detail p{
+    margin-top: 10px;
+    text-align: right;
+}
+.info{
+    padding: 20px 0;
+    text-align: left
+}
+.txt-ofl {
+    font-size: 18px;
+    color: #363b4a;
+}
+.label {
+    margin-top: 6px;
+    font-size: 14px;
+    color: #697689;
+    display: flex;
+    justify-content: center;
+}
+.school-age{
+    font-size: 14px;
+    color: #697689;
+}
+.level {
+    float: left;
+    margin-top: 15px;
+    width: 81px;
+    height: 21px;
+    left: 80px;
+    top: -60px;
+}
+
+.top1{
+
+    color: #eece56;
+}
+.top2{
+    color: #f1c72a;
+
+}
+.top3{
+    color: #f3c61c;
+}
+.top4{
+    color: #f6c50c;
+}
+.top5{
+    color:#f8c400;
+}
+.score1{
+    color: #eece56 !important;
+}
+.score2{
+    color: #f1c72a !important;
+}
+.score3{
+    color: #f3c61c !important;
+}
+.score4{
+    color: #f6c50c !important;
+}
+.score5{
+    color: #f8c400 !important;
+}
+.k_kabc_type {
+    background: url('../images/teacher/1.png') no-repeat;
+    background-size: contain;
+}
+.total-teach-time {
+    float: right;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #a7b0b8;
+    text-align: right;
+}
+.bg1{
+    background: url('../images/bg1.jpg');
+}
+.bg2{
+    background: url('../images/bg2.jpg');
+}
+.facilitiesAllCan {
+    height: 212px;
+    background-attachment: fixed;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.attached-bg {
+    background-attachment: fixed;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.facilitiesAllCan .layout {
+    padding: 37px 0 95px;
+    z-index: 2;
+}
+.facilitiesAllCan h2 {
+    font-size: 35px;
+    line-height: 60px;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+}
+.facilitiesAllCan .info {
+    font-size: 18px;
+    line-height: 40px;
+    color: white;
+    font-weight: 500;
+    text-align: center;
+}
+.to-home{
+    position: relative;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+.mask{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.to-home-herder{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+.to-home-title{
+    color: #f8c400;
+    font-size:35px;
+    margin-bottom: 40px;
+    font-weight: bold;
+}
+.to-home-tip{
+    font-size: 20px;
+    margin-bottom:85px;
+    color: white;
+}
+
+.fz{
+    width: 100%;
+}
+.center-img-word h4{
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+.center-img-word{
+    position: relative;
+}
+.center-img-word .tip{
+    color: black;
+    font-size:20px;
+    margin-top: 5px;
+}
+.center-img-box .img{
+    height:350px;
+}
+.tip-box{
+    position: absolute;
+    top:30px;
+    left: 50px;
+}
+.tip-box-right{
+    position: absolute;
+    top:30px;
+    right:17%;
+}
+#lessonSystem{
+    padding-bottom: 50px;
+}
+#lessonSystem .cntBox {
+    position: relative;
+    height: 508px;
+    width: 1200px;
+    overflow: hidden;
+}
+#lessonSystem .lv1 {
+    width: 224px;
+    display: inline-block;
+    _zoom: 1;
+}
+#lessonSystem .lv1left{
+    left: 21px;
+}
+#lessonSystem .lv2left{
+    left: 247px;
+}
+#lessonSystem .lv3left{
+    left: 473px;
+}
+#lessonSystem .lv4left{
+    left: 699px;
+}
+#lessonSystem .lv5left{
+    left: 925px;
+}
+
+#lessonSystem .lv {
+    position: absolute;
+    bottom: 0;
+}
+#lessonSystem .lv .score {
+    -webkit-transition: all 2s ease;
+    -moz-transition: all 2s ease;
+    -ms-transition: all 2s ease;
+    -o-transition: all 2s ease;
+    transition: all 2s ease;
+}
+#lessonSystem .lv1 h3 {
+    font-size: 35px;
+    font-weight: 700;
+    position: relative;
+    z-index: 2;
+    -webkit-transition: all 2s ease;
+    -moz-transition: all 2s ease;
+    -ms-transition: all 2s ease;
+    -o-transition: all 2s ease;
+    transition: all 2s ease;
+}
+#lessonSystem .lv1 .score {
+    font-size: 24px;
+    line-height: 30px;
+    position: relative;
+    top: 30px;
+    z-index: 2;
+}
+#lessonSystem .lv1 .outer {
+    position: relative;
+    *width: 224px;
+    margin-top: 7px;
+}
+#lessonSystem .lv1 .content {
+    height: 0;
+    padding: 0 24px 0 34px;
+}
+#lessonSystem .content1{
+    background: #eece56;
+    height: 185px !important;
+}
+#lessonSystem .content2{
+    background: #f1c72a;
+    height: 222px !important;
+}
+#lessonSystem .content3{
+    background: #f3c61c;
+    height: 272px !important;
+}
+#lessonSystem .content4{
+    background: #f6c50c;
+    height: 321px !important;
+}
+#lessonSystem .content5{
+    background:#f8c400;
+    height: 370px !important;
+}
+#lessonSystem .content1 p:first-child{
+    padding-top: 31px ;
+}
+#lessonSystem .content2 p:first-child{
+    padding-top: 68px;
+}
+#lessonSystem .content3 p:first-child{
+    padding-top: 118px;
+}
+#lessonSystem .content4 p:first-child{
+    padding-top: 167px;
+}
+#lessonSystem .content5 p:first-child{
+    padding-top: 216px;
+}
+#lessonSystem .lv .content {
+    padding-left: 12px!important;
+    padding-right: 2px!important;
+}
+#lessonSystem .content {
+    -webkit-transition: all 2s ease;
+    -moz-transition: all 2s ease;
+    -ms-transition: all 2s ease;
+    -o-transition: all 2s ease;
+    transition: all 2s ease;
+}
+
+#lessonSystem .lv1 .content p {
+    font-size: 14px;
+    line-height: 25px;
+    color: #fff;
+}
+#lessonSystem .lv .content p {
+    text-align: left;
+}
+#lessonSystem .triangle {
+    width: 0;
+    height: 0;
+    left: 0;
+    bottom: 148px;
+    border-top: 14px solid transparent;
+    border-left: 10px solid #fff;
+    border-bottom: 14px solid transparent;
+    position: absolute;
+}
+#lessonSystem .mask1 {
+    position: absolute;
+    background: #fff;
+    width: 224px;
+    height: 185px;
+    left: 0;
+    top: 0;
+}
+#lessonSystem .mask, #lessonSystem .content {
+    -webkit-transition: all 2s ease;
+    -moz-transition: all 2s ease;
+    -ms-transition: all 2s ease;
+    -o-transition: all 2s ease;
+    transition: all 2s ease;
+}
+#lessonSystem .mask {
+    display: none;
+}
+.main-nav {
+    font-size: 12px;
+    padding: 20px 0;
+    overflow: hidden;
+    width: 1200px;
+    margin: 0 auto 200px;
+    color: #333;
+}
+.main-nav .site-recomend {
+    border: none;
+}
+
+.main-nav, .main-nav .site-recomend {
+    background-color: transparent;
+}
+.main-nav .site-recomend {
+    border-top: 1px solid #e1e1e1;
+    padding-bottom: 10px;
+    background-color: #fff;
+}
+.main-nav .site-recomend>div>div {
+    width: 100%;
+    float: left;
+    margin-bottom: 5px;
+    padding: 15px 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+.main-nav .site-recomend>div .right {
+    width: 1200px;
+    float: left;
+    padding: 0;
+}
+.main-nav .site-recomend>div {
+    position: relative;
+    width: 1200px;
+    margin: 0 auto 5px;
+    padding: 15px 0;
+    overflow: hidden;
+    background-color: #fff;
+    border-bottom: 1px solid #f5f5f5;
+}
+.main-nav .site-recomend>div>div:last-child {
+    border: none;
+}
+.main-nav .site-recomend>div strong {
+    display: block;
+    float: left;
+    width: 90px;
+    color: #666;
+    font-weight: 400;
+    font-size: 12px;
+}
+.main-nav .site-recomend .city_jiajiao_breif h3, .main-nav .site-recomend strong {
+    font-weight: 700!important;
+}
+.main-nav .site-recomend>div .right {
+    width: 1060px;
+    float: left;
+    padding: 0;
+}
+.main-nav .site-recomend * {
+    color: #36404a!important;
+}
+.main-nav .site-recomend>div .right a {
+    width: 110px;
+    font-size: 12px;
+    text-decoration: none;
+}
+.main-nav>div p {
+    font-size: 14px;
+    text-align: left;
+}
+.main-nav .site-recomend>div>div a {
+    display: inline-block;
+    margin: 0 5px 2px;
+    line-height: 18px;
+    color: #999;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.right_flex{
+    position: fixed;
+    right: 0;
+    top: 40%;
+    width: 30px;
+    background: rgb(255,255,255);
+    padding: 10px 5px;
+    z-index: 10000;
+    border-radius: 5px 0 0 5px;
+    cursor: pointer;
+    box-shadow: 2px 2px 10px #ccc;
+}
+.bottom_flex{
+    position: fixed;
+    bottom:-1px;
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    background: #fcbf57;
+    height:101px;
+}
+.bottom_img_box{
+    position: relative;
+    width: 1920px;
+    height:101px;
+    margin: 0 auto;
+}
+.bottom_img_box .long_img{
+    width: 100%;
+    position: absolute;
+    top:-140px;
+    left: 0;
+}
+.bottom_flex .second_img{
+    position: absolute;
+    top:-140px;
+    left:100px;
+}
+.right_flex img{
+    height: 30px;
+    width: 30px;
+    margin-bottom: 10px;
+
+}
+
+.wechat-box{
+    position: relative;
+}
+.phone-box{
+    position: relative;
+}
+.fixed-nav-wechat-box {
+    position: absolute;
+    box-sizing: border-box;
+    right: 51px;
+    top: -87px;
+    padding: 10px;
+    background: white;
+    border-radius: 5px;
+    width: 206px;
+    text-align: center;
+    box-shadow: 2px 2px 10px #ccc;
+}
+.fixed-nav-wechat-box img{
+    width: 186px;
+    height: 186px
+}
+.wxIcon:hover .wechat-box {
+    display: block;
+}

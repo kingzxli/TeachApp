@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.song.mapper.RefundMapper">
+
+	<insert id="add" parameterType="com.song.pojo.Refund">
+		insert into refund(openid,ordernum) values (#{openid},#{ordernum})
+	</insert>
+	
+	<update id="update" parameterType="com.song.pojo.Refund">
+		update refund set status='yes',money=#{money} where ordernum=#{ordernum}
+	</update>	
+	
+	<resultMap type="com.song.pojo.Refund" id="RefundMap">
+		<id column="id" property="id"/>
+		<result column="openid" property="openid"/>
+		<result column="ordernum" property="ordernum"/>
+		<result column="money" property="money"/>
+		<association property="order" javaType="com.song.pojo.Order">
+			<id column="id" property="id"/>
+			<result column="addtime" property="addtime"/>
+			<result column="body" property="body"/>
+			<result column="image" property="image"/>
+			<result column="name" property="name"/>
+			<result column="num" property="num"/>
+			<result column="totalnum" property="totalnum"/>
+			<result column="totalfee" property="totalfee"/>
+		</association>
+	</resultMap>
+	<select id="selectByOpenid" parameterType="java.lang.String" resultMap="RefundMap">
+		select * from refund r,orders o where r.ordernum = o.ordernum and r.openid=#{openid} and r.status='yes' and o.status='已退款'
+	</select>
+	
+</mapper>

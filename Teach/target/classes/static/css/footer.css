@@ -1,0 +1,45 @@
+.footer{
+    display: flex;
+    flex-direction: column;
+}
+footer {
+    background-color: #30364c;
+    padding: 53px 0 50px;
+
+}
+.w1160 {
+    width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.w1160 .item{
+    flex: 1;
+    color: white;
+}
+.w1160 .item .logo2{
+    width: 150px;
+    height: 70px;
+}
+.w1160 .item p{
+    font-size: 18px;
+}
+.w1160 .item span{
+    font-size: 10px;
+    display: block;
+    margin-top: 8px;
+}
+.w1160 .bah{
+    margin-top: 50px;
+    color: white;
+    font-size: 15px;
+    margin-left: 100px;
+    flex: 1;
+}
+.w1160 .wx{
+    width: 150px;
+    height:60px;
+    margin-top:30px;
+    margin-right: 100px;
+}

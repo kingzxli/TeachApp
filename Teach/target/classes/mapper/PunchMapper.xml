@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.song.mapper.PunchMapper">
+
+	<select id="selectCount" resultType="java.lang.Integer">
+		select count(*) from punch where ordernum=#{ordernum} and status = 1
+	</select>
+
+	<select id="selectById" resultType="com.song.pojo.Punch">
+		select * from punch where id=#{id} and status = 1
+	</select>
+
+	<select id="selectTime" resultType="com.song.pojo.Punch">
+		select id,times from punch where popenid=#{openid} and status = 1 order by times desc
+	</select>
+
+	<insert id="insert" parameterType="com.song.pojo.Punch" keyProperty="id" useGeneratedKeys="true">
+		insert into punch(popenid,tid,openid,five,classhour,ordernum,pname,textbook,one,two,three,four,expression,job,grasp,review,content,feedback,treview,late,remark,times)values
+		(#{popenid},#{tid},#{openId},#{five},#{classhour},#{ordernum},#{pname},#{textbook},#{one},#{two},#{three},#{four},#{expression},#{job},#{grasp},#{review},#{content},#{feedback},#{treview},#{late},#{remark},#{times})
+	</insert>
+	
+	<select id="selectAll" resultType="java.lang.String">
+		select times from punch where month(times)=#{month} and year(times)=#{year} and ordernum=#{ordernum} and status = 1
+	</select>
+	
+	<resultMap type="com.song.pojo.Punch" id="PunchMap">
+		<id column="id" property="id"/>
+		<result column="pname" property="pname"/>
+		<result column="textbook" property="textbook"/>
+		<result column="one" property="one"/>
+		<result column="two" property="two"/>	
+		<result column="three" property="three"/>
+		<result column="four" property="four"/>
+		<result column="five" property="five"/>
+		<result column="expression" property="expression"/>
+		<result column="job" property="job"/>
+		<result column="grasp" property="grasp"/>
+		<result column="review" property="review"/>
+		<result column="content" property="content"/>
+		<result column="feedback" property="feedback"/>
+		<result column="treview" property="treview"/>
+		<result column="late" property="late"/>
+		<result column="remark" property="remark"/>
+		<result column="ordernum" property="ordernum"/>
+		<result column="classhour" property="classhour"/>
+		<collection property="exams" ofType="com.song.pojo.Exam">
+			<id column="eid" property="eid"/>
+			<result column="addtime" property="addtime"/>
+			<result column="types" property="types"/>
+			<result column="project" property="project"/>
+			<result column="grade" property="grade"/>
+			<result column="punid" property="punid"/>
+		</collection>
+	</resultMap>
+	<select id="selectByOrderTime" parameterType="com.song.pojo.Punch" resultMap="PunchMap">
+		select * from punch p left join exam e on p.ordernum = e.ordernum where p.ordernum = #{ordernum} and p.times =#{times} and status = 1
+	</select>
+	
+	
+	<resultMap type="com.song.pojo.Punch" id="PunchMaps">
+		<id column="id" property="id"/>
+		<result column="pname" property="pname"/>
+		<result column="one" property="one"/>
+		<result column="two" property="two"/>	
+		<result column="three" property="three"/>
+		<result column="four" property="four"/>
+		<result column="five" property="five"/>
+		<result column="late" property="late"/>
+		<collection property="exams" ofType="com.song.pojo.Exam">
+			<id column="eid" property="eid"/>
+			<result column="addtime" property="addtime"/>
+			<result column="types" property="types"/>
+			<result column="project" property="project"/>
+			<result column="grade" property="grade"/>
+			<result column="punid" property="punid"/>
+		</collection>
+	</resultMap>
+	<select id="selectByOrderTimeF" parameterType="com.song.pojo.Punch" resultMap="PunchMaps">
+		select * from punch p left join exam e on p.ordernum = e.ordernum where p.ordernum = #{ordernum} and status = 1 limit 0,1
+	</select>
+	
+	
+	<delete id="delete" parameterType="java.lang.String">
+		update punch set status = 0 where times=#{times}
+	</delete>
+	
+	
+	<update id="update" parameterType="com.song.pojo.Punch">
+		update punch set
+		<trim suffixOverrides=",">
+			<if test="pname != null">
+				pname=#{pname},
+			</if>
+			<if test="textbook != null">
+				textbook=#{textbook},
+			</if>
+			<if test="one != null">
+				one=#{one},
+			</if>
+			<if test="two != null">
+				two=#{two},
+			</if>
+			<if test="three !=null">
+				three=#{three},
+			</if>
+			<if test="four !=null">
+				four=#{four},
+			</if>
+			<if test="expression !=0">
+				expression=#{expression},
+			</if>
+			<if test="job !=0">
+				job=#{job},
+			</if>
+			<if test="grasp !=0">
+				grasp=#{grasp},
+			</if>
+			<if test="review !=0">
+				review=#{review},
+			</if>
+			<if test="content !=null">
+				content=#{content},
+			</if>
+			<if test="feedback !=null">
+				feedback=#{feedback},
+			</if>
+			<if test="treview !=null">
+				treview=#{treview},
+			</if>
+			<if test="late !=null">
+				late=#{late},
+			</if>
+			<if test="remark !=null">
+				remark=#{remark},
+			</if>
+			<if test="times !=null">
+				times=#{times},
+			</if>
+			<if test="ordernum !=null">
+				ordernum=#{ordernum},
+			</if>
+			<if test="five !=null">
+				five=#{five},
+			</if>
+			<if test="classhour !=0">
+				classhour=#{classhour}
+			</if>
+		</trim>
+		where ordernum=#{ordernum} and times=#{times}
+	</update>
+	
+	
+	
+	
+	
+</mapper>
