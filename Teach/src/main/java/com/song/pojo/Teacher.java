@@ -28,7 +28,7 @@ public class Teacher{
 	private String seniority;
 	private String education;
 	//区域
-	private String location;
+	private String location; 
 	private String level;
 	private String number;
 	private String character;

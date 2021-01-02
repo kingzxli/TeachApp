@@ -36,6 +36,10 @@ public class SelectTea {
 	private String teachingType;
 	private String latlng;
 	private String latitude;
+	/**
+	 * 了解我们的途径
+	 */
+	private String way;
 	
 	private List<Teacher> teacher;
 	

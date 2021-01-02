@@ -240,9 +240,13 @@
 			<if test="phone !=null and phone != ''">
 				phone = #{phone},
 			</if>
+			<if test="location !=null and location != ''">
+				location = #{location},
+			</if>
 		</trim>
 		where id=#{id}
 	</update>
+	
 	
 	<update id="updateschool" parameterType="com.song.pojo.Teacher">
 		update teacher set

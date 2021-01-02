@@ -68,4 +68,6 @@ public interface TeacherMapper {
 	Teacher selectById2(Teacher teacher);
 	
 	List<String> selectByProjectCity(@Param("city")String city,@Param("area")String area);
+	
+	void updateLocation(Teacher teacher);
 }

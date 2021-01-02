@@ -61,4 +61,5 @@ public interface TeacherService {
 	String selectOther(int id);
 	
 	Teacher selectById2(Teacher teacher);
+	
 }

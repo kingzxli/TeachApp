@@ -420,5 +420,12 @@ public class TeacherController {
 		return JsonResult.ok();
 	}
 	
+	//修改老师地址
+	@PostMapping("updateLocation")
+	public JsonResult updateLocation(Teacher teacher) {
+		
+		teacherService.update(teacher);
 	
+		return JsonResult.ok();
+	}
 }

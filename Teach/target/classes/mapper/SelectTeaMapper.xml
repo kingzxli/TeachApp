@@ -51,9 +51,9 @@
 
 	<insert id="add" parameterType="com.song.pojo.SelectTea" useGeneratedKeys="true" keyProperty="id">
 		insert into select_tea 
-		(latlng,latitude,teachingType,popenid,addtime,school,goclass,stu_id,phone,address,detailed,other_require,stu_situation,tea_require,stu_sex,tea_sex,stu_message,culture,grade,subject,tea_type,trial) 
+		(latlng,latitude,teachingType,popenid,addtime,school,goclass,stu_id,phone,address,detailed,other_require,stu_situation,tea_require,stu_sex,tea_sex,stu_message,culture,grade,subject,tea_type,trial,way) 
 		values
-		 (#{latlng},#{latitude},#{teachingType},#{popenid},#{addtime},#{school},#{goclass},#{stuid},#{phone},#{address},#{detailed},#{otherrequire},#{stusituation},#{tearequire},#{stusex},#{teasex},#{stumessage},#{culture},#{grade},#{subject},#{teatype},#{trial})
+		 (#{latlng},#{latitude},#{teachingType},#{popenid},#{addtime},#{school},#{goclass},#{stuid},#{phone},#{address},#{detailed},#{otherrequire},#{stusituation},#{tearequire},#{stusex},#{teasex},#{stumessage},#{culture},#{grade},#{subject},#{teatype},#{trial},#{way})
 	</insert>
 	
 	<select id="selectByType" parameterType="com.song.pojo.SelectTea" resultType="com.song.pojo.SelectTea">

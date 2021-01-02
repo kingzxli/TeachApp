@@ -48,7 +48,6 @@ public class TeacherServiceImpl implements TeacherService{
 
 	@Override
 	public void update(Teacher teacher) {
-		// TODO Auto-generated method stub
 		teacherMapper.update(teacher);
 	}
 

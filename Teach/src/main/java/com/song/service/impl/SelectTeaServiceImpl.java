@@ -48,15 +48,14 @@ public class SelectTeaServiceImpl implements SelectTeaService{
 		selectTea.setAddtime(todays);
 		String s = selectTea.getSubject();
 		String[] as = s.split("-");
-		for (int i = 0; i < as.length; i++) {
-			selectTea.setCulture(as[0]);
-			selectTea.setGrade(as[1]);
-			selectTea.setSubject(as[2]);
-		}
+		selectTea.setCulture(as[0]);
+		selectTea.setGrade(as[1]);
+		selectTea.setSubject(as[2]);
+		
 
 		String addredd = selectTea.getAddress();
 		if(StringUtils.isNotEmpty(selectTea.getDetailed())) {
-			String detail = selectTea.getDetailed().replace("#", "");;
+			String detail = selectTea.getDetailed().replace("#", "");
 
 			addredd = addredd + detail;
 		}
