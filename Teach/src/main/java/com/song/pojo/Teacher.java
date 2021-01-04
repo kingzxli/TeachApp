@@ -82,4 +82,8 @@ public class Teacher{
 	 * 纬度
 	 */
 	private String latitude;
+	/**
+	 * 接单区域
+	 */
+	private String orderArea;
 }

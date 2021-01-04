@@ -1,13 +1,10 @@
 package com.song.service.impl;
 
 import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.song.mapper.TeacherMapper;
-import com.song.pojo.SelectTeaVo;
 import com.song.pojo.Teacher;
 import com.song.service.TeacherService;
 

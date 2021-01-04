@@ -243,6 +243,9 @@
 			<if test="location !=null and location != ''">
 				location = #{location},
 			</if>
+			<if test="orderArea !=null and orderArea != ''">
+				order_area = #{orderArea},
+			</if>
 		</trim>
 		where id=#{id}
 	</update>
