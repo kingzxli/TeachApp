@@ -1,36 +1,25 @@
 package com.song.controller;
 
-
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.song.pojo.Goods;
-import com.song.pojo.Parent;
 import com.song.pojo.SelectTea;
 import com.song.pojo.TeaSelect;
 import com.song.pojo.Teacher;
-import com.song.service.ParentService;
 import com.song.service.SelectTeaService;
 import com.song.service.TeacherService;
 import com.song.util.HttpClientUtil;
 import com.song.util.JsonResult;
-
 import net.sf.json.JSONArray;
 
 /**
@@ -47,8 +36,6 @@ public class SelectTeaController {
 	private SelectTeaService SelectteaService;
 	@Autowired
 	private TeacherService teacherService;
-	@Autowired
-	private ParentService parentService;
 	
 	private String loc;
 	

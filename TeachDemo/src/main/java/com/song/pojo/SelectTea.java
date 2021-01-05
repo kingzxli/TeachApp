@@ -1,8 +1,6 @@
 package com.song.pojo;
 
 import java.util.Date;
-import java.util.List;
-
 import lombok.Data;
 
 /**
@@ -13,7 +11,7 @@ import lombok.Data;
 @Data
 public class SelectTea {
 	
-	private int id;
+	private String id;
 	//授课地址
 	private String address;
 	//老师性别
@@ -50,6 +48,9 @@ public class SelectTea {
 	private Integer delstatus;
 
 	private String popenid;
+	
+	private String sysCreatedBy;
+	private Date sysCreated;
 
 
 	
