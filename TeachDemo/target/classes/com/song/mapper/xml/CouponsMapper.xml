@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.song.mapper.CouponsMapper">
+
+	<insert id="add" parameterType="Coupons">
+		insert into coupons (types,price,openid,startime,endtime,status) values (#{types},#{price},#{openid},#{startime},#{endtime},#{status})
+	</insert>
+
+	<select id="selectByStatus" parameterType="Coupons" resultType="Coupons">
+		select * from coupons where status=#{status} and openid=#{openid}
+	</select>
+	
+	<update id="updateStatus" parameterType="int">
+		update coupons set status='2' where id=#{id}
+	</update>
+	
+</mapper>

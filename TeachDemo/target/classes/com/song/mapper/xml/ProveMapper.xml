@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.song.mapper.ProveMapper">
+
+	<select id="selectByTid" parameterType="int" resultType="Prove">
+		select * from prove where tid = #{tid}
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		delete from prove where tid=#{tid}
+	</delete>
+
+	<insert id="add" parameterType="Prove" useGeneratedKeys="true" keyProperty="id">
+		insert into prove(tid,idcard,sex,back,face,front,names) values (#{tid},#{idcard},#{sex},#{back},#{face},#{front},#{names})
+	</insert>
+	
+	<update id="update" parameterType="Prove" useGeneratedKeys="true" keyProperty="id">
+		update prove set
+			<trim suffixOverrides=",">
+				<if test="teachnum != null">
+					teachnum=#{teachnum},
+				</if>
+				<if test="teachimage != null">
+					teachimage=#{teachimage},
+				</if>
+				<if test="graduateimage != null">
+					graduateimage=#{graduateimage},
+				</if>
+				<if test="graduatenum != null">
+					graduatenum=#{graduatenum},
+				</if>
+				<if test="status != null">
+					status=#{status},
+				</if>
+				<if test="status1 != null">
+					status1=#{status1},
+				</if>
+				<if test="status2 != null">
+					status2=#{status2},
+				</if>
+			</trim>
+		where tid=#{id}
+	</update>
+	
+	<select id="selectByIdcard" parameterType="int" resultType="Prove">
+		select p.id,p.idcard,p.sex,p.back,p.front,p.face,p.names,p.status from prove p where p.tid=#{tid}
+	</select>
+	<select id="selectByTeach" parameterType="int" resultType="Prove">
+		select p.teachnum,p.teachimage,p.status1 from prove p where p.tid=#{tid}
+	</select>
+	<select id="selectByStudent" parameterType="int" resultType="Prove">
+		select p.graduateimage,p.graduatenum,p.status2 from prove p where p.tid=#{tid}
+	</select>
+	
+	<update id="updateStatus" parameterType="int">
+		update prove set status=1 where tid=#{id};
+	</update>
+	
+	<update id="updateStatus1" parameterType="int">
+		update prove set status1=1 where tid=#{id};
+	</update>
+	
+	<update id="updateStatus2" parameterType="int">
+		update prove set status2=1 where tid=#{id};
+	</update>
+
+</mapper>
