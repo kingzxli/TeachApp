@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.PageHelper;
 import com.song.controller.PushController;
 import com.song.controller.SyncController;
 import com.song.entity.Assert;
@@ -24,6 +23,7 @@ import com.song.pojo.SelectTeaVo;
 import com.song.pojo.TeaSelect;
 import com.song.pojo.Teacher;
 import com.song.service.SelectTeaService;
+import com.song.util.IdMaker;
 
 @Service
 public class SelectTeaServiceImpl implements SelectTeaService{
@@ -65,18 +65,20 @@ public class SelectTeaServiceImpl implements SelectTeaService{
 		String lng = ll.split(":")[1];
 		selectTea.setLatitude(lat);
 		selectTea.setLatlng(lng);
-		
+		selectTea.setId(IdMaker.get());
+		selectTea.setSysCreated(new Date());
+		selectTea.setSysCreatedBy(selectTea.getStuid().toString());
 		selectTeaMapper.add(selectTea);
 		
 		Parent p = parentMapper.selectByid(selectTea.getStuid());
-		pushController.sendMpMessage(MRLIAO, p.getName(), selectTea.getPhone(), selectTea.getAddress(), todays, selectTea.getTrial());
+		pushController.sendMpMessage(MRLIAO, p.getName(), selectTea.getPhone(), selectTea.getAddress(), todays, selectTea.getTrial(),selectTea.getId(),selectTea.getSysCreatedBy());
 		
 		String[] arr = selectTea.getAddress().split("-");
 		String city = arr[1];
 		String area = arr[2];
 		List<String> teacherOpenIds = teacherMapper.selectByProjectCity(city,area);
 		if(teacherOpenIds != null && !teacherOpenIds.isEmpty()) {
-			syncController.sentmsg(teacherOpenIds, as[2], selectTea.getTrial(), selectTea.getAddress(), selectTea.getGrade());			
+			syncController.sentmsg(teacherOpenIds, as[2], selectTea.getTrial(), selectTea.getAddress(), selectTea.getGrade(),selectTea.getId(),selectTea.getSysCreatedBy());			
 		}
 		
 		

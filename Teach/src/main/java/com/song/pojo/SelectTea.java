@@ -1,5 +1,6 @@
 package com.song.pojo;
 
+import java.util.Date;
 import java.util.List;
 
 import lombok.Data;
@@ -12,7 +13,7 @@ import lombok.Data;
 @Data
 public class SelectTea {
 	
-	private int id;
+	private String id;
 	private String address;
 	private String detailed;
 	private String otherrequire;
@@ -36,6 +37,8 @@ public class SelectTea {
 	private String teachingType;
 	private String latlng;
 	private String latitude;
+	private String sysCreatedBy;
+	private Date sysCreated;
 	/**
 	 * 了解我们的途径
 	 */

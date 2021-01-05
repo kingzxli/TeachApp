@@ -21,9 +21,9 @@ public class SyncController {
 	 * @param grade
 	 */
 	@Async
-	public void sentmsg(List<String> teacherOpenIds,String subject,String Trial,String adress,String grade) {
+	public void sentmsg(List<String> teacherOpenIds,String subject,String Trial,String adress,String grade,String id,String stuid) {
 		for(String teacherOpenId : teacherOpenIds) {
-			pushController.sendMessage(teacherOpenId, subject, Trial, adress, grade);
+			pushController.sendMessage(teacherOpenId, subject, Trial, adress, grade,id,stuid);
 		}				
 	}
 	

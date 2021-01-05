@@ -2,17 +2,11 @@ package com.song.controller;
 
 import java.util.HashMap;
 import java.util.Map;
-
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.alibaba.fastjson.JSON;
 import com.song.util.HttpClientUtil;
 import com.song.util.WXTmplMsgUtils;
-
 import net.sf.json.JSONObject;
 
 
@@ -26,12 +20,9 @@ public class PushController {
 	private static String APP_ID = "wx2da6d0a84363b015";
 	private static String SECRET = "f5f06cfa60b77572289c52ff238ba049";
 	
-    @Autowired
-    private OrderController orderController;
-	
     
 //    客户填写“帮我选师”后，管理者能够收到通知提醒
-    public JSONObject sendMpMessage(String openid,String name,String phone,String address,String addtime,String trial){
+    public JSONObject sendMpMessage(String openid,String name,String phone,String address,String addtime,String trial,String id,String stuid){
 		JSONObject result = new JSONObject();
 		JSONObject obj = new JSONObject();
 		JSONObject mp_template_msg = new JSONObject();
@@ -84,7 +75,8 @@ public class PushController {
 			mp_template_msg.put("template_id", "dNODmY6sbVpaUkpZxrgk2SqN_E2cO4nRNp0yaZ601uY");
 			mp_template_msg.put("url","https://www.baidu.com");
 			miniprogram.put("appid", "wxf020b9146ae3ec37");
-			miniprogram.put("pagepath", "pages/jiedanxiangqing/jiedanxiangqing");
+			//miniprogram.put("pagepath", "pages/jiedanxiangqing/jiedanxiangqing");
+			miniprogram.put("pagepath", "pages/bangwozhaoshi-detail/bangwozhaoshi-detail?isShowBtn=true&id="+id+"&ismine=0&stuid="+stuid +"");			
 			mp_template_msg.put("miniprogram", miniprogram);
 			mp_template_msg.put("data", json1);
 			obj.put("mp_template_msg", mp_template_msg);
@@ -99,7 +91,7 @@ public class PushController {
     
     
     
-    public JSONObject sendMessage(String openid,String project,String addtime,String address,String grade){
+    public JSONObject sendMessage(String openid,String project,String addtime,String address,String grade,String id,String stuid){
 		JSONObject result = new JSONObject();
 		JSONObject obj = new JSONObject();
 		JSONObject mp_template_msg = new JSONObject();
@@ -152,7 +144,8 @@ public class PushController {
 			mp_template_msg.put("template_id", "2y51Fci1pAeBsN8KvvLAOw6k2_4Zn6K3c_f5PAT1d-c");
 			mp_template_msg.put("url","https://www.baidu.com");
 			miniprogram.put("appid", "wxf020b9146ae3ec37");
-			miniprogram.put("pagepath", "pages/jiedanxiangqing/jiedanxiangqing");
+			//miniprogram.put("pagepath", "pages/jiedanxiangqing/jiedanxiangqing");
+			miniprogram.put("pagepath", "pages/bangwozhaoshi-detail/bangwozhaoshi-detail?isShowBtn=true&id="+id+"&ismine=0&stuid="+stuid +"");			
 			mp_template_msg.put("miniprogram", miniprogram);
 			mp_template_msg.put("data", json1);
 			obj.put("mp_template_msg", mp_template_msg);
