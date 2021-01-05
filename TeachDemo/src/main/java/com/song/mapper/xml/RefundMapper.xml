@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.song.mapper.RefundMapper">
+
+	<insert id="add" parameterType="Refund">
+		insert into refund(openid,ordernum) values (#{openid},#{ordernum})
+	</insert>
+	
+	<update id="update" parameterType="String">
+		update refund set status='yes',money=#{money} where ordernum=#{ordernum}
+	</update>	
+	
+	
+	<resultMap type="Refund" id="RefundMap">
+		<id column="id" property="id"/>
+		<result column="openid" property="openid"/>
+		<result column="ordernum" property="ordernum"/>
+		<result column="money" property="money"/>
+		<association property="order" javaType="Order">
+			<id column="id" property="id"/>
+			<result column="addtime" property="addtime"/>
+			<result column="body" property="body"/>
+			<result column="image" property="image"/>
+			<result column="name" property="name"/>
+			<result column="num" property="num"/>
+			<result column="totalnum" property="totalnum"/>
+			<result column="totalfee" property="totalfee"/>
+		</association>
+	</resultMap>
+	<select id="selectByOpenid" parameterType="String" resultMap="RefundMap">
+		select * from refund r,orders o where r.ordernum = o.ordernum and r.openid=#{openid} and r.status='yes' and o.status='已退款'
+	</select>
+	
+	
+	<select id="selectAll" resultType="Refund">
+		select * from refund r,orders o where r.ordernum = o.ordernum and r.status='no' and o.status='退款中'
+	</select>
+	
+</mapper>

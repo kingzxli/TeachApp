@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.song.mapper.SelectTeaMapper">
+
+	<resultMap type="SelectTea" id="resultMap">
+		<id column="id" property="id"/>
+		<result column="address" property="address"/>
+		<result column="detailed" property="detailed"/>
+		<result column="other_require" property="otherrequire"/>
+		<result column="stu_situation" property="stusituation"/>
+		<result column="tea_require" property="tearequire"/>
+		<result column="stu_sex" property="stusex"/>
+		<result column="tea_sex" property="teasex"/>
+		<result column="stu_message" property="stumessage"/>
+		<result column="culture" property="culture"/>
+		<result column="grade" property="grade"/>
+		<result column="subject" property="subject"/>
+		<result column="tea_type" property="teatype"/>
+		<result column="trial" property="trial"/>
+		<result column="phone" property="phone"/>
+		<result column="goclass" property="goclass"/>
+		<result column="school" property="school"/>
+		<result column="addtime" property="addtime"/>
+		<result column="pstatus" property="pstatus"/>
+		<result column="teachingType" property="teachingType"/>
+		<result column="name" property="name"/>
+<!-- 		<association property="parent" javaType="Parent">
+			<result column="name" property="name"/>
+		</association>
+ -->	</resultMap>
+
+
+	<insert id="add" parameterType="SelectTea" useGeneratedKeys="true" keyProperty="id">
+		insert into select_tea (addtime,school,goclass,stu_id,phone,address,detailed,other_require,stu_situation,tea_require,stu_sex,tea_sex,stu_message,culture,grade,subject,tea_type,trial) values
+		 (#{addtime},#{school},#{goclass},#{stuid},#{phone},#{address},#{detailed},#{otherrequire},#{stusituation},#{tearequire},#{stusex},#{teasex},#{stumessage},#{culture},#{grade},#{subject},#{teatype},#{trial})
+	</insert>
+	
+	<select id="selectByType" parameterType="SelectTea" resultType="SelectTea">
+		select id,stu_id,subject,address,detailed,grade from select_tea where tea_type=#{tea_type} and pstatus != 1 and delstatus = 0
+		<if test="address != null and address != ''">
+			and address=#{address}
+		</if>
+		<if test="project != null and project !=''">
+			and subject =#{project}
+		</if>
+		<if test="tea_sex !=null and tea_sex !=''">
+			and tea_sex = #{tea_sex}
+		</if>
+	</select>
+	
+	<select id="selectall" parameterType="com.song.pojo.SelectTea" resultType="com.song.pojo.SelectTea">
+	select st.* ,
+	p.name
+	from
+	select_tea st
+	left join parent p on st.popenid = p.openid
+	where st.delstatus = 0
+	<if test="name != null and name != ''">
+		and p.name like concat('%',#{name},'%') 
+	</if>
+	<if test="phone != null and phone !=''">
+		and st.phone like concat('%',#{phone},'%')
+	</if>	
+	<if test="pstatus != null">
+		and st.pstatus = #{pstatus}
+	</if>
+	<if test="teachingType != null and teachingType !=''">
+		and st.teachingType = #{teachingType}
+	</if>
+	<if test="address != null and address != ''">
+		and (st.address like concat('%',#{address},'%') or st.detailed like concat('%',#{address},'%'))
+	</if>
+	<if test="subject != null and subject !=''">
+		and st.subject like concat('%',#{subject},'%')
+	</if>
+	<if test="teasex !=null and teasex !=''">
+		and st.tea_sex like concat('%',#{teasex},'%')
+	</if>
+	
+	</select>
+	
+	<select id="selectAll" parameterType="SelectTea" resultType="SelectTea">
+		select teachingType,id,stu_id,subject,address,detailed,grade from select_tea where pstatus != 1 and delstatus = 0
+	</select>
+
+	<select id="selectById" resultType="SelectTea" parameterType="int">
+		select * from select_tea s where s.stu_id = #{id} and s.delstatus = 0
+	</select>
+	
+	<update id="delete" parameterType="int">
+		update select_tea set delstatus = 1 where id =#{id}
+	</update>
+	
+	<select id="selectId" resultType="SelectTea" parameterType="int">
+		select * from select_tea where id = #{id}
+	</select>
+	
+	
+	<insert id="addTeaSel" parameterType="TeaSelect">
+		insert into selecttea (topenid,sid,addtime,tid) values (#{topenid},#{sid},#{addtime},#{tid})
+	</insert>
+	
+	
+	<select id="selectByPid" parameterType="int" resultType="TeaSelect">
+		select st.tid,st.topenid,st.addtime,st.id,st.sid,t.image,t.name,s.grade,s.subject,st.status
+		from select_tea s,teacher t,selecttea st where t.openid = st.topenid and s.id = st.sid
+		and st.status = 0 and s.delstatus = 0
+		and st.sid = any(select id from select_tea where stu_id = #{pid});
+	</select>
+	
+	
+	<select id="selectByTopenid" parameterType="String" resultType="TeaSelect">
+		select st.tid,s.id,s.grade,s.subject,s.culture,s.address,s.detailed,st.status from select_tea s,selecttea st 
+		where s.id = st.sid and s.delstatus = 0
+		and st.sid = any(select sid from selecttea st where st.topenid = #{openid})
+	</select>
+	
+	<update id="updateStatus" parameterType="int">
+		update selecttea set status=#{status} where sid=#{id}
+	</update>
+	
+	<update id="updatePstatus" parameterType="int">
+		update select_tea set pstatus=#{status} where id=#{id}
+	</update>
+	
+	<select id="selectStuta" parameterType="TeaSelect" resultType="TeaSelect">
+		select * from selecttea st,select_tea s where st.sid=#{sid} and st.topenid=#{openid} and s.delstatus = 0
+	</select>
+	
+	<select id="selectBystatus" parameterType="int" resultType="TeaSelect">
+		select * from selecttea s,teacher t where s.tid = t.id and s.sid = #{sid}
+	</select>
+	
+	
+</mapper>
