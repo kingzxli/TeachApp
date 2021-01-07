@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 public class SelectTeaVo {
-	private int id;
+	private String id;
 	private String address;
 	private String detailed;
 	private String otherrequire;

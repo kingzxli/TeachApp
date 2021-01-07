@@ -108,7 +108,7 @@ public class SelectTeaController {
 	
 	//通过数据id查详情
 	@PostMapping("selectid")
-	public JsonResult selectid(int id) {
+	public JsonResult selectid(String id) {
 		SelectTea st = SelectteaService.selectId(id);
 		return JsonResult.ok(st);
 	}
@@ -116,7 +116,7 @@ public class SelectTeaController {
 	
 	//删除
 	@PostMapping("delete")
-	public JsonResult delete(int id) {
+	public JsonResult delete(String id) {
 		SelectteaService.delete(id);
 		SelectteaService.updatePstatus(id, 2);
 		SelectteaService.updateStatus(id, 2);

@@ -97,13 +97,13 @@ public class SelectTeaServiceImpl implements SelectTeaService{
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(String id) {
 		// TODO Auto-generated method stub
 		selectTeaMapper.delete(id);
 	}
 
 	@Override
-	public SelectTea selectId(int id) {
+	public SelectTea selectId(String id) {
 		// TODO Auto-generated method stub
 		return selectTeaMapper.selectId(id);
 	}
@@ -127,7 +127,7 @@ public class SelectTeaServiceImpl implements SelectTeaService{
 	}
 
 	@Override
-	public void updateStatus(int id, int status) {
+	public void updateStatus(String id, int status) {
 		selectTeaMapper.updateStatus(id, status);
 	}
 
@@ -138,7 +138,7 @@ public class SelectTeaServiceImpl implements SelectTeaService{
 	}
 
 	@Override
-	public void updatePstatus(int id, int status) {
+	public void updatePstatus(String id, int status) {
 		// TODO Auto-generated method stub2
 		selectTeaMapper.updatePstatus(id, status);
 	}
@@ -173,9 +173,9 @@ public class SelectTeaServiceImpl implements SelectTeaService{
 	public void selectBySids(Integer id,Integer status,Integer sid,String topenid,String name) {
 		SelectTea st = selectTeaMapper.selectBySids(sid);
 		//更改是否同意接单状态(关系表)
-		selectTeaMapper.updateStatus(id, status);
+		selectTeaMapper.updateStatus(id+"", status);
 		//更改生源接单状态
-		selectTeaMapper.updatePstatus(sid, status);
+		selectTeaMapper.updatePstatus(sid+"", status);
 		if(status==1) {
 			//查询待确认待关系表
 			List<String> ts = selectTeaMapper.selectBySid(sid,id);

@@ -23,9 +23,9 @@ public interface SelectTeaMapper{
 	//根据学生id查 
 	List<SelectTea> selectById(int id);
 	//删除
-	void delete(int id);
+	void delete(String id);
 	//通过数据id查详情
-	SelectTea selectId(int id);
+	SelectTea selectId(String id);
 	
 	//老师接单
 	void addTeaSel(@Param("topenid")String topenid,@Param("sid")int sid,@Param("addtime")String addtime,@Param("tid")Integer tid,@Param("pid")Integer pid);
@@ -40,9 +40,9 @@ public interface SelectTeaMapper{
 	List<TeaSelect> selectByTopenid(String openid);
 	
 	//修改老师接单状态
-	void updateStatus(@Param("id")int id,@Param("status")int status);
+	void updateStatus(@Param("id")String id,@Param("status")int status);
 	//修改家长接单状态
-	void updatePstatus(@Param("id")int id,@Param("status")int status);
+	void updatePstatus(@Param("id")String id,@Param("status")int status);
 	
 	//点击生源接单查看是否接过单
 	List<TeaSelect> selectStuta(@Param("sid")int sid,@Param("openid")String openid);
