@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
+Built-By: Administrator
+Build-Jdk: 15.0.1
 Implementation-Title: Teach
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: king
 Implementation-Vendor-Id: com.song
-Build-Jdk: 1.8.0_221
+Implementation-Vendor: Pivotal Software, Inc.
 Implementation-URL: https://projects.spring.io/spring-boot/TeachDemo/
 Created-By: Maven Integration for Eclipse
-Implementation-Vendor: Pivotal Software, Inc.
 

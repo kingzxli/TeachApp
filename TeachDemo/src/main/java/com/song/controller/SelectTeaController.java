@@ -42,7 +42,7 @@ public class SelectTeaController {
 	
 	//家长接受或者拒绝单
 	@PostMapping("updatestatus")
-	public JsonResult updateStutas(int id,int status,int sid) {
+	public JsonResult updateStutas(String id,int status,String sid) {
 		if(status==1) {
 			SelectteaService.updatePstatus(sid, 1);
 			SelectteaService.updateStatus(id, 1);
@@ -101,7 +101,7 @@ public class SelectTeaController {
 	
 	//删除
 	@GetMapping("delete")
-	public JsonResult delete(int id) {
+	public JsonResult delete(String id) {
 		SelectteaService.delete(id);
 		SelectteaService.updatePstatus(id, 2);
 		SelectteaService.updateStatus(id, 2);

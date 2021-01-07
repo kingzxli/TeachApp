@@ -18,15 +18,15 @@ public interface SelectTeaService {
 	//根据学生id查 
 	List<SelectTea> selectById(int id);
 	//删除
-	void delete(int id);
+	void delete(String id);
 	//通过数据id查详情
 	SelectTea selectId(int id);
 	
 	void addTeaSel(@Param("topenid")String topenid,@Param("sid")int sid,@Param("addtime")String addtime,@Param("tid")Integer tid);
 	List<TeaSelect> selectByPid(Integer pid); 
 	List<TeaSelect> selectByTopenid(String openid);
-	void updateStatus(int id,int status);
-	void updatePstatus(@Param("id")int id,@Param("status")int status);
+	void updateStatus(@Param("id")String id,@Param("status")int status);
+	void updatePstatus(@Param("id")String id,@Param("status")int status);
 	
 	TeaSelect selectStuta(int sid,String openid);
 	

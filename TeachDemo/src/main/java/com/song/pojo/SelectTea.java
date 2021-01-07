@@ -51,7 +51,7 @@ public class SelectTea {
 	
 	private String sysCreatedBy;
 	private Date sysCreated;
-
+	private String way;
 
 	
 	

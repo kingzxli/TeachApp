@@ -35,7 +35,7 @@ public class SelectTeaServiceImpl implements SelectTeaService{
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(String id) {
 		// TODO Auto-generated method stub
 		selectTeaMapper.delete(id);
 	}
@@ -65,7 +65,7 @@ public class SelectTeaServiceImpl implements SelectTeaService{
 	}
 
 	@Override
-	public void updateStatus(int id, int status) {
+	public void updateStatus(String id, int status) {
 		// TODO Auto-generated method stub
 		selectTeaMapper.updateStatus(id, status);
 	}
@@ -83,7 +83,7 @@ public class SelectTeaServiceImpl implements SelectTeaService{
 	}
 
 	@Override
-	public void updatePstatus(int id, int status) {
+	public void updatePstatus(String id, int status) {
 		// TODO Auto-generated method stub
 		selectTeaMapper.updatePstatus(id, status);
 	}

@@ -78,7 +78,7 @@
 	<if test="teasex !=null and teasex !=''">
 		and st.tea_sex like concat('%',#{teasex},'%')
 	</if>
-	
+	ORDER BY st.addtime DESC
 	</select>
 	
 	<select id="selectAll" parameterType="SelectTea" resultType="SelectTea">
@@ -89,7 +89,7 @@
 		select * from select_tea s where s.stu_id = #{id} and s.delstatus = 0
 	</select>
 	
-	<update id="delete" parameterType="int">
+	<update id="delete" >
 		update select_tea set delstatus = 1 where id =#{id}
 	</update>
 	
@@ -117,11 +117,11 @@
 		and st.sid = any(select sid from selecttea st where st.topenid = #{openid})
 	</select>
 	
-	<update id="updateStatus" parameterType="int">
+	<update id="updateStatus" >
 		update selecttea set status=#{status} where sid=#{id}
 	</update>
 	
-	<update id="updatePstatus" parameterType="int">
+	<update id="updatePstatus" >
 		update select_tea set pstatus=#{status} where id=#{id}
 	</update>
 	
