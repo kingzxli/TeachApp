@@ -45,7 +45,7 @@ public interface SelectTeaMapper{
 	void updatePstatus(@Param("id")String id,@Param("status")int status);
 	
 	//点击生源接单查看是否接过单
-	List<TeaSelect> selectStuta(@Param("sid")int sid,@Param("openid")String openid);
+	List<TeaSelect> selectStuta(@Param("sid")String sid,@Param("openid")String openid);
 	
 	//查生源我的老师
 	Set<Teacher> SelectTea(Integer pid);

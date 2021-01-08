@@ -132,8 +132,7 @@ public class SelectTeaServiceImpl implements SelectTeaService{
 	}
 
 	@Override
-	public List<TeaSelect> selectStuta(int sid, String openid) {
-		// TODO Auto-generated method stub
+	public List<TeaSelect> selectStuta(String sid, String openid) {
 		return selectTeaMapper.selectStuta(sid, openid);
 	}
 

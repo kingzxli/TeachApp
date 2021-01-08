@@ -34,7 +34,7 @@ public interface SelectTeaService {
 	void updateStatus(@Param("id")String id,@Param("status")int status);
 	void updatePstatus(@Param("id")String id,@Param("status")int status);
 	
-	List<TeaSelect> selectStuta(int sid,String openid);
+	List<TeaSelect> selectStuta(String sid,String openid);
 	
 	List<String> selectBySid(@Param("sid") Integer sid,@Param("id") Integer id);
 	

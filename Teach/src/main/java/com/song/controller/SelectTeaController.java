@@ -60,7 +60,7 @@ public class SelectTeaController {
 	
 	//生源接单查看是否接单
 	@PostMapping("selectstatus")
-	public JsonResult selectStatus(int sid,String openid) {
+	public JsonResult selectStatus(String sid,String openid) {
 		List<TeaSelect> ts = SelectteaService.selectStuta(sid, openid);
 		return JsonResult.ok(ts);
 	}
