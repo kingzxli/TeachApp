@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.song.TeachApplicationTests" time="0.021" tests="1" errors="0" skipped="0" failures="0">
+<testsuite name="com.song.TeachApplicationTests" time="0.146" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/jre/lib"/>
@@ -25,7 +25,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="os.name" value="Mac OS X"/>
-    <property name="classworlds.conf" value="/Users/king/sw/workspace/markeTouch2/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf4266792020205162232.tmp"/>
+    <property name="classworlds.conf" value="/Users/king/sw/workspace/markeTouch2/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf7835542968483946141.tmp"/>
     <property name="jansi.force" value="true"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
     <property name="java.library.path" value="/Users/king/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
@@ -63,5 +63,5 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase name="contextLoads" classname="com.song.TeachApplicationTests" time="0.021"/>
+  <testcase name="contextLoads" classname="com.song.TeachApplicationTests" time="0.146"/>
 </testsuite>

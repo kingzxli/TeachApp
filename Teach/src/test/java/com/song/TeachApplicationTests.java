@@ -17,9 +17,9 @@ public class TeachApplicationTests {
 	
 	@Test
 	public void contextLoads() {
-		System.out.println("222");	
-		pushController.sendMessage("oY2Uc0SOK24q0AoJsjxaYyryZYYc", "23", "22", "22", "22","710","2727");
-		System.out.println("结束");
+//		System.out.println("222");	
+//		pushController.sendMessage("oY2Uc0SOK24q0AoJsjxaYyryZYYc", "23", "22", "22", "22","710","2727");
+//		System.out.println("结束");
 	}
 	
 	
