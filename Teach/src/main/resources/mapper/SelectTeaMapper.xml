@@ -86,9 +86,12 @@
 		select * from select_tea s where stu_id = #{id} and delstatus = 0
 	</select>
 	
-	<delete id="delete" >
+	<!-- <delete id="delete" >
 		delete from select_tea where id = #{id}
-	</delete>
+	</delete> -->
+	<update id="delete" >
+		update select_tea set pstatus = 3 where id=#{id}
+	</update>
 	
 	<select id="selectId" resultType="com.song.pojo.SelectTea" >
 		select * from select_tea where id = #{id} and delstatus = 0
