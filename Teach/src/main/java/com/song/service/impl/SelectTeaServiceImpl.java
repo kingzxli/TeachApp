@@ -173,19 +173,22 @@ public class SelectTeaServiceImpl implements SelectTeaService{
 		SelectTea st = selectTeaMapper.selectBySids(sid);
 		//更改是否同意接单状态(关系表)
 		selectTeaMapper.updateStatus(id+"", status);
-		//更改生源接单状态
-		selectTeaMapper.updatePstatus(sid+"", status);
+		
 		if(status==1) {
+			//更改生源接单状态
+			//生源单状态（0:匹配中，1:已匹配，2:取消订单）
+			selectTeaMapper.updatePstatus(sid+"", status);
 			//查询待确认待关系表
 			List<String> ts = selectTeaMapper.selectBySid(sid,id);
 			//更改此单的其他老师显示被拒绝
 			selectTeaMapper.updateStatusNo(id);		
+			
+			pushController.parentPass("恭喜接单成功,请等待助教老师的通知",topenid,st.getGrade()+st.getSubject(),"详细时间请查看",st.getAddress(), "家长同意");
+			pushController.parentPass("有家长同意接单请查看",MRLIAO,st.getGrade()+st.getSubject(),"详细时间请查看",st.getAddress(), "家长同意");
+		
 			if(ts != null && !ts.isEmpty()) {
 				syncController.sentMsgFalse(ts, st.getGrade(), st.getSubject(), st.getAddress());
 			}
-
-			pushController.parentPass("恭喜接单成功,请等待助教老师的通知",topenid,st.getGrade()+st.getSubject(),"详细时间请查看",st.getAddress(), "家长同意");
-			pushController.parentPass("有家长同意接单请查看",MRLIAO,st.getGrade()+st.getSubject(),"详细时间请查看",st.getAddress(), "家长同意");
 		}else {			
 			pushController.parentPass("您应聘的单子已被接走,请应聘其他的单子",topenid,st.getGrade()+st.getSubject(),"详细时间请查看",st.getAddress(), "家长拒绝");
 		}

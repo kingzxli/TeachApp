@@ -174,7 +174,7 @@
 			and tea_type=#{teatype} 
 		</if>
 		<if test="address != null and address != ''">
-			and address=#{address}
+			and address like concat('%',#{address},'%')		
 		</if>
 		<if test="subject != null and subject !=''">
 			and subject =#{subject}
