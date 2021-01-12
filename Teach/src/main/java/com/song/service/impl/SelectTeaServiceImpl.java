@@ -169,7 +169,7 @@ public class SelectTeaServiceImpl implements SelectTeaService{
 		
 		if(status==1) {
 			//更改生源接单状态
-			//生源单状态（0:匹配中，1:已匹配，2:取消订单）
+			//生源单状态（0:匹配中,1:已匹配,2:取消订单）
 			selectTeaMapper.updatePstatus(sid+"", status);
 			//查询待确认待关系表
 			List<String> ts = selectTeaMapper.selectBySid(sid,id);
