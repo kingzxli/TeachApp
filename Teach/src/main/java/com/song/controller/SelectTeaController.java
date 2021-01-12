@@ -117,7 +117,6 @@ public class SelectTeaController {
 	//删除
 	@PostMapping("delete")
 	public JsonResult delete(String id) {
-		SelectteaService.delete(id);
 		SelectteaService.updatePstatus(id, 2);
 		SelectteaService.updateStatus(id, 2);
 		return JsonResult.ok();

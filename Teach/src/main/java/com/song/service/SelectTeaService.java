@@ -22,8 +22,6 @@ public interface SelectTeaService {
 	List<SelectTea> selectAll(@Param("tea_type")String tea_type,@Param("address")String address,@Param("project")String project,@Param("tea_sex")String tea_sex);
 	//根据学生id查 
 	List<SelectTea> selectById(int id);
-	//删除
-	void delete(String id);
 	//通过数据id查详情
 	SelectTea selectId(String id);
 	
