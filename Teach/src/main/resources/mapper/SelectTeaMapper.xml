@@ -163,6 +163,7 @@
 		where 
 		pstatus != 1 
 		and delstatus = 0
+		AND addtime &gt;= DATE_SUB( DATE_FORMAT( NOW( ), '%Y-%m-%d' ), INTERVAL 2 DAY )
 		<if test="teatype != null and teatype != ''">
 			and tea_type=#{teatype} 
 		</if>
