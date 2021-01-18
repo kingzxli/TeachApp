@@ -183,6 +183,12 @@ public class TeacherServiceImpl implements TeacherService{
 		return teacherMapper.selectByActivate(teacher);
 	}
 
+	@Override
+	public List<Teacher> selectByNamePro2(Teacher teacher) {
+		
+		return teacherMapper.selectByNamePro2(teacher);
+	}
+
 
 
 }

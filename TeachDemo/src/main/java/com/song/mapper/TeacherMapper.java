@@ -63,5 +63,6 @@ public interface TeacherMapper {
 	void updateOther(@Param("other")String other,@Param("tid")int tid);
 	
 	List<Teacher> selectByActivate(Teacher teacher);
+	List<Teacher> selectByNamePro2(Teacher teacher);
 	
 }

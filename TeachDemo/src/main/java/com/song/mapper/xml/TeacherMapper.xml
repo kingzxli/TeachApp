@@ -43,6 +43,51 @@
 		</if>
 		order by id desc
 	</select>
+	
+	<select id="selectByNamePro2" parameterType="com.song.pojo.Teacher" resultType="com.song.pojo.Teacher">
+		SELECT
+			a.name,
+			a.phone,
+			a.grade,
+			a.price,
+			a.seniority,
+			a.types,
+			a.sex,
+			a.education,
+			a.school,
+			a.profession,
+			a.location,
+			b.weChat
+		FROM
+			teacher a
+			LEFT JOIN prove b ON a.id = b.tid
+		where a.activate = 1 and a.online = '是'
+		<if test="name != null and name != ''">
+		 	and a.name like CONCAT('%', #{name} , '%')
+		</if>
+		<if test="phone != null and phone != ''">
+			and a.phone like CONCAT('%', #{phone} , '%')
+		</if>
+		<if test="project != null and project != ''">
+			and a.project like CONCAT('%', #{project} , '%')
+		</if>
+		<if test="types != null and types != ''">
+			and a.types like CONCAT('%', #{types} , '%')
+		</if>
+		<if test="sex != null and sex != ''">
+			and a.sex like CONCAT('%', #{sex} , '%')
+		</if>
+		<if test="school != null and school != ''">
+			and a.school like CONCAT('%', #{school} , '%')
+		</if>
+		<if test="location != null and location != ''">
+			and a.location like CONCAT('%', #{location} , '%')
+		</if>
+		<if test="grade != null and grade != ''">
+			and a.grade = #{grade}
+		</if>
+		order by a.id desc
+	</select>
 
 
 	<select id="selectByZero" parameterType="Teacher" resultType="Teacher">

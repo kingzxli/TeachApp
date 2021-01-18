@@ -57,4 +57,5 @@ public interface TeacherService {
 	void updateProve(@Param("status")int status,@Param("tid")int tid);
 	void updateOther(@Param("other")String other,@Param("tid")int tid);
 	List<Teacher> selectByActivate(Teacher teacher);
+	List<Teacher> selectByNamePro2(Teacher teacher);
 }

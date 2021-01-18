@@ -5,20 +5,21 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.ibatis.annotations.Param;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.song.pojo.Goods;
+import com.song.entity.Result;
 import com.song.pojo.Lesson;
 import com.song.pojo.Prove;
 import com.song.pojo.Teacher;
@@ -27,7 +28,7 @@ import com.song.service.ProveService;
 import com.song.service.TeacherService;
 import com.song.util.HttpClientUtil;
 import com.song.util.JsonResult;
-
+import com.song.util.poi.FileUtil;
 import net.sf.json.JSONArray;
 
 
@@ -50,7 +51,8 @@ public class TeacherController {
 	private PushController pushController;
 	@Autowired
 	private LessonService lessonService;
-	
+	@Autowired
+	private FileUtil fileUtil;
 	private String loc;
 	
 	//查询下架老师
@@ -345,6 +347,7 @@ public class TeacherController {
 			if(t.get(i).getId()!=null) {
 				Prove p = proveService.selectByTid(t.get(i).getId());
 				Lesson l = lessonService.selectById(t.get(i).getId());
+				//	 "教师名称","联系号码","微信号","主教","价格","教龄","教师类型","教师性别","学历","毕业学校","专业","所在区域",
 				if(p!=null) {
 					t.get(i).setFront(p.getFront());
 					t.get(i).setBack(p.getBack());
@@ -388,7 +391,64 @@ public class TeacherController {
 		return JsonResult.ok();
 	}
 	
-	
+	@GetMapping("export")
+	public Result<Map<String, String>> exportTeacher(Teacher teacher) {
+		List<Teacher> list = teacherService.selectByNamePro2(teacher);
+		 Workbook workbook = new SXSSFWorkbook();
+		 //设置sheet名称
+	     Sheet sheet = workbook.createSheet("教师管理");
+	     //设置样式     
+	     CellStyle style = fileUtil.createStyle(workbook);
+	     
+	     /**
+	      * 设置表头
+	      */
+	     Row row0 = sheet.createRow(0);
+	     String[] colNames = new String[]{
+	    		 "教师名称","联系号码","微信号","主教","价格","教龄","教师类型","教师性别","学历","毕业学校","专业","所在区域",
+	     };
+	     for(int i = 0;i<colNames.length;i++) {
+	    	 sheet.setColumnWidth(i, 20*256);
+	    	 fileUtil.cellSetUp(row0,i, colNames[i], style);
+	     }
+	     
+	     
+	     /**
+	      * 设置列表数据
+	      */
+	       for(int j= 0;j< list.size();j++) {
+	    	   Row row = sheet.createRow(j+1);
+	    	   String sex = "女";
+	    	   if("1".equals(list.get(j).getSex())) {
+	    		   sex = "男";
+	    	   }
+	    	   fileUtil.cellSetUp(row,0,list.get(j).getName(), style);
+	    	   fileUtil.cellSetUp(row,1,list.get(j).getPhone(), style);
+	    	   fileUtil.cellSetUp(row,2,list.get(j).getWeChat(), style);
+	    	   fileUtil.cellSetUp(row,3,list.get(j).getGrade(), style);
+	    	   fileUtil.cellSetUp(row,4,list.get(j).getPrice().toString(), style);
+	    	   fileUtil.cellSetUp(row,5,list.get(j).getSeniority(), style);
+	    	   fileUtil.cellSetUp(row,6,list.get(j).getTypes(), style);    	    
+	    	   fileUtil.cellSetUp(row,7,sex, style);
+	    	   fileUtil.cellSetUp(row,8,list.get(j).getEducation(), style);
+	    	   fileUtil.cellSetUp(row,9,list.get(j).getSchool(), style);
+	    	   fileUtil.cellSetUp(row,10,list.get(j).getProfession(), style);
+	    	   fileUtil.cellSetUp(row,11,list.get(j).getLocation(), style);
+	       }
+	         
+	         
+	       /**
+			 * 3.将文件写入服务器目录
+			 */
+			String fileName = fileUtil.writeExcel(workbook,"教师管理");
+			/**
+			 * 4.返回文件下载地址
+			 */
+			Map<String, String> map = new HashMap<>();
+			map.put("url", fileName);
+			return new Result<>(map);	
+		
+	}
 	
 	
 	
