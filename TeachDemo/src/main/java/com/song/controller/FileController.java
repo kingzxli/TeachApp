@@ -24,7 +24,7 @@ public class FileController {
 	 */
 	@GetMapping("/download/{fileName}")
 	public void download(@PathVariable("fileName") String fileName, HttpServletResponse response) {
-		fileName = fileName+".xlsx";
+		fileName = fileName +".xlsx";
 		String fullPath = FILE_PATH+fileName;
 		File file = new File(fullPath);
 		try {

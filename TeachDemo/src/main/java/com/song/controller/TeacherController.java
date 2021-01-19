@@ -347,7 +347,6 @@ public class TeacherController {
 			if(t.get(i).getId()!=null) {
 				Prove p = proveService.selectByTid(t.get(i).getId());
 				Lesson l = lessonService.selectById(t.get(i).getId());
-				//	 "教师名称","联系号码","微信号","主教","价格","教龄","教师类型","教师性别","学历","毕业学校","专业","所在区域",
 				if(p!=null) {
 					t.get(i).setFront(p.getFront());
 					t.get(i).setBack(p.getBack());
