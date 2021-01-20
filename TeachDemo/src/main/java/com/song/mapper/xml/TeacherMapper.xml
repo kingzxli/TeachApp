@@ -5,7 +5,22 @@
 <mapper namespace="com.song.mapper.TeacherMapper">
 
 	<select id="selectByActivate" parameterType="Teacher" resultType="Teacher">
-		select * from teacher where activate = 4 and online = '是'
+	select
+	id,
+	name,
+	phone,
+	grade,
+	price,
+	seniority,
+	types,
+	sex,
+	education,
+	school,
+	profession,
+	location
+	from teacher
+	where activate = 4
+	and online = '是'
 		<if test="name != null and name != ''">
 		 	and name like CONCAT('%', #{name} , '%')
 		</if>

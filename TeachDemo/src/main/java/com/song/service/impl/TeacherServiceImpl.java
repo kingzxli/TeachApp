@@ -179,7 +179,6 @@ public class TeacherServiceImpl implements TeacherService{
 
 	@Override
 	public List<Teacher> selectByActivate(Teacher teacher) {
-		// TODO Auto-generated method stub
 		return teacherMapper.selectByActivate(teacher);
 	}
 

@@ -398,7 +398,6 @@ public class TeacherController {
 	     Sheet sheet = workbook.createSheet("教师管理");
 	     //设置样式     
 	     CellStyle style = fileUtil.createStyle(workbook);
-	     
 	     /**
 	      * 设置表头
 	      */
