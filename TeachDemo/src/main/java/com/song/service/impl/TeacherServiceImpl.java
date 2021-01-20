@@ -154,7 +154,6 @@ public class TeacherServiceImpl implements TeacherService{
 
 	@Override
 	public List<Teacher> selectByNamePro(Teacher teacher) {
-		// TODO Auto-generated method stub
 		return teacherMapper.selectByNamePro(teacher);
 	}
 

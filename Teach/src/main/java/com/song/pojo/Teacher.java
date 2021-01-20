@@ -86,4 +86,8 @@ public class Teacher{
 	 * 接单区域
 	 */
 	private String orderArea;
+	/**
+	 * 是否开始授课
+	 */
+	private String state;
 }

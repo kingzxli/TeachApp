@@ -72,16 +72,19 @@
 	</select>
 	
 	<select id="selectById" resultType="com.song.pojo.Teacher">
-		select * from teacher t,prove p
-		<where>
-			p.tid = t.id 
-			<if test="id != null and id != '' ">
-				and t.id=#{id}
-			</if>
-			<if test="openid !=null and openid != '' ">
-				and openid=#{openid}
-			</if>
-		</where>
+		select 
+		t.*,
+		b.state 
+		from teacher t 
+		left join lesson b on b.tid = t.id
+		where 1=1 
+		<if test="id != null and id != '' ">
+			and t.id=#{id}
+		</if>
+		<if test="openid !=null and openid != '' ">
+			and t.openid=#{openid}
+		</if>
+
 	</select>
 	
 	<insert id="add" parameterType="com.song.pojo.Teacher" useGeneratedKeys="true" keyProperty="id">
