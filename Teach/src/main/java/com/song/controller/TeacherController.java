@@ -3,16 +3,17 @@ package com.song.controller;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -20,7 +21,6 @@ import com.song.pojo.Teacher;
 import com.song.service.TeacherService;
 import com.song.util.HttpClientUtil;
 import com.song.util.JsonResult;
-
 import net.sf.json.JSONArray;
 
 
@@ -30,7 +30,6 @@ import net.sf.json.JSONArray;
  * @author Song
  *
  */
-
 @RestController
 @RequestMapping("teacher")
 public class TeacherController {
@@ -159,10 +158,10 @@ public class TeacherController {
 		String p = teacher.getProject().replace("\"", "");
 		teacher.setProject(p);
 		teacherService.update(teacher);
-		Teacher t = teacherService.selectById(teacher.getId(), teacher.getOpenid());
-		if(t.getActivate()==2) {
-			teacherService.updateActivate(3, teacher.getId());
-		}
+//		Teacher t = teacherService.selectById(teacher.getId(), teacher.getOpenid());
+//		if(t.getActivate()==2) {
+//			teacherService.updateActivate(3, teacher.getId());
+//		}
 		return JsonResult.ok();
 	}
 	
@@ -222,7 +221,7 @@ public class TeacherController {
 	
 	//点击个人资料获取
 	@GetMapping("selectbyid")
-	public JsonResult selectById(int tid,String openid) {
+	public JsonResult selectById(Integer tid,String openid) {
 		Teacher teacher = teacherService.selectById(tid,openid);
 		return JsonResult.ok(teacher);
 	}
@@ -423,9 +422,18 @@ public class TeacherController {
 	//修改老师地址
 	@PostMapping("updateLocation")
 	public JsonResult updateLocation(Teacher teacher) {
-		
 		teacherService.update(teacher);
-	
 		return JsonResult.ok();
 	}
+	
+	//编辑老师信息
+	@PostMapping("update/info/{id}")
+	public JsonResult updateInfo(@PathVariable("id") Integer id ,@RequestBody Teacher teacher) {
+		teacher.setId(id);
+		teacher.setModifiedTime(new Date());
+		teacherService.updateInfo(teacher);
+		return JsonResult.ok();
+	}
+	
+	
 }

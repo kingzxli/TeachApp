@@ -15,7 +15,6 @@ public class ProveServiceImpl implements ProveService{
 
 	@Override
 	public int add(Prove prove) {
-		// TODO Auto-generated method stub
 		return proveMapper.add(prove);
 	}
 
@@ -45,7 +44,6 @@ public class ProveServiceImpl implements ProveService{
 
 	@Override
 	public void updateStatus(int tid) {
-		// TODO Auto-generated method stub
 		proveMapper.updateStatus(tid);
 	}
 
@@ -63,7 +61,6 @@ public class ProveServiceImpl implements ProveService{
 
 	@Override
 	public Prove selectByTid(int tid) {
-		// TODO Auto-generated method stub
 		return proveMapper.selectByTid(tid);
 	}
 

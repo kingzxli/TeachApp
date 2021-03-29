@@ -27,6 +27,8 @@ public class SelectTea {
 	//家长姓名
 	private String name ;
 	
+	private String parentName ;
+	
 	private String detailed;
 	private String otherrequire;
 	private String stusituation;

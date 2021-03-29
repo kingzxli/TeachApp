@@ -1,11 +1,7 @@
 package com.song.service;
 
 import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
-
-import com.song.pojo.SelectTeaVo;
-import com.song.pojo.Shuffling;
 import com.song.pojo.Teacher;
 
 /**
@@ -17,10 +13,12 @@ public interface TeacherService {
 
 	//插入数据
 	int add(Teacher teacher);
+	
+	void updateInfo(Teacher teacher);
 	//通过openid查
 	Teacher selectByOpenid(String openid);
 	//通过id查
-	Teacher selectById(@Param("id")int id,@Param("openid")String openid);
+	Teacher selectById(@Param("id")Integer id,@Param("openid")String openid);
 	//通过id删除
 	void delete(int id);
 	//查询所有

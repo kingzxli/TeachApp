@@ -121,7 +121,7 @@ public class DownController {
        String param = respXml;
        //String result = SendRequestForUrl.sendRequest(url, param);//发起请求
        String result = PayUtil.httpRequest(url, "POST", param);
-       System.out.println("请求微信预支付接口，返回 result："+result);
+       System.out.println("请求微信预支付接口11，返回 result："+result);
        // 将解析结果存储在Map中
        Map map = new HashMap();
        InputStream in=new ByteArrayInputStream(result.getBytes());
@@ -140,8 +140,8 @@ public class DownController {
        String return_msg = map.get("return_msg").toString();//返回信息
        String result_code = map.get("result_code").toString();//返回状态码
 
-       System.out.println("请求微信预支付接口，返回 code：" + return_code);
-       System.out.println("请求微信预支付接口，返回 msg：" + return_msg);
+       System.out.println("请求微信预支付接口11，返回 code：" + return_code);
+       System.out.println("请求微信预支付接口11，返回 msg：" + return_msg);
        if("SUCCESS".equals(return_code) && "SUCCESS".equals(result_code)){
            // 业务结果
            String prepay_id = map.get("prepay_id").toString();//返回的预付单信息

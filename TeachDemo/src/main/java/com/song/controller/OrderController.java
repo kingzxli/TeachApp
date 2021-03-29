@@ -1,6 +1,5 @@
 package com.song.controller;
 
-
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -18,12 +17,10 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.Map.Entry;
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -34,9 +31,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -44,7 +39,6 @@ import com.github.wxpay.sdk.WXPay;
 import com.song.pojo.Comment;
 import com.song.pojo.Coupons;
 import com.song.pojo.Draw;
-import com.song.pojo.Goods;
 import com.song.pojo.Order;
 import com.song.pojo.Parent;
 import com.song.pojo.PaymentDto;
@@ -55,6 +49,7 @@ import com.song.service.CommentService;
 import com.song.service.CouponService;
 import com.song.service.OrderService;
 import com.song.service.ParentService;
+import com.song.service.PunchService;
 import com.song.service.RefundService;
 import com.song.service.RewardService;
 import com.song.service.TeacherService;
@@ -63,6 +58,7 @@ import com.song.util.PayUtil;
 import com.song.util.UUIDHexGenerator;
 import com.song.util.WXMyConfigUtil;
 import com.song.util.XmlUtil;
+
 
 
 @RestController
@@ -244,7 +240,7 @@ public class OrderController {
         String param = respXml;
         //String result = SendRequestForUrl.sendRequest(url, param);//发起请求
         String result = PayUtil.httpRequest(url, "POST", param);
-        System.out.println("请求微信预支付接口，返回 result："+result);
+        System.out.println("111请求微信预支付接口，返回 result："+result);
         // 将解析结果存储在Map中
         Map map = new HashMap();
         InputStream in=new ByteArrayInputStream(result.getBytes());
@@ -263,8 +259,8 @@ public class OrderController {
         String return_msg = map.get("return_msg").toString();//返回信息
         String result_code = map.get("result_code").toString();//返回状态码
  
-        System.out.println("请求微信预支付接口，返回 code：" + return_code);
-        System.out.println("请求微信预支付接口，返回 msg：" + return_msg);
+        System.out.println("111请求微信预支付接口，返回 code：" + return_code);
+        System.out.println("222请求微信预支付接口，返回 msg：" + return_msg);
         if("SUCCESS".equals(return_code) && "SUCCESS".equals(result_code)){
             // 业务结果
             String prepay_id = map.get("prepay_id").toString();//返回的预付单信息
@@ -298,7 +294,7 @@ public class OrderController {
  
  
     /**
-     * 预支付时填写的 notify_url ，支付成功后的回调接口
+     * 预支付时填写的 notify_url ，支付成功后的回调接口小程序
      * @param request
      */
     @PostMapping("paycallback")
@@ -318,6 +314,7 @@ public class OrderController {
         Map map = XmlUtil.doXMLParse(notityXml);
  
         String returnCode = (String) map.get("return_code");
+        String ordernum = (String)map.get("out_trade_no");
         if("SUCCESS".equals(returnCode)){
             //验证签名是否正确
             Map<String, String> validParams = PayUtil.paraFilter(map);  //回调验签时需要去除sign和空值参数
@@ -326,20 +323,20 @@ public class OrderController {
             //根据微信官网的介绍，此处不仅对回调的参数进行验签，还需要对返回的金额与系统订单的金额进行比对等
             if(sign.equals(map.get("sign"))){
                 /**此处添加自己的业务逻辑代码start**/
-            	
+
             	//修改订单状态
                 ServletContext application = request.getServletContext();
-                String ordernum = (String)application.getAttribute("ordernum");
+              //String ordernum = (String)application.getAttribute("ordernum");
                 orderService.updateStatus("已支付",ordernum);
                 orderService.updateTimeStatus("进行中", ordernum);
                 
                 Order o = orderService.selectByOrderNum(ordernum);
+                Parent p = parentService.selectByOpenid(o.getOpenId());
                 
                 String openid = (String)application.getAttribute("openid");
 //                String formId = (String)application.getAttribute("formId");
-                Integer shareid = (Integer) application.getAttribute("shareid");
-                
-                
+                String shareid = (String) application.getAttribute("shareid");
+                String popenid = (String)application.getAttribute("popenid");
                 if(shareid!=null) {
                 	
                 	List<Order> os = orderService.selectByOpenid(openid);
@@ -348,7 +345,7 @@ public class OrderController {
                 		System.out.println(os.size());
                 		Reward r = new Reward();
                 		//插入奖励表
-                		r.setOpenid(openid);
+                		r.setOpenid(os.get(0).getPopenid());
                 		r.setMoney(String.valueOf(Double.valueOf(os.get(0).getTotalfee())*0.05/100));
                 		r.setOrdernum(ordernum);
                 		r.setShareId(shareid);
@@ -371,6 +368,11 @@ public class OrderController {
                 	couponService.updateStatus(cid);
                 }
                 
+//                pushController.pushOrder(popenid, o.getName(), o.getBody(),String.valueOf(Double.valueOf(o.getTotalfee())/100), o.getOrdernum(), o.getAddtime());
+//                pushController.pushOrder("oY2Uc0f1SEvcTPN4GKOQYfuMuFP0", o.getName(), o.getBody(),String.valueOf(Double.valueOf(o.getTotalfee())/100), o.getOrdernum(), o.getAddtime());
+//                pushController.newOrder("oY2Uc0f1SEvcTPN4GKOQYfuMuFP0", "有用户下单,请查看。", o.getAddtime());
+                pushController.sendPay("oY2Uc0f1SEvcTPN4GKOQYfuMuFP0", String.valueOf(Double.valueOf(o.getTotalfee())/100), o.getBody(), o.getOrdernum());
+                pushController.paypush("有一位家长学生希望由您来进行授课!", o.getOpenId(), o.getBody(), "时间请查看详情", o.getAddr(), "待确认",o.getId(),p.getId());
                 /**此处添加自己的业务逻辑代码end**/
                 //通知微信服务器已经支付成功
                 resXml = "<xml>" + "<return_code><![CDATA[SUCCESS]]></return_code>"
@@ -388,7 +390,6 @@ public class OrderController {
         out.write(resXml.getBytes());
         out.flush();
         out.close();
-
     }
     
     
@@ -546,7 +547,16 @@ public class OrderController {
     	return JsonResult.ok("无此订单");
     }
     
-    
+    @GetMapping("refusedRefund")
+    public JsonResult RefusedRefund(String ordernum) throws Exception{
+    	//更改退款状态
+		refundService.update("0",ordernum);
+		//更改订单状态
+		orderService.updateStatus("拒绝退款", ordernum);
+		orderService.updateTimeStatus("已取消", ordernum);
+		
+    	return JsonResult.ok();
+    }
     
     
     /**
@@ -617,4 +627,10 @@ public class OrderController {
 		return JsonResult.ok(page);
     }
 	
+    ////家长删订单
+    @GetMapping("info")
+    public JsonResult info() {
+    	
+    	return JsonResult.ok("后台");
+    }
 }

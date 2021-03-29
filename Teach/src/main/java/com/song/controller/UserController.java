@@ -2,32 +2,26 @@ package com.song.controller;
 
 import java.security.spec.AlgorithmParameterSpec;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.alibaba.fastjson.JSONObject;
 import com.song.pojo.Coupons;
 import com.song.pojo.Lesson;
 import com.song.pojo.Parent;
 import com.song.pojo.Prove;
-import com.song.pojo.Reward;
 import com.song.pojo.Teacher;
 import com.song.pojo.User;
 import com.song.service.CouponService;
@@ -35,7 +29,6 @@ import com.song.service.LessonService;
 import com.song.service.MoneyService;
 import com.song.service.ParentService;
 import com.song.service.ProveService;
-import com.song.service.RewardService;
 import com.song.service.TeacherService;
 import com.song.util.HttpClientUtil;
 import com.song.util.JsonResult;
@@ -58,8 +51,6 @@ public class UserController {
 	private LessonService lessonService;
 	@Autowired
 	private CouponService couponService;
-	@Autowired
-	private RewardService rewardService;
 	@Autowired
 	private MoneyService moneyService;
 	@Autowired
@@ -280,7 +271,7 @@ public class UserController {
 //        		r.setOpenid(user.getOpenid());
 //        		rewardService.add(r);
 			}
-			Parent p  = parentService.selectByOpenid(user.getOpenid());
+			
 			Parent parent = new Parent();
 			parent.setSex(user.getGender());
 			parent.setName(user.getNickName());
@@ -289,63 +280,64 @@ public class UserController {
 			parent.setPhone(user.getPhone());
 			parent.setLocation(location);
 			parent.setLatlng(latlng);
-//			parent.setUnionid(user.getUnionid());
-			parentService.add(parent);
+			
+			Parent p  = parentService.selectByOpenid(user.getOpenid());
+			if(p == null) {
+				parent.setCreateTime(new Date());
+				parentService.add(parent);
+				
+				Parent p0  = parentService.selectByOpenid(user.getOpenid());
+				parent.setId(p0.getId());
+			}else {
+				parent.setId(p.getId());
+				parent.setModifiedTime(new Date());
+				parentService.updateById(parent);
+			}
+						
 			Map<Object,Object> map = new HashMap<Object, Object>();
 			map.put("id", parent.getId());
 			map.put("type", 1);
 			return JsonResult.ok(map);
 		}else if(type==2) {
 			//老师
+			Teacher dbTeacher = teacherService.selectByOpenid(user.getOpenid());
+			Teacher teacher = new Teacher();
+			teacher.setName(user.getNickName());
+			teacher.setPhone(user.getPhone());
+			teacher.setImage(user.getAvatarUrl());
+			teacher.setOpenid(user.getOpenid());
+			teacher.setSex(user.getGender());
+			teacher.setLocation(location);
+			teacher.setLatlng(latlng);
+			teacher.setTypes(types);
+			
 			if(types.equals("大学生")) {
-				Teacher t = teacherService.selectByOpenid(user.getOpenid());
-				Teacher teacher = new Teacher();
-				teacher.setName(user.getNickName());
-				teacher.setPhone(user.getPhone());
-				teacher.setImage(user.getAvatarUrl());
-				teacher.setOpenid(user.getOpenid());
-				teacher.setSex(user.getGender());
-				teacher.setLocation(location);
-				teacher.setLatlng(latlng);
-				teacher.setTypes(types);
-//				teacher.setUnionid(user.getUnionid());
 				teacher.setLevel("培优大学生老师");
-				teacherService.add(teacher);
-				lesson.setTid(teacher.getId());
-				lesson.setState("true");
-				lesson.setTimes("[{\"week\":\"周六\",\"time1\":\"19:00\",\"time2\":\"21:00\"}]");
-				lessonService.insert(lesson);
-				prove.setTid(teacher.getId());
-				proveService.add(prove);
-				Map<Object,Object> map = new HashMap<Object, Object>();
-				map.put("id", teacher.getId());
-				map.put("type", 2);
-				return JsonResult.ok(map);
 			}else {
-				Teacher t = teacherService.selectByOpenid(user.getOpenid());
-				Teacher teacher = new Teacher();
-				teacher.setName(user.getNickName());
-				teacher.setPhone(user.getPhone());
-				teacher.setImage(user.getAvatarUrl());
-				teacher.setOpenid(user.getOpenid());
-				teacher.setSex(user.getGender());
-				teacher.setLocation(location);
-				teacher.setLatlng(latlng);
-				teacher.setTypes(types);
-//				teacher.setUnionid(user.getUnionid());
 				teacher.setLevel("培优老师");
-				teacherService.add(teacher);
-				lesson.setTid(teacher.getId());
-				lesson.setState("true");
-				lesson.setTimes("[{\"week\":\"周六\",\"time1\":\"19:00\",\"time2\":\"21:00\"}]");
-				lessonService.insert(lesson);
-				prove.setTid(teacher.getId());
-				proveService.add(prove);
-				Map<Object,Object> map = new HashMap<Object, Object>();
-				map.put("id", teacher.getId());
-				map.put("type", 2);
-				return JsonResult.ok(map);
 			}
+
+			if(dbTeacher == null) {
+				teacher.setCreateTime(new Date());
+				teacherService.add(teacher);
+			}else {
+				teacher.setId(dbTeacher.getId());
+				teacher.setModifiedTime(new Date());
+				teacherService.update(teacher);
+			}
+
+
+			Teacher t = teacherService.selectByOpenid(user.getOpenid());
+			lesson.setTid(t.getId());
+			lesson.setState("true");
+			lesson.setTimes("[{\"week\":\"周六\",\"time1\":\"19:00\",\"time2\":\"21:00\"}]");
+			lessonService.insert(lesson);
+			prove.setTid(t.getId());
+			proveService.add(prove);
+			Map<Object,Object> map = new HashMap<Object, Object>();
+			map.put("id", t.getId());
+			map.put("type", 2);
+			return JsonResult.ok(map);
 		}
 		return JsonResult.errorMsg("添加失败");
 	}
@@ -354,106 +346,88 @@ public class UserController {
 	/**
 	 * 切换身份
 	 */
+	@SuppressWarnings("unused")
 	@PostMapping("switchid")
 	public JsonResult switchid(HttpServletRequest request,int type,String latlng,String location,String types,int uid,int status,String openid) {
+		Teacher teacher = teacherService.selectByOpenid(openid);
+		Parent parent  = parentService.selectByOpenid(openid);
+		
 		Lesson lesson = new Lesson();
 		Prove prove = new Prove();
-		if(status==1) {
-			Teacher t = teacherService.selectById(uid,openid);
-			//老师转家长
+		Integer id = null;
+		
+		if(status==1) {//老师转家长
 			teacherService.updateIdentity("否", openid);
-			Parent parent  = parentService.selectByOpenid(openid);
+			
 			if(parent!=null) {
 				parentService.updateIdentity("是", openid);
-				Map<Object,Object> map = new HashMap<Object, Object>();
-				map.put("id", parent.getId());
-				map.put("type", 1);
-				return JsonResult.ok(map);
-			}else {
-				Parent parents = new Parent();
-				parents.setSex(t.getSex());
-				parents.setName(t.getName());
-				parents.setImage(t.getImage());
-				parents.setOpenid(t.getOpenid());
-				parents.setPhone(t.getPhone());
-				parents.setLocation(location);
-				parents.setLatlng(latlng);
-				parentService.add(parents);
-				Map<Object,Object> map = new HashMap<Object, Object>();
-				map.put("id", parents.getId());
-				map.put("type", 1);
-				return JsonResult.ok(map);
+				id = parent.getId();
+			}else {	
+				parent = new Parent();
+				parent.setSex(teacher.getSex());
+				parent.setName(teacher.getName());
+				parent.setImage(teacher.getImage());
+				parent.setOpenid(teacher.getOpenid());
+				parent.setPhone(teacher.getPhone());
+				parent.setLocation(location);
+				parent.setLatlng(latlng);
+				parentService.add(parent);	
+				
+				Parent p  = parentService.selectByOpenid(openid);
+				id = p.getId();
 			}
 		}else if(status==2) {
 			//家长转老师
-			Parent p = parentService.selectByid(uid);
 			parentService.updateIdentity("否", openid);
-			Teacher teachers = teacherService.selectByOpenid(openid);
-			if(teachers!=null) {
-				teacherService.updateIdentity("是", openid);
-				if(types.equals("大学生")) {
-					teacherService.updatetypes("培优大学生老师",types, openid);
-				}else {
-					teacherService.updatetypes("培优老师",types, openid);
-				}
-				teacherService.updateJifen(50, teachers.getId());
-				Map<Object,Object> map = new HashMap<Object, Object>();
-				map.put("id",teachers.getId());
-				map.put("type", 2);
-				return JsonResult.ok(map);
+			
+			String leavel = null;
+			if(types.equals("大学生")) {
+				leavel = "培优大学生老师";
 			}else {
-				if(types.equals("大学生")) {
-					Teacher teacher = new Teacher();
-					teacher.setName(p.getName());
-					teacher.setPhone(p.getPhone());
-					teacher.setImage(p.getImage());
-					teacher.setOpenid(p.getOpenid());
-					teacher.setSex(p.getSex());
-					teacher.setLocation(location);
-					teacher.setLatlng(latlng);
-					teacher.setTypes(types);
-					teacher.setLevel("培优大学生老师");
-					teacherService.add(teacher);
-					lesson.setTid(teacher.getId());
-					lesson.setState("true");
-					lesson.setTimes("[{\"week\":\"周一\",\"time1\":\"8:00\",\"time2\":\"10:00\"},{\"week\":\"周二\",\"time1\":\"10:00\",\"time2\":\"13:00\"},{\"week\":\"周三\",\"time1\":\"09:00\",\"time2\":\"11:00\"}]");
-					lessonService.insert(lesson);
-					teacherService.updateActivate(0, teacher.getId());
-					prove.setTid(teacher.getId());
-					
-					proveService.add(prove);
-					Map<Object,Object> map = new HashMap<Object, Object>();
-					map.put("id", teacher.getId());
-					map.put("type", 2);
-					return JsonResult.ok(map);
-				}else {
-					Teacher teacher = new Teacher();
-					teacher.setName(p.getName());
-					teacher.setPhone(p.getPhone());
-					teacher.setImage(p.getImage());
-					teacher.setOpenid(p.getOpenid());
-					teacher.setSex(p.getSex());
-					teacher.setLocation(location);
-					teacher.setLatlng(latlng);
-					teacher.setTypes(types);
-					teacher.setLevel("培优老师");
-					teacherService.add(teacher);
-					lesson.setTid(teacher.getId());
-					lesson.setState("true");
-					lesson.setTimes("[{\"week\":\"周一\",\"time1\":\"8:00\",\"time2\":\"10:00\"},{\"week\":\"周二\",\"time1\":\"10:00\",\"time2\":\"13:00\"},{\"week\":\"周三\",\"time1\":\"09:00\",\"time2\":\"11:00\"}]");
-					lessonService.insert(lesson);
-					teacherService.updateActivate(0, teacher.getId());
-					prove.setTid(teacher.getId());
-					proveService.add(prove);
-					Map<Object,Object> map = new HashMap<Object, Object>();
-					map.put("id", teacher.getId());
-					map.put("type", 2);
-					return JsonResult.ok(map);
-				}
+				leavel = "培优老师";
+			}
+			
+			if(teacher!=null) {
+				id = teacher.getId();
+				teacher.setTypes(types);
+				teacher.setOnline("是");
+				teacher.setLevel(leavel);
+				teacherService.update(teacher);		
+			}else {
+				teacher = new Teacher();
+				teacher.setLevel(leavel);
+				teacher.setTypes(types);
+				teacher.setOnline("是");
+				teacher.setLevel(leavel);
+				teacher.setName(parent.getName());
+				teacher.setPhone(parent.getPhone());
+				teacher.setImage(parent.getImage());
+				teacher.setOpenid(parent.getOpenid());
+				teacher.setSex(parent.getSex());
+				teacher.setLocation(location);
+				teacher.setLatlng(latlng);
+				teacher.setCreateTime(new Date());
+				teacher.setActivate(0);
+				teacherService.add(teacher);
+
+				Teacher t = teacherService.selectByOpenid(openid);
+				id = t.getId();
 				
+				lesson.setTid(id);
+				lesson.setState("true");
+				lesson.setTimes("[{\"week\":\"周一\",\"time1\":\"8:00\",\"time2\":\"10:00\"},{\"week\":\"周二\",\"time1\":\"10:00\",\"time2\":\"13:00\"},{\"week\":\"周三\",\"time1\":\"09:00\",\"time2\":\"11:00\"}]");
+				lessonService.insert(lesson);
+				
+				prove.setTid(id);
+				proveService.add(prove);
 			}
 		}
-		return JsonResult.errorMsg("切换失败");
+		
+		Map<Object,Object> map = new HashMap<Object, Object>();
+		map.put("id",id);
+		map.put("type", status);
+		return JsonResult.ok(map);
+		
 	}
 	
 	
@@ -474,6 +448,24 @@ public class UserController {
 //		return JsonResult.errorMsg("fail");
 		String money = moneyService.selectAll(openid);
 		return JsonResult.ok(money);
+	}
+	
+	/**
+	 * 查找用户id
+	 * @param openid
+	 * @param type 1:家长，2：老师  默认家长
+	 * @return
+	 */
+	@GetMapping("selectParentId")
+	public JsonResult selectParentId(String openId,Integer type) {
+		if(type != null && type == 2) {
+			Teacher teacher = teacherService.selectByOpenid(openId);
+			return JsonResult.ok(teacher);
+		}else {
+			Parent p = parentService.selectByOpenid(openId);
+			return JsonResult.ok(p);
+		}
+		
 	}
 
 	

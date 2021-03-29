@@ -21,19 +21,21 @@ public class TeacherServiceImpl implements TeacherService{
 
 	@Override
 	public int add(Teacher teacher) {
-		// TODO Auto-generated method stub
 		return teacherMapper.add(teacher);
+	}
+	
+	@Override
+	public void updateInfo(Teacher teacher) {
+		teacherMapper.updateInfo(teacher);
 	}
 
 	@Override
 	public Teacher selectByOpenid(String openid) {
-		// TODO Auto-generated method stub
 		return teacherMapper.selectByOpenid(openid);
 	}
 
 	@Override
-	public Teacher selectById(int id,String openid) {
-		// TODO Auto-generated method stub
+	public Teacher selectById(Integer id,String openid) {
 		return teacherMapper.selectById(id,openid);
 	}
 
@@ -152,7 +154,6 @@ public class TeacherServiceImpl implements TeacherService{
 
 	@Override
 	public void updateActivate(int activate, int id) {
-		// TODO Auto-generated method stub
 		teacherMapper.updateActivate(activate, id);
 	}
 

@@ -313,24 +313,6 @@ public class TeacherController {
 	public JsonResult selectByZero(Teacher teacher,int pageId,int pageSize) {
 		PageHelper.startPage(pageId,pageSize);
 		List<Teacher> list = teacherService.selectByZero(teacher);
-		for (int i=0;i<list.size();i++) {
-			if(list.get(i).getId()!=null) {
-				Prove p = proveService.selectByTid(list.get(i).getId());
-				if(p!=null) {
-					list.get(i).setNames(p.getNames());
-					list.get(i).setFront(p.getFront());
-					list.get(i).setBack(p.getBack());
-					list.get(i).setFace(p.getFace());
-					list.get(i).setIdcard(p.getIdcard());
-					list.get(i).setGraduatenum(p.getGraduatenum());
-					list.get(i).setGraduateimage(p.getGraduateimage());
-					list.get(i).setTeachnum(p.getTeachnum());
-					list.get(i).setTeachimage(p.getTeachimage());
-					list.get(i).setPhone(p.getPhone());
-					list.get(i).setWeChat(p.getWeChat());
-				}
-			}
-		}
 		PageInfo<Teacher> page = new PageInfo<Teacher>(list,pageSize);
 		page.setPageNum(pageId);
 		page.setPageSize(pageSize);
@@ -343,27 +325,6 @@ public class TeacherController {
 	public JsonResult selectByNamePro(Teacher teacher,int pageId,int pageSize) {
 		PageHelper.startPage(pageId, pageSize);
 		List<Teacher> t = teacherService.selectByNamePro(teacher);
-		for (int i=0;i<t.size();i++) {
-			if(t.get(i).getId()!=null) {
-				Prove p = proveService.selectByTid(t.get(i).getId());
-				Lesson l = lessonService.selectById(t.get(i).getId());
-				if(p!=null) {
-					t.get(i).setFront(p.getFront());
-					t.get(i).setBack(p.getBack());
-					t.get(i).setFace(p.getFace());
-					t.get(i).setIdcard(p.getIdcard());
-					t.get(i).setGraduatenum(p.getGraduatenum());
-					t.get(i).setGraduateimage(p.getGraduateimage());
-					t.get(i).setTeachnum(p.getTeachnum());
-					t.get(i).setTeachimage(p.getTeachimage());
-					t.get(i).setNames(p.getNames());
-					t.get(i).setWeChat(p.getWeChat());
-				}
-				if(l!=null) {
-					t.get(i).setLessontime(l.getTimes());
-				}
-			}
-		}
 		PageInfo<Teacher> page = new PageInfo<Teacher>(t,pageSize);
 		page.setPageNum(pageId);
 		page.setPageSize(pageSize);

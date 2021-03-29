@@ -5,6 +5,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.song.entity.Result;
 import com.song.pojo.SelectTea;
 import com.song.pojo.TeaSelect;
 import com.song.pojo.Teacher;
@@ -20,6 +28,8 @@ import com.song.service.SelectTeaService;
 import com.song.service.TeacherService;
 import com.song.util.HttpClientUtil;
 import com.song.util.JsonResult;
+import com.song.util.poi.FileUtil;
+
 import net.sf.json.JSONArray;
 
 /**
@@ -38,6 +48,9 @@ public class SelectTeaController {
 	private TeacherService teacherService;
 	
 	private String loc;
+	
+	@Autowired
+	private FileUtil fileUtil;
 	
 	
 	//家长接受或者拒绝单
@@ -411,6 +424,11 @@ public class SelectTeaController {
 	public JsonResult selectall(SelectTea selectTea,int pageId,int pageSize) {
 		PageHelper.startPage(pageId, pageSize);
 		List<SelectTea> list = SelectteaService.selectall(selectTea);
+		for(SelectTea dbSelectTea : list) {
+			if(StringUtils.isEmpty(dbSelectTea.getName())) {
+				dbSelectTea.setName(dbSelectTea.getParentName());
+			}
+		}
 		PageInfo<SelectTea> page = new PageInfo<SelectTea>(list,pageSize);
 		page.setPageNum(pageId);
 		page.setPageSize(pageSize);
@@ -421,12 +439,92 @@ public class SelectTeaController {
 	
 	
 	@GetMapping("selectBystatus")
-	public JsonResult selectBystatus(int sid) {
+	public JsonResult selectBystatus(String sid) {
 		List<SelectTea> list = SelectteaService.selectBystatus(sid);
 		return JsonResult.ok(list);
 	}
 	
-	
+	@GetMapping("export")
+	public Result<Map<String, String>> exportTeacher(SelectTea selectTea) {
+		List<SelectTea> list = SelectteaService.selectall(selectTea);
+		for(SelectTea dbSelectTea : list) {
+			if(StringUtils.isEmpty(dbSelectTea.getName())) {
+				dbSelectTea.setName(dbSelectTea.getParentName());
+			}
+		}
+		
+		 Workbook workbook = new SXSSFWorkbook();
+		 //设置sheet名称
+	     Sheet sheet = workbook.createSheet("生源接单");
+	     //设置样式     
+	     CellStyle style = fileUtil.createStyle(workbook);
+	     /**
+	      * 设置表头
+	      */
+	     Row row0 = sheet.createRow(0);
+	     String[] colNames = new String[]{
+	    		 "家长名称","家长联系电话","下单时间","状态","授课方式","教师授课地址","详细地址","在读学校","辅导年级","辅导年级","辅导科目",
+	    		 "学生性别","试课时间","上课时间","学生基本情况","学生其他基本情况","希望老师性别","希望老师类型","老师的要求",
+	    		 "老师的其他要求","了解机构途径"
+	     };
+	     for(int i = 0;i<colNames.length;i++) {
+	    	 sheet.setColumnWidth(i, 20*256);
+	    	 fileUtil.cellSetUp(row0,i, colNames[i], style);
+	     }
+	     
+	     
+	     /**
+	      * 设置列表数据
+	      */
+	       for(int j= 0;j< list.size();j++) {
+	    	   Row row = sheet.createRow(j+1);
+	    	   Integer pstatus = list.get(j).getPstatus();
+	    	  
+	    	   fileUtil.cellSetUp(row,0,list.get(j).getParentName(), style);
+	    	   fileUtil.cellSetUp(row,1,list.get(j).getPhone(), style);
+	    	   fileUtil.cellSetUp(row,2,list.get(j).getAddtime(), style);
+	    	   //0:匹配中,1:已匹配,2:取消订单
+	    	   if(pstatus != null) {
+	    		   if(pstatus == 0) {
+	    			   fileUtil.cellSetUp(row,3,"匹配中", style);
+	    		   }else if(pstatus == 1) {
+	    			   fileUtil.cellSetUp(row,3,"已匹配", style);
+	    		   }else if(pstatus == 2) {
+	    			   fileUtil.cellSetUp(row,3,"取消订单", style);
+	    		   }
+	    	   }
+	    	   fileUtil.cellSetUp(row,4,list.get(j).getTeachingType(), style);
+	    	   fileUtil.cellSetUp(row,5,list.get(j).getAddress(), style);
+	    	   fileUtil.cellSetUp(row,6,list.get(j).getDetailed(), style);    	    
+	    	   fileUtil.cellSetUp(row,7,list.get(j).getSchool(), style);
+	    	   fileUtil.cellSetUp(row,8,list.get(j).getCulture(), style);
+	    	   fileUtil.cellSetUp(row,9,list.get(j).getGrade(), style);
+	    	   fileUtil.cellSetUp(row,10,list.get(j).getSubject(), style);
+	    	   fileUtil.cellSetUp(row,11,list.get(j).getStusex(), style);
+	    	   fileUtil.cellSetUp(row,12,list.get(j).getTrial(), style);
+	    	   fileUtil.cellSetUp(row,13,list.get(j).getGoclass(), style);
+	    	   fileUtil.cellSetUp(row,14,list.get(j).getStusituation(), style);
+	    	   fileUtil.cellSetUp(row,15,list.get(j).getStumessage(), style);
+	    	   fileUtil.cellSetUp(row,16,list.get(j).getTeasex(), style);
+	    	   fileUtil.cellSetUp(row,17,list.get(j).getTeatype(), style);
+	    	   fileUtil.cellSetUp(row,18,list.get(j).getTearequire(), style);
+	    	   fileUtil.cellSetUp(row,19,list.get(j).getOtherrequire(), style);
+	    	   fileUtil.cellSetUp(row,20,list.get(j).getWay(), style);
+	       }
+	         
+	         
+	       /**
+			 * 3.将文件写入服务器目录
+			 */
+			String fileName = fileUtil.writeExcel(workbook,"生源接单");
+			/**
+			 * 4.返回文件下载地址
+			 */
+			Map<String, String> map = new HashMap<>();
+			map.put("url", fileName);
+			return new Result<>(map);	
+		
+	}
 	
 	
 	

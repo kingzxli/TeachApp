@@ -31,5 +31,5 @@ public interface SelectTeaService {
 	TeaSelect selectStuta(int sid,String openid);
 	
 	List<SelectTea> selectall(SelectTea selectTea);
-	List<SelectTea> selectBystatus(Integer sid);
+	List<SelectTea> selectBystatus(String sid);
 }

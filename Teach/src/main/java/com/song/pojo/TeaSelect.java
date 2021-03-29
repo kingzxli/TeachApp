@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class TeaSelect {
 	
-	private Integer id;
+	private String id;
 	private String topenid;
 	private String addtime;
 	private String sid;

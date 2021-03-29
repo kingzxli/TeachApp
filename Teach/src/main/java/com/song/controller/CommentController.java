@@ -34,7 +34,7 @@ public class CommentController {
 	public JsonResult add(Comment comment) {
 		String todays = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 		comment.setAddtime(todays);
-		Parent p = parentService.selectByid(comment.getPid());
+		Parent p = parentService.selectByid(comment.getPid()+"");
 		comment.setPimage(p.getImage());
 		comment.setPname(p.getName());
 		commentService.add(comment);

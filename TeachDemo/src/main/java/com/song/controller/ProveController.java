@@ -112,7 +112,6 @@ public class ProveController {
 	//上传数据到数据库
 	@PostMapping("add")
 	public JsonResult add(Prove prove) {
-		System.out.println(prove.toString());
 		proveService.add(prove);
 		proveService.updateStatus(prove.getId());
 		return JsonResult.ok();

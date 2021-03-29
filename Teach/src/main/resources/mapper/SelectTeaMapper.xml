@@ -51,9 +51,13 @@
 
 	<insert id="add" parameterType="com.song.pojo.SelectTea" useGeneratedKeys="true" keyProperty="id">
 		insert into select_tea 
-		(id,latlng,latitude,teachingType,popenid,addtime,school,goclass,stu_id,phone,address,detailed,other_require,stu_situation,tea_require,stu_sex,tea_sex,stu_message,culture,grade,subject,tea_type,trial,way) 
+		(id,latlng,latitude,teachingType,popenid,addtime,school,goclass,stu_id,phone,address,
+		detailed,other_require,stu_situation,tea_require,stu_sex,tea_sex,stu_message,culture,
+		grade,subject,tea_type,trial,way,parent_name) 
 		values
-		 (#{id},#{latlng},#{latitude},#{teachingType},#{popenid},#{addtime},#{school},#{goclass},#{stuid},#{phone},#{address},#{detailed},#{otherrequire},#{stusituation},#{tearequire},#{stusex},#{teasex},#{stumessage},#{culture},#{grade},#{subject},#{teatype},#{trial},#{way})
+		 (#{id},#{latlng},#{latitude},#{teachingType},#{popenid},#{addtime},#{school},#{goclass},#{stuid},#{phone},#{address},
+		 #{detailed},#{otherrequire},#{stusituation},#{tearequire},#{stusex},#{teasex},#{stumessage},#{culture},
+		 #{grade},#{subject},#{teatype},#{trial},#{way},#{parentName})
 	</insert>
 	
 	<select id="selectByType" parameterType="com.song.pojo.SelectTea" resultType="com.song.pojo.SelectTea">
@@ -83,7 +87,7 @@
 	</select>
 
 	<select id="selectById" resultType="com.song.pojo.SelectTea" >
-		select * from select_tea s where stu_id = #{id} and delstatus = 0
+		select * from select_tea s where stu_id = #{id} and delstatus = 0 and pstatus &lt; 2 
 	</select>
 	
 	<select id="selectId" resultType="com.song.pojo.SelectTea" >
@@ -105,7 +109,16 @@
 	
 	
 	<select id="selectByTopenid" resultType="com.song.pojo.TeaSelect">
-		select st.tid,s.id,s.grade,s.subject,s.culture,s.address,s.detailed,st.status from select_tea s,selecttea st 
+		select 
+		st.tid,
+		s.id,
+		s.grade,
+		s.subject,
+		s.culture,
+		s.address,
+		s.detailed,
+		st.status 
+		from select_tea s,selecttea st 
 		where s.delstatus = 0  and s.id = st.sid and st.topenid = #{openid}
 	</select>
 	
@@ -163,7 +176,7 @@
 		where 
 		pstatus = 0 
 		and delstatus = 0
-		AND addtime &gt;= DATE_SUB( DATE_FORMAT( NOW( ), '%Y-%m-%d' ), INTERVAL 2 DAY )
+		AND addtime &gt;= DATE_SUB( DATE_FORMAT( NOW( ), '%Y-%m-%d' ), INTERVAL 4 DAY )
 		<if test="teatype != null and teatype != ''">
 			and tea_type=#{teatype} 
 		</if>

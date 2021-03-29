@@ -56,7 +56,8 @@
 	from
 	select_tea st
 	left join parent p on st.popenid = p.openid
-	where st.delstatus = 0
+	where 
+	st.delstatus = 0
 	<if test="name != null and name != ''">
 		and p.name like concat('%',#{name},'%') 
 	</if>
@@ -129,7 +130,7 @@
 		select * from selecttea st,select_tea s where st.sid=#{sid} and st.topenid=#{openid} and s.delstatus = 0
 	</select>
 	
-	<select id="selectBystatus" parameterType="int" resultType="TeaSelect">
+	<select id="selectBystatus"  resultType="TeaSelect">
 		select * from selecttea s,teacher t where s.tid = t.id and s.sid = #{sid}
 	</select>
 	

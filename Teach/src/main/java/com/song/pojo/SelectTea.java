@@ -28,7 +28,8 @@ public class SelectTea {
 	private String teatype;
 	private String trial;
 	private String phone;
-	private Integer stuid;
+	private String stuid;
+	private String parentName;
 	private String goclass;
 	private String school;
 	private String addtime;

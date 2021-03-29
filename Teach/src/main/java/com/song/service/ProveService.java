@@ -15,4 +15,6 @@ public interface ProveService {
 	void updateStatus(int tid);
 	void updateStatus1(int tid);
 	void updateStatus2(int tid);
+	
+	void addNew(Prove prove);
 }

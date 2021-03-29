@@ -51,7 +51,7 @@ public class SelectTeaController {
 	 * @return
 	 */
 	@PostMapping("updatestatus")
-	public JsonResult updateStutas(Integer id,Integer status,Integer sid,String topenid,String name){		
+	public JsonResult updateStutas(Integer id,Integer status,String sid,String topenid,String name){		
 		SelectteaService.selectBySids(id,status,sid,topenid,name);
 		return JsonResult.ok();
 	}
@@ -83,7 +83,7 @@ public class SelectTeaController {
 	
 	//老师接单
 	@PostMapping("addTeaSel")
-	public JsonResult addTeaSel(String topenid,Integer sid,Integer tid,Integer pid){
+	public JsonResult addTeaSel(String topenid,String sid,Integer tid,Integer pid){
 		SelectteaService.addTeaSel(topenid, sid,tid,pid);
 		return JsonResult.ok();
 	}
@@ -123,9 +123,9 @@ public class SelectTeaController {
 	}
 	
 	
-	//根据学生id查 
+	//根据家长id查 
 	@PostMapping("selectbyid")
-	public JsonResult selectById(int id) {
+	public JsonResult selectById(Integer id) {
 		List<SelectTea> list = SelectteaService.selectById(id);
 		return JsonResult.ok(list);
 	}

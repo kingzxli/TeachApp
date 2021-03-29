@@ -31,32 +31,48 @@
 	</select>
 
 	<select id="selectByNamePro" parameterType="Teacher" resultType="Teacher">
-		select * from teacher where activate = 1 and online = '是'
+		select 
+		a.*,
+		b.names,
+		b.front,
+		b.back,
+		b.face,
+		b.idcard,
+		b.graduatenum,
+		b.graduateimage,
+		b.teachnum,
+		b.teachimage,
+		b.weChat,
+		c.times as lessontime
+		from teacher a
+		left join prove b on a.id = b.tid
+		left join lesson c on a.id = c.tid
+		where a.activate = 1 and a.online = '是'
 		<if test="name != null and name != ''">
-		 	and name like CONCAT('%', #{name} , '%')
+		 	and a.name like CONCAT('%', #{name} , '%')
 		</if>
 		<if test="phone != null and phone != ''">
-			and phone like CONCAT('%', #{phone} , '%')
+			and a.phone like CONCAT('%', #{phone} , '%')
 		</if>
 		<if test="project != null and project != ''">
-			and project like CONCAT('%', #{project} , '%')
+			and a.project like CONCAT('%', #{project} , '%')
 		</if>
 		<if test="types != null and types != ''">
-			and types like CONCAT('%', #{types} , '%')
+			and a.types like CONCAT('%', #{types} , '%')
 		</if>
 		<if test="sex != null and sex != ''">
-			and sex like CONCAT('%', #{sex} , '%')
+			and a.sex like CONCAT('%', #{sex} , '%')
 		</if>
 		<if test="school != null and school != ''">
-			and school like CONCAT('%', #{school} , '%')
+			and a.school like CONCAT('%', #{school} , '%')
 		</if>
 		<if test="location != null and location != ''">
-			and location like CONCAT('%', #{location} , '%')
+			and a.location like CONCAT('%', #{location} , '%')
 		</if>
 		<if test="grade != null and grade != ''">
-			and grade = #{grade}
+			and a.grade = #{grade}
 		</if>
-		order by id desc
+		order by a.id desc
 	</select>
 	
 	<select id="selectByNamePro2" parameterType="com.song.pojo.Teacher" resultType="com.song.pojo.Teacher">
@@ -106,29 +122,43 @@
 
 
 	<select id="selectByZero" parameterType="Teacher" resultType="Teacher">
-		select * from teacher t where t.activate = 3 and t.online = '是'
+		select t.*,
+		p.names,
+		p.front,
+		p.back,
+		p.face,
+		p.idcard,
+		p.graduatenum,
+		p.graduateimage,
+		p.teachnum,
+		p.teachimage,
+		p.phone,
+		p.weChat
+		from teacher t 
+		left join prove p on t.id = p.tid 
+		 where t.activate = 3 and t.online = '是'
 		<if test="name != null and name != ''">
-		 	and name like CONCAT('%', #{name} , '%')
+		 	and t.name like CONCAT('%', #{name} , '%')
 		</if>
 		<if test="phone != null and phone != ''">
-			and phone like CONCAT('%', #{phone} , '%')
+			and t.phone like CONCAT('%', #{phone} , '%')
 		</if>
 		<if test="project != null and project != ''">
-			and project like CONCAT('%', #{project} , '%')
+			and t.project like CONCAT('%', #{project} , '%')
 		</if>
 		<if test="types != null and types != ''">
-			and types like CONCAT('%', #{types} , '%')
+			and t.types like CONCAT('%', #{types} , '%')
 		</if>
 		<if test="sex != null and sex != ''">
-			and sex like CONCAT('%', #{sex} , '%')
+			and t.sex like CONCAT('%', #{sex} , '%')
 		</if>
 		<if test="school != null and school != ''">
-			and school like CONCAT('%', #{school} , '%')
+			and t.school like CONCAT('%', #{school} , '%')
 		</if>
 		<if test="location != null and location != ''">
-			and location like CONCAT('%', #{location} , '%')
+			and t.location like CONCAT('%', #{location} , '%')
 		</if>
-		order by id desc
+		order by t.id desc
 	</select>
 	
 	<update id="updateActivate" parameterType="Teacher">
@@ -183,7 +213,7 @@
 	</delete>
 
 	<select id="selectByOpenid" parameterType="String" resultType="Teacher">
-		select * from teacher where openid=#{openid}
+		select * from teacher where openid=#{openid} ORDER BY id LIMIT 1;
 	</select>
 	
 	<select id="selectById" parameterType="int" resultType="Teacher">

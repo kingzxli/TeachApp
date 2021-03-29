@@ -46,7 +46,6 @@ public class TeacherServiceImpl implements TeacherService{
 
 	@Override
 	public void update(Teacher teacher) {
-		// TODO Auto-generated method stub
 		teacherMapper.update(teacher);
 	}
 
@@ -148,13 +147,11 @@ public class TeacherServiceImpl implements TeacherService{
 
 	@Override
 	public List<Teacher> selectByZero(Teacher teahcer) {
-		// TODO Auto-generated method stub
 		return teacherMapper.selectByZero(teahcer);
 	}
 
 	@Override
 	public List<Teacher> selectByNamePro(Teacher teacher) {
-		// TODO Auto-generated method stub
 		return teacherMapper.selectByNamePro(teacher);
 	}
 

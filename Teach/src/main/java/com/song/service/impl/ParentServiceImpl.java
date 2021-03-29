@@ -21,18 +21,16 @@ public class ParentServiceImpl implements ParentService{
 
 	@Override
 	public int add(Parent parent) {
-		// TODO Auto-generated method stub
 		return parentMapper.add(parent);
 	}
 
 	@Override
 	public Parent selectByOpenid(String openid) {
-		// TODO Auto-generated method stub
 		return parentMapper.selectByOpenid(openid);
 	}
 
 	@Override
-	public Parent selectByid(int tid) {
+	public Parent selectByid(String tid) {
 		// TODO Auto-generated method stub
 		return parentMapper.selectByid(tid);
 	}
@@ -71,6 +69,12 @@ public class ParentServiceImpl implements ParentService{
 	public Double selectMoney(String openid) {
 		// TODO Auto-generated method stub
 		return parentMapper.selectMoney(openid);
+	}
+
+	@Override
+	public void updateById(Parent parent) {
+		parentMapper.updateById(parent);
+		
 	}
 
 }

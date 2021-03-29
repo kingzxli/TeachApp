@@ -68,15 +68,25 @@
 	</delete>
 
 	<select id="selectByOpenid" resultType="com.song.pojo.Teacher">
-		select * from teacher where openid=#{openid}
+		select * from teacher where openid=#{openid};
 	</select>
 	
 	<select id="selectById" resultType="com.song.pojo.Teacher">
 		select 
 		t.*,
-		b.state 
+		b.state,
+		c.front,
+		c.back,
+		c.names,
+		c.idcard,
+		c.face,
+		c.teachimage,
+		c.teachnum,
+		c.graduateimage,
+		c.graduatenum 
 		from teacher t 
 		left join lesson b on b.tid = t.id
+		left join prove c ON c.tid = t.id
 		where 1=1 
 		<if test="id != null and id != '' ">
 			and t.id=#{id}
@@ -84,7 +94,6 @@
 		<if test="openid !=null and openid != '' ">
 			and t.openid=#{openid}
 		</if>
-
 	</select>
 	
 	<insert id="add" parameterType="com.song.pojo.Teacher" useGeneratedKeys="true" keyProperty="id">
@@ -150,6 +159,9 @@
 		      <if test="unionid != null and unionid != ''">
 		      	unionid,
 		      </if>
+		      <if test="createTime != null ">
+		      	create_time,
+		      </if>
 	    </trim>
 	    <trim prefix="values (" suffix=")" suffixOverrides=",">
 	   		 <if test="types != null and types != ''">
@@ -212,6 +224,9 @@
 		      <if test="unionid != null and unionid != ''">
 		      	#{unionid},
 		      </if>
+		       <if test="createTime != null ">
+		      	#{createTime},
+		      </if>
 	    </trim>
 	</insert>
 	
@@ -248,6 +263,9 @@
 			</if>
 			<if test="orderArea !=null and orderArea != ''">
 				order_area = #{orderArea},
+			</if>
+			<if test="activate !=null ">
+				activate = #{activate},
 			</if>
 		</trim>
 		where id=#{id}
@@ -374,20 +392,92 @@
 	</select>
 	
 	<select id="selectById2" parameterType="com.song.pojo.Teacher" resultType="com.song.pojo.Teacher">
-		select * from teacher t,prove p
-		<where>
-			p.tid = t.id 
+		SELECT
+			* 
+		FROM
+			teacher t
+			LEFT JOIN prove p ON p.tid = t.id 
+		WHERE 1=1
 			<if test="id != null and id != '' ">
 				and t.id=#{id}
 			</if>
 			<if test="openid !=null and openid != '' ">
 				and openid=#{openid}
 			</if>
-		</where>
+	
+	
 	</select>
 	
 	<select id="selectByProjectCity" resultType="java.lang.String">
 		select openid from teacher where activate = 1 AND (location = #{city} or location = #{area})
 	</select>
+	
+	<update id="updateInfo" parameterType="com.song.pojo.Teacher">
+		update teacher set
+			<if test="school != null and school !=''">
+				school=#{school},
+			</if>
+			<if test="education != null and education !=''">
+				education=#{education},
+			</if>
+			<if test="begin != null and begin !=''">
+				begin=#{begin},
+			</if>
+			<if test="end != null and end !=''">
+				end=#{end},
+			</if>
+			<if test="profession != null and profession !=''">
+				profession=#{profession},
+			</if>
+			<if test="titleimage != null and titleimage !=''">
+				titleimage=#{titleimage},
+			</if>
+			<if test="title != null and title !=''">
+				title=#{title},
+			</if>
+			<if test="honorimage != null and honorimage !=''">
+				honorimage=#{honorimage},
+			</if>
+			<if test="honor != null and honor !=''">
+				honor=#{honor},
+			</if>
+			<if test="study != null and study !=''">
+				study=#{study},
+			</if>
+			<if test="sbegin != null and sbegin !=''">
+				sbegin=#{sbegin},
+			</if>
+			<if test="send != null and send !=''">
+				send=#{send},
+			</if>
+			<if test="scontent != null and scontent !=''">
+				scontent=#{scontent},
+			</if>
+			<if test="otherscontent != null and otherscontent !=''">
+				otherscontent=#{otherscontent},
+			</if>
+			<if test="sucontent != null and sucontent !=''">
+				sucontent=#{sucontent},
+			</if>
+			<if test="suctitle != null and suctitle !=''">
+				suctitle=#{suctitle},
+			</if>
+			 <if test="character != null and character !=''">
+				`character` = #{character},
+			</if> 
+			<if test="orderArea != null and orderArea !=''">
+				order_area = #{orderArea},
+			</if>
+			<if test="photo != null and photo !=''">
+				photo=#{photo},
+			</if>
+			<if test="activate != null ">
+				activate=#{activate},
+			</if>
+			<if test="modifiedTime != null ">
+				modified_time=#{modifiedTime}
+			</if>
+		where id=#{id}
+	</update>
 	
 </mapper>

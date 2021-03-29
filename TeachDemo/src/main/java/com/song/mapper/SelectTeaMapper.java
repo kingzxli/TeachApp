@@ -44,5 +44,5 @@ public interface SelectTeaMapper {
 	List<SelectTea> selectall(SelectTea selectTea);
 
 	//后台查看接单情况
-	List<SelectTea> selectBystatus(Integer sid);
+	List<SelectTea> selectBystatus(String sid);
 }

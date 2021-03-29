@@ -48,6 +48,9 @@
 				<if test="weChat != null and weChat != ''">
 					weChat = #{weChat},
 				</if>
+				<if test="status != null and status !=''">
+					status=1,
+				</if>
 			</trim>
 		where tid=#{id}
 	</update>

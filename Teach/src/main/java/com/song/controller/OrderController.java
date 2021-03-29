@@ -194,7 +194,7 @@ public class OrderController {
      */
     @RequestMapping("pay")
     public JsonResult payment(String orderpar,HttpServletRequest request,String openId,String totalfee,String body,Order order,String shareId,Integer cid,String popenid) throws UnsupportedEncodingException, DocumentException {
-    	System.out.println("==========================="+shareId);
+    	System.out.println("============11==============="+shareId);
     	System.out.println(order.toString());
     	String openid = openId;//用户标识
     	JSONObject JsonObject = new JSONObject() ;
@@ -310,12 +310,13 @@ public class OrderController {
                 orderService.insert(order);
             }
         }
+        System.out.println("返回结果："+JsonObject.toString());
         return JsonResult.ok(JsonObject);
     }
  
  
     /**
-     * 预支付时填写的 notify_url ，支付成功后的回调接口
+     * 预支付时填写的 notify_url ，支付成功后的回调接口小程序
      * @param request
      */
     @PostMapping("paycallback")
@@ -489,7 +490,7 @@ public class OrderController {
         System.out.println("请求微信预支付接口，返回 code：" + return_code);
         System.out.println("请求微信预支付接口，返回 msg：" + return_msg);
         if("SUCCESS".equals(return_code) && "SUCCESS".equals(result_code)){
-            // 业务结果
+            // 业务结果 SUCCESS
             String prepay_id = map.get("prepay_id").toString();//返回的预付单信息
             String nonceStr = UUIDHexGenerator.generate();
             JsonObject.put("nonceStr", nonceStr);
@@ -611,7 +612,12 @@ public class OrderController {
     
     
     
-    
+    ////家长删订单
+    @GetMapping("info")
+    public JsonResult info() {
+    	
+    	return JsonResult.ok("小程序");
+    }
     
     
     

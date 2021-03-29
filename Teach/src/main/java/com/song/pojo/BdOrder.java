@@ -1,6 +1,5 @@
 package com.song.pojo;
 
-import java.util.List;
 
 public class BdOrder {
 	

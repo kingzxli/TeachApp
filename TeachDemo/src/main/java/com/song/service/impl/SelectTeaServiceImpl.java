@@ -90,14 +90,12 @@ public class SelectTeaServiceImpl implements SelectTeaService{
 
 
 	@Override
-	public List<SelectTea> selectBystatus(Integer sid) {
-		// TODO Auto-generated method stub
+	public List<SelectTea> selectBystatus(String sid) {
 		return selectTeaMapper.selectBystatus(sid);
 	}
 
 	@Override
 	public List<SelectTea> selectall(SelectTea selectTea) {
-		// TODO Auto-generated method stub
 		return selectTeaMapper.selectall(selectTea);
 	}
 

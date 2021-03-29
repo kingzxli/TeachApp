@@ -21,11 +21,11 @@ public interface SelectTeaService {
 	//查询所有
 	List<SelectTea> selectAll(@Param("tea_type")String tea_type,@Param("address")String address,@Param("project")String project,@Param("tea_sex")String tea_sex);
 	//根据学生id查 
-	List<SelectTea> selectById(int id);
+	List<SelectTea> selectById(Integer id);
 	//通过数据id查详情
 	SelectTea selectId(String id);
 	
-	void addTeaSel(@Param("topenid")String topenid,@Param("sid")int sid,@Param("tid")Integer tid,@Param("pid")Integer pid);
+	void addTeaSel(@Param("topenid")String topenid,@Param("sid")String sid,@Param("tid")Integer tid,@Param("pid")Integer pid);
 	
 	List<TeaSelect> selectByPid(Integer pid); 
 	List<TeaSelect> selectByTopenid(String openid);
@@ -34,12 +34,12 @@ public interface SelectTeaService {
 	
 	List<TeaSelect> selectStuta(String sid,String openid);
 	
-	List<String> selectBySid(@Param("sid") Integer sid,@Param("id") Integer id);
+	List<String> selectBySid(@Param("sid") String sid,@Param("id") Integer id);
 	
 	Set<Teacher> SelectTea(Integer pid);
 	Set<Parent> SelectStu(Integer tid);
 	
-	void selectBySids(Integer id,Integer status,Integer sid,String topenid,String name);
+	void selectBySids(Integer id,Integer status,String sid,String topenid,String name);
 	
 	void deleteSt(@Param("id")int id,@Param("tid")int tid);
 	List<TeaSelect> selectSt(int id);

@@ -28,7 +28,8 @@ import com.song.util.IdMaker;
 @Service
 public class SelectTeaServiceImpl implements SelectTeaService{
 	private static String MRLIAO = "oY2Uc0f1SEvcTPN4GKOQYfuMuFP0";
-	
+	private static String MRDU = "oY2Uc0R1ev2SDJEBueM6ONcb0vCY";
+	//private static String MRZHEN = "oY2Uc0WW-LTavEV58eA6Jc0zoJHE";	
 	
 	@Autowired
 	private SelectTeaMapper selectTeaMapper;
@@ -43,7 +44,8 @@ public class SelectTeaServiceImpl implements SelectTeaService{
 	
 
 	@Override
-	public void add(SelectTea selectTea) {		
+	public void add(SelectTea selectTea) {	
+		System.out.println("====="+selectTea.toString());
 		String todays = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 		selectTea.setAddtime(todays);
 		String s = selectTea.getSubject();
@@ -60,28 +62,35 @@ public class SelectTeaServiceImpl implements SelectTeaService{
 			addredd = addredd + detail;
 		}
 		
+		Parent parent = parentMapper.selectByid(selectTea.getPopenid());
+		if(parent != null) {
+			selectTea.setParentName(parent.getName());
+		}
+		
 		String ll = this.getQQLngANdLat(addredd);
 		String lat = ll.split(":")[0];
 		String lng = ll.split(":")[1];
-		selectTea.setLatitude(lat);
+		selectTea.setLatitude(lat); 
 		selectTea.setLatlng(lng);
 		selectTea.setId(IdMaker.get());
 		selectTea.setSysCreated(new Date());
 		selectTea.setSysCreatedBy(selectTea.getStuid().toString());
+		selectTea.setStuid(parent.getId()+"");
 		selectTeaMapper.add(selectTea);
 		
-		Parent p = parentMapper.selectByid(selectTea.getStuid());
-		pushController.sendMpMessage(MRLIAO, p.getName(), selectTea.getPhone(), selectTea.getAddress(), todays, selectTea.getTrial(),selectTea.getId(),selectTea.getSysCreatedBy());
+		
+		pushController.sendMpMessage(MRLIAO, parent.getName(), selectTea.getPhone(), selectTea.getAddress(), todays, selectTea.getTrial(),selectTea.getId(),selectTea.getSysCreatedBy());
+		pushController.sendMpMessage(MRDU, parent.getName(), selectTea.getPhone(), selectTea.getAddress(), todays, selectTea.getTrial(),selectTea.getId(),selectTea.getSysCreatedBy());
+	    //pushController.sendMpMessage(MRZHEN, parent.getName(), selectTea.getPhone(), selectTea.getAddress(), todays, selectTea.getTrial(),selectTea.getId(),selectTea.getSysCreatedBy());
 		
 		String[] arr = selectTea.getAddress().split("-");
 		String city = arr[1];
 		String area = arr[2];
+		
 		List<String> teacherOpenIds = teacherMapper.selectByProjectCity(city,area);
 		if(teacherOpenIds != null && !teacherOpenIds.isEmpty()) {
 			syncController.sentmsg(teacherOpenIds, as[2], selectTea.getTrial(), selectTea.getAddress(), selectTea.getGrade(),selectTea.getId(),selectTea.getSysCreatedBy());			
-		}
-		
-		
+		}		
 	}
 
 	@Override
@@ -91,7 +100,7 @@ public class SelectTeaServiceImpl implements SelectTeaService{
 	}
 
 	@Override
-	public List<SelectTea> selectById(int id) {
+	public List<SelectTea> selectById(Integer id) {
 		// TODO Auto-generated method stub
 		return selectTeaMapper.selectById(id);
 	}
@@ -136,17 +145,22 @@ public class SelectTeaServiceImpl implements SelectTeaService{
 	}
 
 	@Override
-	public List<String> selectBySid(Integer sid,Integer id) {
+	public List<String> selectBySid(String sid,Integer id) {
 		return selectTeaMapper.selectBySid(sid,id);
 	}
 
 	@Override
-	public void addTeaSel(String topenid, int sid, Integer tid, Integer pid) {
+	public void addTeaSel(String topenid, String sid, Integer tid, Integer pid) {
 		String addtime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 		SelectTea st = selectTeaMapper.selectBySid2(sid);
 		selectTeaMapper.addTeaSel(topenid, sid, addtime, tid, pid);
-		pushController.yingpin("有老师应聘,请查看",st.getPopenid(), st.getGrade()+st.getSubject(),st.getTrial(), st.getAddress(), "待确认");
-		pushController.yingpin("有老师应聘,请查看",MRLIAO, st.getGrade()+st.getSubject(),st.getTrial(), st.getAddress(), "待确认");
+		
+		
+		pushController.yingpin("有老师应聘,请查看!(家长电话："+st.getPhone()+")",st.getPopenid(), st.getGrade()+st.getSubject(),st.getTrial(), st.getAddress(), "待确认");
+		pushController.yingpin("有老师应聘,请查看!(家长电话："+st.getPhone()+")",MRLIAO, st.getGrade()+st.getSubject(),st.getTrial(), st.getAddress(), "待确认");		
+		pushController.yingpin("有老师应聘,请查看!(家长电话："+st.getPhone()+")",MRDU, st.getGrade()+st.getSubject(),st.getTrial(), st.getAddress(), "待确认");
+		//pushController.yingpin("有老师应聘,请查看",MRZHEN, st.getGrade()+st.getSubject(),st.getTrial(), st.getAddress(), "待确认");
+
 	}
 
 	@Override
@@ -162,7 +176,7 @@ public class SelectTeaServiceImpl implements SelectTeaService{
 	}
 
 	@Override
-	public void selectBySids(Integer id,Integer status,Integer sid,String topenid,String name) {
+	public void selectBySids(Integer id,Integer status,String sid,String topenid,String name) {
 		SelectTea st = selectTeaMapper.selectBySids(sid);
 		//更改是否同意接单状态(关系表)
 		selectTeaMapper.updateStatus(id+"", status);
@@ -178,7 +192,8 @@ public class SelectTeaServiceImpl implements SelectTeaService{
 			
 			pushController.parentPass("恭喜接单成功,请等待助教老师的通知",topenid,st.getGrade()+st.getSubject(),"详细时间请查看",st.getAddress(), "家长同意");
 			pushController.parentPass("有家长同意接单请查看",MRLIAO,st.getGrade()+st.getSubject(),"详细时间请查看",st.getAddress(), "家长同意");
-		
+			pushController.parentPass("有家长同意接单请查看",MRDU,st.getGrade()+st.getSubject(),"详细时间请查看",st.getAddress(), "家长同意");
+			//pushController.parentPass("有家长同意接单请查看",MRZHEN,st.getGrade()+st.getSubject(),"详细时间请查看",st.getAddress(), "家长同意");
 			if(ts != null && !ts.isEmpty()) {
 				syncController.sentMsgFalse(ts, st.getGrade(), st.getSubject(), st.getAddress());
 			}

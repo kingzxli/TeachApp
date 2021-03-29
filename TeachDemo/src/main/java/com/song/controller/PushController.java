@@ -464,7 +464,68 @@ public class PushController {
 		return result;
     }
     
-    
+    //家长指定时间下单，老师收到信息
+    public JSONObject paypush(String frist,String openid,String project,String addtime,String address,String status,int id,int stuid){
+    	JSONObject result = new JSONObject();
+		JSONObject obj = new JSONObject();
+		JSONObject mp_template_msg = new JSONObject();
+		JSONObject miniprogram = new JSONObject();
+		// 获取token
+	    String accesstoken = "https://api.weixin.qq.com/cgi-bin/token";
+	    Map<String, String> m = new HashMap<String, String>();
+	    m.put("grant_type", "client_credential");
+	    m.put("appid", "wxf020b9146ae3ec37");
+	    m.put("secret", "450823f32e6c0864a51a2524bb5ddb3d");
+	    String content = HttpClientUtil.doPost(accesstoken, m);
+	    // 获取token
+	    com.alibaba.fastjson.JSONObject jsonObj = JSON.parseObject(content);
+	    String accessToken = (String) jsonObj.get("access_token");
+		try {
+			
+	    	JSONObject json1 = new JSONObject();
+	    	
+	    	JSONObject json2 = new JSONObject();
+	    	json2.put("value", frist);
+	    	json1.put("first", json2);
+	    	
+	    	json2 = new JSONObject();
+	    	json2.put("value", project);
+	    	json1.put("keyword1", json2);
+	    	
+	    	json2 = new JSONObject();
+	    	json2.put("value", addtime);
+	    	json1.put("keyword2", json2);
+	    	
+	    	json2 = new JSONObject();
+	    	json2.put("value", address);
+	    	json1.put("keyword3", json2);
+	    	
+	    	json2 = new JSONObject();
+	    	json2.put("value", status);
+	    	json1.put("keyword4", json2);
+	    	
+	    	json2 = new JSONObject();
+	    	json2.put("value", "前往查看");
+	    	json1.put("remark", json2);
+	    	
+			String path = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token="+accessToken;
+			obj.put("touser", openid);
+			mp_template_msg.put("appid","wx2da6d0a84363b015");
+			mp_template_msg.put("template_id", "1liwSBt3UrUd5mLdJEzX-Bnc9zX4O_t4AZi9JkBwWeI");
+			mp_template_msg.put("url","https://www.baidu.com");
+			miniprogram.put("appid", "wxf020b9146ae3ec37");
+			String pagepath = "../bangwozhaoshi-detail/bangwozhaoshi-detail?isShowBtn=true&id="+id+"&ismine=0&stuid="+stuid;
+			miniprogram.put("pagepath",pagepath);
+			mp_template_msg.put("miniprogram", miniprogram);
+			mp_template_msg.put("data", json1);
+			obj.put("mp_template_msg", mp_template_msg);
+			System.out.println(obj);
+			result = WXTmplMsgUtils.Post(path, obj);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+    }
     
     
     

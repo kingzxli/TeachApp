@@ -14,7 +14,7 @@ public interface TeacherMapper {
 	//通过openid查
 	Teacher selectByOpenid(String openid);
 	//通过id查一个老师
-	Teacher selectById(@Param("id")int id,@Param("openid")String openid);
+	Teacher selectById(@Param("id")Integer id,@Param("openid")String openid);
 	//通过id删除
 	void delete(int id);
 	//查询所有
@@ -70,4 +70,6 @@ public interface TeacherMapper {
 	List<String> selectByProjectCity(@Param("city")String city,@Param("area")String area);
 	
 	void updateLocation(Teacher teacher);
+	
+	void updateInfo(Teacher teacher);
 }

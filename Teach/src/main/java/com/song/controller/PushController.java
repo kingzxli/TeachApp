@@ -334,7 +334,7 @@ public class PushController {
 			mp_template_msg.put("template_id", "1liwSBt3UrUd5mLdJEzX-Bnc9zX4O_t4AZi9JkBwWeI");
 			mp_template_msg.put("url","https://www.baidu.com");
 			miniprogram.put("appid", "wxf020b9146ae3ec37");
-			miniprogram.put("pagepath", "");
+			miniprogram.put("pagepath", "pages/jiedanxiangqing/jiedanxiangqing");
 			mp_template_msg.put("miniprogram", miniprogram);
 			mp_template_msg.put("data", json1);
 			obj.put("mp_template_msg", mp_template_msg);

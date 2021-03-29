@@ -1,3 +1,10 @@
+server:
+  port: 443
+  ssl:
+    key-store: classpath:4270890_xurijiajiao.cn.jks
+    key-alias: alias
+    key-store-password: 9SgUxa1i
+
 ## mysql
 spring:
   datasource:

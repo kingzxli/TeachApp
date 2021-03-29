@@ -12,68 +12,36 @@
 		select * from parent where openid=#{openid}
 	</select>
 	
-	<select id="selectByid" parameterType="java.lang.Integer" resultType="com.song.pojo.Parent">
-		select * from parent where id=#{tid}
+	<select id="selectByid"  resultType="com.song.pojo.Parent">
+		select * from parent where openid=#{openId}
 	</select>
 	
 	<delete id="delete" parameterType="java.lang.Integer">
 		delete from parent where id=#{id}
 	</delete>
 	
-	<insert id="add" parameterType="com.song.pojo.Parent" useGeneratedKeys="true" keyProperty="id">
-		insert into parent 
-			<trim prefix="(" suffix=")" suffixOverrides=",">
-			  <if test="latlng != null">
-			  	latlng,
-			  </if>
-		      <if test="sex != null">
-		        sex,
-		      </if>
-		      <if test="image != null">
-		        image,
-		      </if>
-		      <if test="location != null">
-		        location,
-		      </if>
-		      <if test="name != null">
-		        name,
-		      </if>
-		      <if test="phone != null">
-		        phone,
-		      </if>
-		      <if test="openid != null">
-		        openid,
-		      </if>
-		      <if test="unionid != null and unionid != ''">
-		      	unionid,
-		      </if>
-	    </trim>
-	    <trim prefix="values (" suffix=")" suffixOverrides=",">
-		      <if test="latlng != null">
-				#{latlng},
-			  </if>
-		      <if test="sex != null">
-		        #{sex},
-		      </if>
-		      <if test="image != null">
-		        #{image},
-		      </if>
-		      <if test="location != null">
-		        #{location},
-		      </if>
-		      <if test="name != null">
-		        #{name},
-		      </if>
-		      <if test="phone != null">
-		        #{phone},
-		      </if>
-		      <if test="openid != null">
-		        #{openid},
-		      </if>
-		      <if test="unionid !=null and unionid != ''">
-		      	#{unionid},
-		      </if>
-	    </trim>
+	<insert id="add" parameterType="com.song.pojo.Parent" >
+	insert into parent (
+	latlng,
+	sex,
+	image,
+	location,
+	name,
+	phone,
+	openid,
+	unionid,
+	create_time
+	)VALUES(
+	#{latlng},
+	#{sex},
+	#{image},
+	#{location},
+	#{name},
+	#{phone},
+	#{openid},
+	#{unionid},
+	#{createTime}
+	);
 	</insert>
 	
 	<select id="selectByName" parameterType="java.lang.String" resultType="java.lang.String">
@@ -92,5 +60,41 @@
 	<update id="updateMoney" parameterType="com.song.pojo.Parent">
 		update parent set money=#{money} where id=#{id}
 	</update>
+	
+	<update id="updateById" parameterType="com.song.pojo.Parent">
+		update parent
+		<set>
+			<if test="latlng !=null">
+				latlng=#{latlng},
+			</if>
+			<if test="sex !=null">
+				sex=#{sex},
+			</if>
+			<if test="image !=null">
+				image=#{image},
+			</if>
+			<if test="location !=null">
+				location=#{location},
+			</if>
+			<if test="name !=null">
+				name=#{name},
+			</if>
+			<if test="phone !=null">
+				phone=#{phone},
+			</if>
+			<if test="openid !=null">
+				openid=#{openid},
+			</if>
+			<if test="unionid !=null">
+				unionid=#{unionid},
+			</if>
+			<if test="modifiedTime !=null">
+				modified_time=#{modifiedTime}
+			</if>
+		</set>
+		where
+		id=#{id}
+	</update>
+	
 	
 </mapper>

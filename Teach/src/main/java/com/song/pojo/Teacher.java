@@ -1,5 +1,6 @@
 package com.song.pojo;
 
+import java.util.Date;
 import java.util.List;
 import lombok.Data;
 
@@ -16,7 +17,7 @@ public class Teacher{
 	 */
 	//老师id
 	private Integer id;
-	private int activate;
+	private Integer activate;
 	private String money;
 	//性别
 	private String sex;
@@ -90,4 +91,7 @@ public class Teacher{
 	 * 是否开始授课
 	 */
 	private String state;
+	private Date createTime;
+	private Date modifiedTime;
+	
 }

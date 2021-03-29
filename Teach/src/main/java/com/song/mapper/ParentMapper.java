@@ -13,7 +13,7 @@ public interface ParentMapper {
 	//通过openid查
 	Parent selectByOpenid(String openid);
 	//通过id查
-	Parent selectByid(int tid);
+	Parent selectByid(String openId);
 	//通过id删除
 	void delete(int id);
 	//通过名称查openid
@@ -26,5 +26,7 @@ public interface ParentMapper {
 	void updateMoney(@Param("money")Double money,@Param("id")int id);
 	//查金钱
 	Double selectMoney(String openid);
+	
+	void updateById(Parent parent);
 	
 }

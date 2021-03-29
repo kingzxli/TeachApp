@@ -21,17 +21,17 @@ public interface SelectTeaMapper{
 	//查询所有
 	List<SelectTea> selectAll(@Param("tea_type")String tea_type,@Param("address")String address,@Param("project")String project,@Param("tea_sex")String tea_sex);
 	//根据学生id查 
-	List<SelectTea> selectById(int id);
+	List<SelectTea> selectById(Integer id);
 	//删除
 	void delete(String id);
 	//通过数据id查详情
 	SelectTea selectId(String id);
 	
 	//老师接单
-	void addTeaSel(@Param("topenid")String topenid,@Param("sid")int sid,@Param("addtime")String addtime,@Param("tid")Integer tid,@Param("pid")Integer pid);
+	void addTeaSel(@Param("topenid")String topenid,@Param("sid")String sid,@Param("addtime")String addtime,@Param("tid")Integer tid,@Param("pid")Integer pid);
 	
 	//通过sid查所有的单
-	List<String> selectBySid(@Param("sid") Integer sid,@Param("id") Integer id);
+	List<String> selectBySid(@Param("sid") String sid,@Param("id") Integer id);
 	
 	//家长看接单的老师
 	List<TeaSelect> selectByPid(Integer pid); 
@@ -52,7 +52,7 @@ public interface SelectTeaMapper{
 	//查生源我的学生
 	Set<Parent> SelectStu(Integer tid);
 	//根据sid查生源信息
-	SelectTea selectBySids(Integer sid);
+	SelectTea selectBySids(String sid);
 	
 	
 	
@@ -66,7 +66,7 @@ public interface SelectTeaMapper{
 	
 	List<SelectTeaVo> selectByType2(SelectTeaVo selectTea);
 	
-	SelectTea selectBySid2(Integer sid);
+	SelectTea selectBySid2(String sid);
 	
 	void updateStatusNo(Integer id);
 	
