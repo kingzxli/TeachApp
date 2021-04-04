@@ -331,9 +331,17 @@ public class UserController {
 			lesson.setTid(t.getId());
 			lesson.setState("true");
 			lesson.setTimes("[{\"week\":\"周六\",\"time1\":\"19:00\",\"time2\":\"21:00\"}]");
-			lessonService.insert(lesson);
+			Lesson dbLesson = lessonService.selectById(t.getId());
+			if(dbLesson==null) {
+				lessonService.insert(lesson);
+			}else {
+				lessonService.update(lesson);
+			}
 			prove.setTid(t.getId());
-			proveService.add(prove);
+			if(proveService.selectByTeach(t.getId()) == null) {
+				proveService.add(prove);
+			}
+			
 			Map<Object,Object> map = new HashMap<Object, Object>();
 			map.put("id", t.getId());
 			map.put("type", 2);
@@ -416,10 +424,18 @@ public class UserController {
 				lesson.setTid(id);
 				lesson.setState("true");
 				lesson.setTimes("[{\"week\":\"周一\",\"time1\":\"8:00\",\"time2\":\"10:00\"},{\"week\":\"周二\",\"time1\":\"10:00\",\"time2\":\"13:00\"},{\"week\":\"周三\",\"time1\":\"09:00\",\"time2\":\"11:00\"}]");
-				lessonService.insert(lesson);
+				
+				Lesson dbLesson = lessonService.selectById(id);
+				if(dbLesson==null) {
+					lessonService.insert(lesson);
+				}else {
+					lessonService.update(lesson);
+				}
 				
 				prove.setTid(id);
-				proveService.add(prove);
+				if(proveService.selectByTeach(t.getId()) == null) {
+					proveService.add(prove);
+				}
 			}
 		}
 		

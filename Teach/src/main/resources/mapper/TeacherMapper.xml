@@ -264,6 +264,9 @@
 			<if test="orderArea !=null and orderArea != ''">
 				order_area = #{orderArea},
 			</if>
+			<if test="online != null and online != ''">
+				online = #{online},
+			</if>
 			<if test="activate !=null ">
 				activate = #{activate},
 			</if>

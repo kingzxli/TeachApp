@@ -56,7 +56,23 @@
 	</update>
 	
 	<select id="selectByIdcard"  resultType="com.song.pojo.Prove">
-		select p.phone,p.id,p.idcard,p.sex,p.back,p.front,p.face,p.names,p.status,p.weChat from prove p where p.tid=#{tid}
+		SELECT
+			p.phone,
+			p.id,
+			p.idcard,
+			p.sex,
+			p.back,
+			p.front,
+			p.face,
+			p.NAMES,
+			p.STATUS,
+			t.activate,
+			p.weChat 
+		FROM
+			prove p 
+			LEFT JOIN teacher t ON p.tid = t.id
+		WHERE
+			p.tid = #{tid}
 	</select>
 	<select id="selectByTeach"  resultType="com.song.pojo.Prove">
 		select p.phone,p.teachnum,p.teachimage,p.status1,p.weChat from prove p where p.tid=#{tid}

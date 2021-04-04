@@ -4,7 +4,7 @@ import com.song.pojo.Prove;
 
 public interface ProveService {
 	
-	//添加认证信息
+	//添加认证信息1//
 	int add(Prove prove);
 	//添加教师认证和学生认证
 	void update(Prove prove);

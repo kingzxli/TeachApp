@@ -62,7 +62,6 @@ public class ProveController {
 				}
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return JsonResult.errorMap("请求失败");

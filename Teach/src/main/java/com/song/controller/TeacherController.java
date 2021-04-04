@@ -134,22 +134,16 @@ public class TeacherController {
 	public JsonResult update(String openid) {
 		Teacher s = teacherService.selectByOpenid(openid);
 		Map<Object, Object> map = new HashMap<Object, Object>();
-		try {
-			if(s.getJifen()!=null) {
-				map.put("jifen", s.getJifen());
-				map.put("level", s.getLevel());
-				return JsonResult.ok(map);
-			}
-			map.put("jifen",0);
-			map.put("level", s.getLevel());
-			return JsonResult.ok();
-		} catch (Exception e) {
-			// TODO: handle exception
-			
-			map.put("jifen",0);
-			map.put("level", s.getLevel());
-			return JsonResult.ok();
+		Integer jifen = 0;
+		String level = "";
+		if(s != null && s.getJifen() != null) {
+			jifen = s.getJifen();
+			level = s.getLevel();
 		}
+		
+		map.put("jifen", jifen);
+		map.put("level", level);
+		return JsonResult.ok(map);
 	}
 	
 	//修改个人资料
